@@ -5,6 +5,9 @@ project(Exanite.GameDev.Native LANGUAGES CXX)
 # Always use '-fPIC'/'-fPIE' option.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# CPM
+include(cmake/CPM.cmake)
+
 # --- Third party ---
 
 # Vulkan
@@ -14,15 +17,19 @@ find_package(Vulkan REQUIRED)
 add_library(VulkanMemoryAllocator INTERFACE)
 target_include_directories(VulkanMemoryAllocator INTERFACE native/VulkanMemoryAllocator/include)
 
-include(FetchContent)
-FetchContent_Declare(
-    SPIRV-Cross
+# SPIRV-Cross
+CPMAddPackage(
+    NAME SPIRV-Cross
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
-    GIT_TAG vulkan-sdk-1.3.290.0 # match the least sdk
-    UPDATE_DISCONNECTED TRUE
-    GIT_PROGRESS TRUE
+    GIT_TAG vulkan-sdk-1.3.296
 )
-FetchContent_MakeAvailable(SPIRV-Cross)
+
+# SPIRV-Reflect
+CPMAddPackage(
+    NAME SPIRV-Reflect
+    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Reflect.git
+    GIT_TAG vulkan-sdk-1.3.296
+)
 
 # --- First party ---
 
