@@ -11,3 +11,4 @@ target_sources(${PROJECT_NAME} PRIVATE ${sources})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
 target_link_libraries(${PROJECT_NAME} PRIVATE VulkanMemoryAllocator)
+target_link_libraries(${PROJECT_NAME} PRIVATE spirv-cross-cpp)
