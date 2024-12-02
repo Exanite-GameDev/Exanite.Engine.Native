@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.GameDev.Native LANGUAGES CXX)
 
+# From https://github.com/DenizThatMenace/More-Modern-CMake/blob/master/example-3.12/CMakeLists.txt
+# Always use '-fPIC'/'-fPIE' option.
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # --- Projects ---
 
 # Vulkan
