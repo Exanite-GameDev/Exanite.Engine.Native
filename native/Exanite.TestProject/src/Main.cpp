@@ -9,6 +9,7 @@ auto main(int argc, char** argv) -> int {
     vkCreateInstance(&instanceCreateInfo, nullptr, &instance);
 
     std::cout << std::to_string(sizeof(VmaAllocatorCreateInfo)) << std::endl;
+    vmaDestroyAllocator((VmaAllocator)nullptr);
 
     return 0;
 }
