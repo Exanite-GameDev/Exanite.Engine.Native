@@ -10,8 +10,8 @@ if (WIN32)
     set(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif()
 
-# Add external project support
-include(ExternalProject)
+# Add FetchContent module
+include(FetchContent)
 
 # --- Third party ---
 
@@ -27,18 +27,18 @@ target_include_directories(vma PUBLIC native/VulkanMemoryAllocator/include)
 target_sources(vma PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
 
 # Slang
-ExternalProject_Add(
+FetchContent_Declare(
     slang_binaries
     URL https://github.com/shader-slang/slang/releases/download/v2024.15/slang-2024.15-windows-x86_64.zip
 )
-ExternalProject_Get_Property(slang_binaries SOURCE_DIR)
+FetchContent_MakeAvailable(slang_binaries)
 add_library(slang SHARED IMPORTED)
 set_target_properties(
     slang
     PROPERTIES
-        IMPORTED_LOCATION ${SOURCE_DIR}/bin/slang.dll
-        IMPORTED_IMPLIB ${SOURCE_DIR}/lib
-        INTERFACE_INCLUDE_DIRECTORIES ${SOURCE_DIR}/include
+        IMPORTED_LOCATION ${slang_binaries_SOURCE_DIR}/bin/slang.dll
+        IMPORTED_IMPLIB ${slang_binaries_SOURCE_DIR}/lib/slang.lib
+        INTERFACE_INCLUDE_DIRECTORIES ${slang_binaries_SOURCE_DIR}/include
 )
 
 # --- First party ---
