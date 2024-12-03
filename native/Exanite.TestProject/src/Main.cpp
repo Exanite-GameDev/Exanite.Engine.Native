@@ -1,17 +1,20 @@
-#include <iostream>
-
-#define VMA_IMPLEMENTATION
-#include <vk_mem_alloc.h>
+#include <slang.h>
+#include <slang-com-ptr.h>
 
 auto main(int argc, char** argv) -> int {
-    VkInstanceCreateInfo instanceCreateInfo{};
-    instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-
-    VkInstance instance;
-    vkCreateInstance(&instanceCreateInfo, nullptr, &instance);
-
-    std::cout << std::to_string(sizeof(VmaAllocatorCreateInfo)) << std::endl;
-    vmaDestroyAllocator(nullptr);
+    Slang::ComPtr<slang::IGlobalSession> globalSession;
+    slang::createGlobalSession(globalSession.writeRef());
+    //
+    // slang::TargetDesc targetDesc;
+    // targetDesc.format = SLANG_SPIRV;
+    //
+    // slang::SessionDesc sessionDesc;
+    // sessionDesc.targets = &targetDesc;
+    // sessionDesc.targetCount = 1;
+    //
+    // slang::ISession* session;
+    //
+    // globalSession->createSession(sessionDesc, &session);
 
     return 0;
 }
