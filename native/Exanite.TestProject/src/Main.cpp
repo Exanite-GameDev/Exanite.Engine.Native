@@ -17,10 +17,11 @@ auto main(int argc, char** argv) -> int
 {
     IDxcUtils* pUtils;
     guardSuccess(DxcCreateInstance(CLSID_DxcUtils, IID_IDxcUtils, reinterpret_cast<void**>(&pUtils)));
-    // pUtils->CreateBlob(pShaderSource, shaderSourceSize, CP_UTF8, pSource.GetAddressOf());
-    //
-    //
-    // DxcCreateInstance(CLSID_DxcCompiler, )
+
+    const char* pShaderSource = "";
+
+    IDxcBlobEncoding* pSource;
+    guardSuccess(pUtils->CreateBlob(pShaderSource, 0, CP_UTF8, &pSource));
 
     return 0;
 }
