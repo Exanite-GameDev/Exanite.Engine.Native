@@ -53,7 +53,7 @@ set_target_properties(
     PROPERTIES
     IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/bin/x64/dxcompiler.dll
     IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/x64/dxcompiler.lib
-    INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/include
+    INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/inc
 )
 
 # --- First party ---

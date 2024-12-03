@@ -1,4 +1,4 @@
-#include <dxc/dxcapi.h>
+#include <dxcapi.h>
 
 auto main(int argc, char** argv) -> int
 {
