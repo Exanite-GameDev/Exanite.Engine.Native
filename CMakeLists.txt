@@ -5,16 +5,24 @@ project(Exanite.GameDev.Native LANGUAGES CXX)
 # Always use '-fPIC'/'-fPIE' option.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# Globally disable library prefix for Windows
+if (WIN32)
+    set(CMAKE_SHARED_LIBRARY_PREFIX "")
+endif()
+
 # --- Third party ---
 
 # Vulkan
 find_package(Vulkan REQUIRED)
 
 # VulkanMemoryAllocator
-add_library(VulkanMemoryAllocator SHARED)
-set_target_properties(VulkanMemoryAllocator PROPERTIES LINKER_LANGUAGE CXX)
-target_include_directories(VulkanMemoryAllocator PUBLIC native/VulkanMemoryAllocator/include)
-target_sources(VulkanMemoryAllocator PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
+add_library(vma SHARED)
+add_library(VulkanMemoryAllocator ALIAS vma)
+
+set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
+target_include_directories(vma PUBLIC native/VulkanMemoryAllocator/include)
+target_sources(vma PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
+
 
 # --- First party ---
 
