@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(Exanite.GameDev.Native LANGUAGES CXX)
+project(Exanite.GameDev LANGUAGES CXX)
 
 # From https://github.com/DenizThatMenace/More-Modern-CMake/blob/master/example-3.12/CMakeLists.txt
 # Always use '-fPIC'/'-fPIE' option.
