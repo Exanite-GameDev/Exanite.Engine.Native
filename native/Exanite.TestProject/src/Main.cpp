@@ -1,4 +1,6 @@
 #include <iostream>
+
+#define VMA_IMPLEMENTATION
 #include <vk_mem_alloc.h>
 
 auto main(int argc, char** argv) -> int {
@@ -9,7 +11,7 @@ auto main(int argc, char** argv) -> int {
     vkCreateInstance(&instanceCreateInfo, nullptr, &instance);
 
     std::cout << std::to_string(sizeof(VmaAllocatorCreateInfo)) << std::endl;
-    vmaDestroyAllocator((VmaAllocator)nullptr);
+    vmaDestroyAllocator(nullptr);
 
     return 0;
 }
