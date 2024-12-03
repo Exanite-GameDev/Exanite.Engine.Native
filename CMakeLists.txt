@@ -41,6 +41,21 @@ set_target_properties(
         INTERFACE_INCLUDE_DIRECTORIES ${slang_binaries_SOURCE_DIR}/include
 )
 
+# DirectXShaderCompiler
+FetchContent_Declare(
+    dxc_binaries
+    URL https://github.com/microsoft/DirectXShaderCompiler/releases/download/v1.8.2407/dxc_2024_07_31.zip
+)
+FetchContent_MakeAvailable(dxc_binaries)
+add_library(dxc SHARED IMPORTED)
+set_target_properties(
+    dxc
+    PROPERTIES
+    IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/bin/dxcapi.dll
+    IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/dxcapi.lib
+    INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/include
+)
+
 # --- First party ---
 
 # Exanite.TestProject
