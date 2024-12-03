@@ -51,8 +51,8 @@ add_library(dxc SHARED IMPORTED)
 set_target_properties(
     dxc
     PROPERTIES
-    IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/bin/dxcapi.dll
-    IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/dxcapi.lib
+    IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/bin/x64/dxcompiler.dll
+    IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/x64/dxcompiler.lib
     INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/include
 )
 
