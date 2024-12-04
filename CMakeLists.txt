@@ -45,14 +45,14 @@ endif()
 
 if (UNIX)
     FetchContent_Declare(
-            slang_binaries
-            URL https://github.com/shader-slang/slang/releases/download/v2024.15/slang-2024.15-linux-x86_64.zip
+        slang_binaries
+        URL https://github.com/shader-slang/slang/releases/download/v2024.15/slang-2024.15-linux-x86_64.zip
     )
     FetchContent_MakeAvailable(slang_binaries)
     add_library(slang SHARED IMPORTED)
     set_target_properties(
-            slang
-            PROPERTIES
+        slang
+        PROPERTIES
             IMPORTED_LOCATION ${slang_binaries_SOURCE_DIR}/lib/libslang.so
             IMPORTED_IMPLIB ${slang_binaries_SOURCE_DIR}/lib/libslang.so
             INTERFACE_INCLUDE_DIRECTORIES ${slang_binaries_SOURCE_DIR}/include
@@ -70,9 +70,9 @@ if (WIN32)
     set_target_properties(
         dxc
         PROPERTIES
-        IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/bin/x64/dxcompiler.dll
-        IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/x64/dxcompiler.lib
-        INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/inc
+            IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/bin/x64/dxcompiler.dll
+            IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/x64/dxcompiler.lib
+            INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/inc
     )
 endif ()
 
@@ -84,8 +84,8 @@ if (UNIX)
     FetchContent_MakeAvailable(dxc_binaries)
     add_library(dxc SHARED IMPORTED)
     set_target_properties(
-            dxc
-            PROPERTIES
+        dxc
+        PROPERTIES
             IMPORTED_LOCATION ${dxc_binaries_SOURCE_DIR}/lib/libdxcompiler.so
             IMPORTED_IMPLIB ${dxc_binaries_SOURCE_DIR}/lib/libdxcompiler.so
             INTERFACE_INCLUDE_DIRECTORIES ${dxc_binaries_SOURCE_DIR}/include/dxc
