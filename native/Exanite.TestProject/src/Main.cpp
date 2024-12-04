@@ -1,5 +1,7 @@
 #define _Maybenull_
+#ifdef WIN32
 #include <d3d12shader.h>
+#endif
 #include <dxcapi.h>
 #include <stdexcept>
 
