@@ -92,6 +92,7 @@ if (UNIX)
     )
 endif ()
 
+# Zlib, required for DirectXShaderCompiler
 if (UNIX)
     find_package(ZLIB REQUIRED)
 endif ()
