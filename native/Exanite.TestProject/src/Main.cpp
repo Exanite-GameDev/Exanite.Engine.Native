@@ -20,10 +20,6 @@ void logDebug(const std::string& value = "")
 #endif
 }
 
-constexpr GUID iidDxcUtils = {0x4605c4cb, 0x2019, 0x492a, {0xad, 0xa4, 0x65, 0xf2, 0x0b, 0xb7, 0xd6, 0x7f}};
-constexpr GUID iidDxcCompiler3 = {0x228b4687, 0x5a6a, 0x4730, {0x90, 0x0c, 0x97, 0x02, 0xb2, 0x20, 0x3f, 0x54}};
-constexpr GUID iidDxcResult = {0x58346cda, 0xdde7, 0x4497, {0x94, 0x61, 0x6f, 0x87, 0xaf, 0x5e, 0x06, 0x59}};
-
 void guardIsTrue(const bool value)
 {
     if (!value)
@@ -43,10 +39,10 @@ void guardSuccess(const HRESULT result)
 auto main(int argc, char** argv) -> int
 {
     IDxcUtils* utils;
-    guardSuccess(DxcCreateInstance(CLSID_DxcUtils, iidDxcUtils, reinterpret_cast<void**>(&utils)));
+    guardSuccess(DxcCreateInstance(CLSID_DxcUtils, __emulated_uuidof<IDxcUtils>(), reinterpret_cast<void**>(&utils)));
 
     IDxcCompiler3* compiler;
-    guardSuccess(DxcCreateInstance(CLSID_DxcCompiler, iidDxcCompiler3, reinterpret_cast<void**>(&compiler)));
+    guardSuccess(DxcCreateInstance(CLSID_DxcCompiler, __emulated_uuidof<IDxcCompiler3>(), reinterpret_cast<void**>(&compiler)));
 
     std::string shaderSource = "main() {}";
 
@@ -88,7 +84,7 @@ auto main(int argc, char** argv) -> int
     }
 
     IDxcResult* result;
-    guardSuccess(compiler->Compile(&buffer, arguments.data(), arguments.size(), nullptr, iidDxcResult, reinterpret_cast<void**>(&result)));
+    guardSuccess(compiler->Compile(&buffer, arguments.data(), arguments.size(), nullptr, __emulated_uuidof<IDxcResult>(), reinterpret_cast<void**>(&result)));
 
     IDxcBlobEncoding* errors;
     guardSuccess(result->GetErrorBuffer(&errors));
