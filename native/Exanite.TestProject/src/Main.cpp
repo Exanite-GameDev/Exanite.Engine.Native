@@ -2,9 +2,11 @@
 #ifdef WIN32
 #include <d3d12shader.h>
 #endif
+#include <cstdint>
 #include <dxcapi.h>
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 
 #define EXANITE_DEBUG
 
