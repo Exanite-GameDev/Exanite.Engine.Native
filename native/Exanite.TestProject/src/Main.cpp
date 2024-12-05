@@ -93,8 +93,8 @@ auto main(int argc, char** argv) -> int
 
     if (errors != nullptr && errors->GetBufferPointer() != nullptr)
     {
-        bool isEncodingKnown;
-        uint32_t codePage;
+        BOOL isEncodingKnown;
+        UINT32 codePage;
         errors->GetEncoding(&isEncodingKnown, &codePage);
 
         guardIsTrue(isEncodingKnown && codePage == CP_UTF8);
