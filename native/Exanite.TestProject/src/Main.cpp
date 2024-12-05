@@ -20,7 +20,17 @@ void logDebug(const std::string& value = "")
 #endif
 }
 
-constexpr GUID IID_IDxcUtils = {0x4605c4cb, 0x2019, 0x492a, {0xad, 0xa4, 0x65, 0xf2, 0x0b, 0xb7, 0xd6, 0x7f}};
+constexpr GUID iidDxcUtils = {0x4605c4cb, 0x2019, 0x492a, {0xad, 0xa4, 0x65, 0xf2, 0x0b, 0xb7, 0xd6, 0x7f}};
+constexpr GUID iidDxcCompiler3 = {0x228b4687, 0x5a6a, 0x4730, {0x90, 0x0c, 0x97, 0x02, 0xb2, 0x20, 0x3f, 0x54}};
+constexpr GUID iidDxcResult = {0x58346cda, 0xdde7, 0x4497, {0x94, 0x61, 0x6f, 0x87, 0xaf, 0x5e, 0x06, 0x59}};
+
+void guardIsTrue(const bool value)
+{
+    if (!value)
+    {
+        throw std::runtime_error("Condition was false");
+    }
+}
 
 void guardSuccess(const HRESULT result)
 {
@@ -32,13 +42,71 @@ void guardSuccess(const HRESULT result)
 
 auto main(int argc, char** argv) -> int
 {
-    IDxcUtils* pUtils;
-    guardSuccess(DxcCreateInstance(CLSID_DxcUtils, IID_IDxcUtils, reinterpret_cast<void**>(&pUtils)));
+    IDxcUtils* utils;
+    guardSuccess(DxcCreateInstance(CLSID_DxcUtils, iidDxcUtils, reinterpret_cast<void**>(&utils)));
+
+    IDxcCompiler3* compiler;
+    guardSuccess(DxcCreateInstance(CLSID_DxcCompiler, iidDxcCompiler3, reinterpret_cast<void**>(&compiler)));
 
     std::string shaderSource = "main() {}";
 
-    IDxcBlobEncoding* pSource;
-    guardSuccess(pUtils->CreateBlob(shaderSource.data(), shaderSource.length(), CP_UTF8, &pSource));
+    IDxcBlobEncoding* encodedCodeBlob;
+    guardSuccess(utils->CreateBlob(shaderSource.data(), shaderSource.length(), CP_UTF8, &encodedCodeBlob));
+
+    DxcBuffer buffer(encodedCodeBlob->GetBufferPointer(), encodedCodeBlob->GetBufferSize(), CP_ACP);
+
+    const auto shaderProfile = const_cast<LPCWSTR>(L"ps_6_6");
+    std::vector<LPCWSTR> arguments
+    {
+        // Entrypoint
+        const_cast<LPWSTR>(L"-E"), const_cast<LPWSTR>(L"main"),
+
+        // Target profile / shader type + version
+        const_cast<LPWSTR>(L"-T"), shaderProfile,
+
+        // Only strips from output bytecode
+        const_cast<LPWSTR>(L"-Qstrip_debug"),
+
+        // Warnings as errors
+        const_cast<LPWSTR>(L"-WX"),
+
+        // SPIRV
+        const_cast<LPWSTR>(L"-spirv"),
+        const_cast<LPWSTR>(L"-fspv-target-env=vulkan1.3"),
+
+        // Use gl_BaseInstance as first vertex instance instead of 0 (Follows Vulkan spec)
+        const_cast<LPWSTR>(L"-fvk-support-nonzero-base-instance"),
+
+        // Include shader name for easier debugging
+        const_cast<LPWSTR>(L"Shader.fragment.hlsl"),
+    };
+
+    bool useReflection = true;
+    if (useReflection)
+    {
+        arguments.push_back(const_cast<LPWSTR>(L"-fspv-reflect"));
+    }
+
+    IDxcResult* result;
+    guardSuccess(compiler->Compile(&buffer, arguments.data(), arguments.size(), nullptr, iidDxcResult, reinterpret_cast<void**>(&result)));
+
+    IDxcBlobEncoding* errors;
+    guardSuccess(result->GetErrorBuffer(&errors));
+
+    if (errors != nullptr)
+    {
+        bool isEncodingKnown;
+        uint32_t codePage;
+        errors->GetEncoding(&isEncodingKnown, &codePage);
+
+        guardIsTrue(codePage == CP_UTF8);
+
+        std::string errorMessage = static_cast<LPSTR>(errors->GetBufferPointer());
+        if (!errorMessage.empty())
+        {
+            throw std::runtime_error(errorMessage);
+        }
+    }
 
     return 0;
 }
