@@ -95,7 +95,7 @@ auto main(int argc, char** argv) -> int
         uint32_t codePage;
         errors->GetEncoding(&isEncodingKnown, &codePage);
 
-        guardIsTrue(codePage == CP_UTF8);
+        guardIsTrue(isEncodingKnown && codePage == CP_UTF8);
 
         std::string errorMessage = static_cast<LPSTR>(errors->GetBufferPointer());
         if (!errorMessage.empty())
