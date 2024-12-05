@@ -17,4 +17,7 @@ target_link_libraries(Exanite.TestProject PRIVATE Vulkan::Vulkan)
 target_link_libraries(Exanite.TestProject PRIVATE VulkanMemoryAllocator)
 target_link_libraries(Exanite.TestProject PRIVATE slang)
 target_link_libraries(Exanite.TestProject PRIVATE dxc)
-target_link_libraries(Exanite.TestProject PRIVATE ZLIB::ZLIB)
+
+if (UNIX)
+    target_link_libraries(Exanite.TestProject PRIVATE ZLIB::ZLIB)
+endif ()
