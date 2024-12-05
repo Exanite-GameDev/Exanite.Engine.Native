@@ -2,7 +2,9 @@
 #ifdef WIN32
 #include <d3d12shader.h>
 #endif
-#include <cstdint>
+#ifdef __linux__
+#include <WinAdapter.h>
+#endif
 #include <dxcapi.h>
 #include <iostream>
 #include <stdexcept>
@@ -57,6 +59,7 @@ auto main(int argc, char** argv) -> int
 
     DxcBuffer buffer(encodedCodeBlob->GetBufferPointer(), encodedCodeBlob->GetBufferSize(), CP_ACP);
 
+    log(std::to_string(sizeof(LPCWSTR)));
     const auto shaderProfile = const_cast<LPCWSTR>(L"ps_6_6");
     std::vector<LPCWSTR> arguments
     {
