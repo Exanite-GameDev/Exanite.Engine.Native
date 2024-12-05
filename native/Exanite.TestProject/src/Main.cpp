@@ -44,7 +44,7 @@ auto main(int argc, char** argv) -> int
     IDxcCompiler3* compiler;
     guardSuccess(DxcCreateInstance(CLSID_DxcCompiler, __emulated_uuidof<IDxcCompiler3>(), reinterpret_cast<void**>(&compiler)));
 
-    std::string shaderSource = "main() {}";
+    std::string shaderSource = "void main() {}";
 
     IDxcBlobEncoding* encodedCodeBlob;
     guardSuccess(utils->CreateBlob(shaderSource.data(), shaderSource.length(), CP_UTF8, &encodedCodeBlob));
@@ -89,7 +89,7 @@ auto main(int argc, char** argv) -> int
     IDxcBlobEncoding* errors;
     guardSuccess(result->GetErrorBuffer(&errors));
 
-    if (errors != nullptr)
+    if (errors != nullptr && errors->GetBufferPointer() != nullptr)
     {
         bool isEncodingKnown;
         uint32_t codePage;
