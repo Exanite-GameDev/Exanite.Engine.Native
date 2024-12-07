@@ -64,32 +64,29 @@ auto main(int argc, char** argv) -> int
     std::vector<LPCWSTR> arguments
     {
         // Entrypoint
-        const_cast<LPWSTR>(L"-E"), const_cast<LPWSTR>(L"main"),
+        L"-E", L"main",
 
         // Target profile / shader type + version
-        const_cast<LPWSTR>(L"-T"), shaderProfile,
+        L"-T", shaderProfile,
 
         // Only strips from output bytecode
-        const_cast<LPWSTR>(L"-Qstrip_debug"),
+        L"-Qstrip_debug",
 
         // Warnings as errors
-        const_cast<LPWSTR>(L"-WX"),
+        L"-WX",
 
         // SPIRV
-        const_cast<LPWSTR>(L"-spirv"),
-        const_cast<LPWSTR>(L"-fspv-target-env=vulkan1.3"),
+        L"-spirv",
+        L"-fspv-target-env=vulkan1.3",
 
         // Use gl_BaseInstance as first vertex instance instead of 0 (Follows Vulkan spec)
-        const_cast<LPWSTR>(L"-fvk-support-nonzero-base-instance"),
-
-        // Include shader name for easier debugging
-        const_cast<LPWSTR>(L"Shader.fragment.hlsl"),
+        L"-fvk-support-nonzero-base-instance",
     };
 
     bool useReflection = true;
     if (useReflection)
     {
-        arguments.push_back(const_cast<LPWSTR>(L"-fspv-reflect"));
+        arguments.push_back(L"-fspv-reflect");
     }
 
     IDxcResult* result;
