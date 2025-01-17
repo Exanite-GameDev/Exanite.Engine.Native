@@ -5,7 +5,7 @@ project(Exanite.GameDev LANGUAGES CXX)
 # Always use '-fPIC'/'-fPIE' option.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Globally disable library prefix for Windows
+# Globally disable shared library prefix for Windows
 if (WIN32)
     set(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif()
