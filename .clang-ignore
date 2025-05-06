@@ -1,0 +1,28 @@
+# Not actually used by clang-format
+#
+# Example using fish shell:
+# clang-format -n $(fd --hidden -t f --ignore-file .gitignore --ignore-file .clang-ignore)
+
+# Ignore all file types except for the ones specified here
+**/*
+!**/*.{h,hpp,c,cpp,glsl,hlsl,slang,cs}
+
+# Ignore all top level folders
+!**/*/
+/*/
+
+# Unignore Exanite project folders
+!/projects/
+/projects/*/
+
+!/projects/Exanite.*
+
+# Unignore Exanite native project folders
+!/native/
+/native/*/
+
+!/native/Exanite.*
+
+# Ignore generated files
+*.g.*
+*.gen.*
