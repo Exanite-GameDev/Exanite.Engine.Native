@@ -11,11 +11,11 @@
 !**/*/
 /*/
 
-# Unignore Exanite project folders
-!/projects/
-/projects/*/
-
-!/projects/Exanite.*
+## Unignore Exanite project folders
+#!/projects/
+#/projects/*/
+#
+#!/projects/Exanite.*
 
 # Unignore Exanite native project folders
 !/native/
