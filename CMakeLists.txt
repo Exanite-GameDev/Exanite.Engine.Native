@@ -86,20 +86,19 @@ if (OFF)
     add_link_options(-fsanitize=address)
 endif()
 
+# ----- Third party -----
 
-## ----- Third party -----
-#
-## Vulkan
-#find_package(Vulkan REQUIRED)
-#
-## VulkanMemoryAllocator
-#add_library(vma SHARED)
-#add_library(VulkanMemoryAllocator ALIAS vma)
-#
-#set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
-#target_include_directories(vma PUBLIC native/VulkanMemoryAllocator/include)
-#target_sources(vma PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
-#
+# Vulkan
+find_package(Vulkan REQUIRED)
+
+# VulkanMemoryAllocator
+add_library(vma SHARED)
+add_library(VulkanMemoryAllocator ALIAS vma)
+
+set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
+target_include_directories(vma PUBLIC native/VulkanMemoryAllocator/include)
+target_sources(vma PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
+
 ## Slang
 #if (WIN32)
 #    FetchContent_Declare(
