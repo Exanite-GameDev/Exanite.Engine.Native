@@ -1,58 +1,136 @@
 ﻿{
-    "version": 3,
-    "configurePresets": [
-        {
-            "name": "windows-base",
-            "description": "Target Windows with the Visual Studio development environment.",
-            "hidden": true,
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/build/${presetName}",
-            "installDir": "${sourceDir}/out/install/${presetName}",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl.exe",
-                "CMAKE_CXX_COMPILER": "cl.exe"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            }
-        },
-        {
-            "name": "x64-debug",
-            "displayName": "x64 Debug",
-            "description": "Target Windows (64-bit) with the Visual Studio development environment. (Debug)",
-            "inherits": "windows-base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
-            "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
-        },
-        {
-            "name": "x64-release",
-            "displayName": "x64 Release",
-            "description": "Target Windows (64-bit) with the Visual Studio development environment. (RelWithDebInfo)",
-            "inherits": "x64-debug",
-            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
-        },
-        {
-            "name": "x86-debug",
-            "displayName": "x86 Debug",
-            "description": "Target Windows (32-bit) with the Visual Studio development environment. (Debug)",
-            "inherits": "windows-base",
-            "architecture": {
-                "value": "x86",
-                "strategy": "external"
-            },
-            "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
-        },
-        {
-            "name": "x86-release",
-            "displayName": "x86 Release",
-            "description": "Target Windows (32-bit) with the Visual Studio development environment. (RelWithDebInfo)",
-            "inherits": "x86-debug",
-            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
-        }
-    ]
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 28,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "Linux-Clang-Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/builds/cmake/linux-clang-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "Linux-Clang-Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/builds/cmake/linux-clang-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "Linux-GCC-Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/builds/cmake/linux-gcc-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "Linux-GCC-Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/builds/cmake/linux-gcc-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "Windows-VS2022-Debug",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2022-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v143"
+      }
+    },
+    {
+      "name": "Windows-VS2022-Release",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2022-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v143"
+      }
+    },
+    {
+      "name": "Windows-VS2019-Debug",
+      "generator": "Visual Studio 16 2019",
+      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2019-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v142"
+      }
+    },
+    {
+      "name": "Windows-VS2019-Release",
+      "generator": "Visual Studio 16 2019",
+      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2019-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v142"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Linux-Clang-Debug",
+      "configurePreset": "Linux-Clang-Debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Linux-Clang-Release",
+      "configurePreset": "Linux-Clang-Release",
+      "configuration": "Release"
+    },
+    {
+      "name": "Linux-GCC-Debug",
+      "configurePreset": "Linux-GCC-Debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Linux-GCC-Release",
+      "configurePreset": "Linux-GCC-Release",
+      "configuration": "Release"
+    },
+    {
+      "name": "Windows-VS2022-Debug",
+      "configurePreset": "Windows-VS2022-Debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Windows-VS2022-Release",
+      "configurePreset": "Windows-VS2022-Release",
+      "configuration": "Release"
+    },
+    {
+      "name": "Windows-VS2019-Debug",
+      "configurePreset": "Windows-VS2019-Debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Windows-VS2019-Release",
+      "configurePreset": "Windows-VS2019-Release",
+      "configuration": "Release"
+    }
+  ]
 }
