@@ -26,6 +26,7 @@ endif()
 # This allows shared libraries to be loaded at different memory addresses
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# Warning: IPO is extremely slow and will slow down iteration times
 #if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
 #    # Set IPO policy
 #    # The NEW policy enables IPO flags for all compilers if possible and to error if not
@@ -40,6 +41,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 #        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 #    endif()
 #endif()
+
+# Use shared libraries by default
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries by default")
 
 # --- Output options ---
 
@@ -96,13 +100,29 @@ add_library(vma SHARED)
 add_library(VulkanMemoryAllocator ALIAS vma)
 
 set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
-target_include_directories(vma PUBLIC native/VulkanMemoryAllocator/include)
-target_sources(vma PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
+target_include_directories(vma PUBLIC ./native/VulkanMemoryAllocator/include)
+target_sources(vma PUBLIC ./native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
+
+# debuginfod
+# Optional dependency of Tracy, but we require it to make things consistent
+find_library(DEBUGINFOD_LIBRARY REQUIRED NAMES debuginfod)
+
+# Tracy library
+set(TRACY_ENABLE ON)
+set(TRACY_ON_DEMAND ON)
+set(TRACY_CALLSTACK ON)
+
+if (DEBUGINFOD_LIBRARY)
+    message(STATUS "Found libdebuginfod. Setting TRACY_DEBUGINFOD to ON")
+    set(TRACY_DEBUGINFOD ON)
+endif()
+
+add_subdirectory(./native/tracy)
 
 ## ----- First party -----
 #
 ## Exanite.TestProject
-#add_subdirectory(native/Exanite.TestProject)
+#add_subdirectory(./native/Exanite.TestProject)
 
 # ----- Meta -----
 
