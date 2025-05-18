@@ -174,3 +174,10 @@ target_sources(vma PUBLIC native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
 #
 ## Exanite.TestProject
 #add_subdirectory(native/Exanite.TestProject)
+
+# ----- Meta -----
+
+add_custom_target(BuildAllNatives ALL
+    DEPENDS
+        VulkanMemoryAllocator
+)
