@@ -105,8 +105,10 @@ target_include_directories(vma PUBLIC ./native/VulkanMemoryAllocator/include)
 target_sources(vma PUBLIC ./native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
 
 # debuginfod
-# Optional dependency of Tracy, but we require it to make things consistent
-find_library(DEBUGINFOD_LIBRARY REQUIRED NAMES debuginfod)
+# Optional dependency of Tracy, but we require it on Unix to make things consistent
+if (UNIX)
+    find_library(DEBUGINFOD_LIBRARY REQUIRED NAMES debuginfod)
+endif ()
 
 # Tracy library
 set(TRACY_ENABLE ON)
