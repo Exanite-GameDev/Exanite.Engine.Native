@@ -102,6 +102,7 @@ add_library(VulkanMemoryAllocator ALIAS vma)
 add_library(Exanite::VulkanMemoryAllocator ALIAS vma)
 
 set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
+target_compile_definitions(vma PRIVATE VMA_IMPLEMENTATION)
 target_include_directories(vma PUBLIC ./native/VulkanMemoryAllocator/include)
 target_sources(vma PUBLIC ./native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
 
@@ -122,6 +123,8 @@ if (DEBUGINFOD_LIBRARY)
 endif()
 
 add_subdirectory(./native/tracy)
+
+# ----- Wrapped third party -----
 
 # ----- First party -----
 
