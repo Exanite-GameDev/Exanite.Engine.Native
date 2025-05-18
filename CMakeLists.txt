@@ -10,11 +10,11 @@ project(Exanite.GameDev LANGUAGES CXX)
 cmake_policy(SET CMP0077 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
-    # Set IPO policy
-    # The NEW policy enables IPO flags for all compilers if possible and to error if not
-    # We check for compatibility below so using the new policy is safe
-    cmake_policy(SET CMP0069 NEW)
-    set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
+# Set IPO policy
+# The NEW policy enables IPO flags for all compilers if possible and to error if not
+# We check for compatibility below so using the new policy is safe
+cmake_policy(SET CMP0069 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 
 # --- Compilation options ---
 
