@@ -98,6 +98,7 @@ find_package(Vulkan REQUIRED)
 # VulkanMemoryAllocator
 add_library(vma SHARED)
 add_library(VulkanMemoryAllocator ALIAS vma)
+add_library(Exanite::VulkanMemoryAllocator ALIAS vma)
 
 set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(vma PUBLIC ./native/VulkanMemoryAllocator/include)
@@ -119,14 +120,14 @@ endif()
 
 add_subdirectory(./native/tracy)
 
-## ----- First party -----
-#
-## Exanite.TestProject
-#add_subdirectory(./native/Exanite.TestProject)
+# ----- First party -----
+
+# Currently none
 
 # ----- Meta -----
 
 add_custom_target(BuildAllNatives ALL
     DEPENDS
-        VulkanMemoryAllocator
+        Exanite::VulkanMemoryAllocator
+        Tracy::TracyClient
 )
