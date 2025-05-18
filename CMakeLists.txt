@@ -97,14 +97,10 @@ endif()
 find_package(Vulkan REQUIRED)
 
 # VulkanMemoryAllocator
-add_library(vma SHARED)
-add_library(VulkanMemoryAllocator ALIAS vma)
-add_library(Exanite::VulkanMemoryAllocator ALIAS vma)
+add_library(VulkanMemoryAllocator-Headers INTERFACE)
+add_library(Exanite::VulkanMemoryAllocator-Headers ALIAS VulkanMemoryAllocator-Headers)
 
-set_target_properties(vma PROPERTIES LINKER_LANGUAGE CXX)
-target_compile_definitions(vma PRIVATE VMA_IMPLEMENTATION)
-target_include_directories(vma PUBLIC ./native/VulkanMemoryAllocator/include)
-target_sources(vma PUBLIC ./native/VulkanMemoryAllocator/include/vk_mem_alloc.h)
+target_include_directories(VulkanMemoryAllocator-Headers INTERFACE ./native/VulkanMemoryAllocator/include)
 
 # debuginfod
 # Optional dependency of Tracy, but we require it on Unix to make things consistent
@@ -126,6 +122,8 @@ add_subdirectory(./native/tracy)
 
 # ----- Wrapped third party -----
 
+add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
+
 # ----- First party -----
 
 # Currently none
@@ -134,6 +132,6 @@ add_subdirectory(./native/tracy)
 
 add_custom_target(BuildAllNative ALL
     DEPENDS
-        Exanite::VulkanMemoryAllocator
         Tracy::TracyClient
+        Exanite::VulkanMemoryAllocator
 )
