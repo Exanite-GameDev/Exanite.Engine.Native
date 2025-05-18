@@ -129,7 +129,7 @@ add_subdirectory(./native/tracy)
 
 # ----- Meta -----
 
-add_custom_target(BuildAllNatives ALL
+add_custom_target(BuildAllNative ALL
     DEPENDS
         Exanite::VulkanMemoryAllocator
         Tracy::TracyClient
