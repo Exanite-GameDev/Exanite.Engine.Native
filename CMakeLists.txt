@@ -10,11 +10,18 @@ project(Exanite.GameDev LANGUAGES CXX)
 cmake_policy(SET CMP0077 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
+    # Set IPO policy
+    # The NEW policy enables IPO flags for all compilers if possible and to error if not
+    # We check for compatibility below so using the new policy is safe
+    cmake_policy(SET CMP0069 NEW)
+    set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
+
+# --- Compilation options ---
+
+# Define DEBUG symbol if build configuration is Debug
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
-
-# --- Compilation options ---
 
 # Enable architecture specific optimizations
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -27,20 +34,14 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Warning: IPO is extremely slow and will slow down iteration times
-#if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
-#    # Set IPO policy
-#    # The NEW policy enables IPO flags for all compilers if possible and to error if not
-#    # We check for compatibility below so using the new policy is safe
-#    cmake_policy(SET CMP0069 NEW)
-#    set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
-#
-#    # Enable Inter-Procedural Optimization (IPO) if supported by the compiler
-#    include(CheckIPOSupported)
-#    check_ipo_supported(RESULT IS_IPO_SUPPORTED)
-#    if((IS_IPO_SUPPORTED) AND NOT (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC"))
-#        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
-#    endif()
-#endif()
+if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
+    # Enable Inter-Procedural Optimization (IPO) if supported by the compiler
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT IS_IPO_SUPPORTED)
+    if((IS_IPO_SUPPORTED) AND NOT (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC"))
+        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+    endif()
+endif()
 
 # Use shared libraries by default
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries by default")
