@@ -113,12 +113,17 @@ set(TRACY_ENABLE ON)
 set(TRACY_ON_DEMAND ON)
 set(TRACY_CALLSTACK ON)
 
-if (DEBUGINFOD_LIBRARY)
-    message(STATUS "Found libdebuginfod. Setting TRACY_DEBUGINFOD to ON")
-    set(TRACY_DEBUGINFOD ON)
-endif()
+#if (DEBUGINFOD_LIBRARY)
+#    message(STATUS "Found libdebuginfod. Setting TRACY_DEBUGINFOD to ON")
+#    set(TRACY_DEBUGINFOD ON)
+#endif()
 
+# Disable IPO for Tracy
+# Tracy changes its library type to OBJECT instead of SHARED if IPO is enabled
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_TEMP ${CMAKE_INTERPROCEDURAL_OPTIMIZATION})
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 add_subdirectory(./native/tracy)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${CMAKE_INTERPROCEDURAL_OPTIMIZATION_TEMP})
 
 # ----- Wrapped third party -----
 
