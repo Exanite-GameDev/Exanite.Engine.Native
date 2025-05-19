@@ -7,8 +7,8 @@ add_library(vma SHARED)
 add_library(Exanite::VulkanMemoryAllocator ALIAS vma)
 set_target_properties(vma
     PROPERTIES
-    CXX_STANDARD 23
-    OUTPUT_NAME "vma"
+        CXX_STANDARD 23
+        OUTPUT_NAME "vma"
 )
 
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
