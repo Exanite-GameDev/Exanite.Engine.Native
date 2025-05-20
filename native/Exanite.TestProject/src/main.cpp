@@ -1,5 +1,103 @@
-#include <slang-com-ptr.h>
 #include <iostream>
+#include <memory>
+#include <slang-com-ptr.h>
+
+class SlangUtility
+{
+public:
+    static constexpr SlangResult resultOk = 0;
+    static constexpr SlangResult resultUnspecifiedFailure = -2147467259;
+    static constexpr SlangResult resultNoInterface = -2147467262;
+};
+
+class StringBlob : public ISlangBlob
+{
+private:
+    std::string data {};
+    int refCount = 0;
+
+public:
+    explicit StringBlob(const std::string& data)
+    {
+        this->data = data;
+    }
+
+    void const* getBufferPointer() override
+    {
+        return data.data();
+    }
+
+    size_t getBufferSize() override
+    {
+        return data.size();
+    }
+
+    SlangResult queryInterface(SlangUUID const& uuid, void** outObject) override
+    {
+        return SlangUtility::resultNoInterface;
+    }
+
+    uint32_t addRef() override
+    {
+        refCount++;
+        return refCount;
+    }
+
+    uint32_t release() override
+    {
+        refCount--;
+        if (refCount == 0)
+        {
+            delete this;
+        }
+
+        return refCount;
+    }
+};
+
+class CustomFileSystem : public ISlangFileSystem
+{
+private:
+    int refCount = 0;
+
+public:
+    SlangResult loadFile(char const* path, ISlangBlob** outBlob) override
+    {
+        auto blob = new StringBlob("// Hello world!");;
+        *outBlob = blob;
+
+        std::cout << "Hello from CustomFileSystem!" << std::endl;
+
+        return SlangUtility::resultUnspecifiedFailure;
+    }
+
+    void* castAs(const SlangUUID& guid) override
+    {
+        return this;
+    }
+
+    SlangResult queryInterface(SlangUUID const& uuid, void** outObject) override
+    {
+        return SlangUtility::resultNoInterface;
+    }
+
+    uint32_t addRef() override
+    {
+        refCount++;
+        return refCount;
+    }
+
+    uint32_t release() override
+    {
+        refCount--;
+        if (refCount == 0)
+        {
+            delete this;
+        }
+
+        return refCount;
+    }
+};
 
 int main()
 {
@@ -9,9 +107,10 @@ int main()
     Slang::ComPtr<slang::IGlobalSession> globalSession;
     createGlobalSession(globalSession.writeRef());
 
-    // globalSession.
-
     // Create file system
+    auto fileSystem = Slang::ComPtr(new CustomFileSystem());
+    std::cout << fileSystem->addRef() << std::endl;
+    std::cout << fileSystem->release() << std::endl;
 
     // Create target
     slang::TargetDesc targetDesc {};
@@ -20,13 +119,12 @@ int main()
         targetDesc.profile = globalSession->findProfile("spirv_1_5");
     }
 
-    // Create local session
+    // Create session
     Slang::ComPtr<slang::ISession> session;
     slang::SessionDesc sessionDesc {};
     {
         // Set file system
-        // TODO
-        sessionDesc.fileSystem;
+        sessionDesc.fileSystem = fileSystem;
 
         // Set target
         sessionDesc.targetCount = 1;
@@ -34,49 +132,7 @@ int main()
     }
 
     globalSession->createSession(sessionDesc, session.writeRef());
+
+    // Compile some code
+    Slang::ComPtr<ISlangBlob> diagnostics;
 }
-
-class CustomFileSystem : public ISlangFileSystem
-{
-private:
-    static constexpr SlangResult resultOk = 0;
-    static constexpr SlangResult resultUnspecifiedFailure = -2147467259;
-
-public:
-    SlangResult loadFile(char const* path, ISlangBlob** outBlob) override
-    {
-        return resultUnspecifiedFailure;
-    }
-};
-
-// class CustomIncludeHandler : public IDxcIncludeHandler
-// {
-// public:
-//     HRESULT STDMETHODCALLTYPE LoadSource(_In_ LPCWSTR pFilename, _COM_Outptr_result_maybenull_ IDxcBlob** ppIncludeSource) override
-//     {
-//         ComPtr<IDxcBlobEncoding> pEncoding;
-//         std::string path = Paths::Normalize(UNICODE_TO_MULTIBYTE(pFilename));
-//         if (IncludedFiles.find(path) != IncludedFiles.end())
-//         {
-//             // Return empty string blob if this file has been included before
-//             static const char nullStr[] = " ";
-//             pUtils->CreateBlobFromPinned(nullStr, ARRAYSIZE(nullStr), DXC_CP_ACP, pEncoding.GetAddressOf());
-//             *ppIncludeSource = pEncoding.Detach();
-//             return S_OK;
-//         }
-//
-//         HRESULT hr = pUtils->LoadFile(pFilename, nullptr, pEncoding.GetAddressOf());
-//         if (SUCCEEDED(hr))
-//         {
-//             IncludedFiles.insert(path);
-//             *ppIncludeSource = pEncoding.Detach();
-//         }
-//         return hr;
-//     }
-//
-//     HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, _COM_Outptr_ void __RPC_FAR* __RPC_FAR* ppvObject) override { return E_NOINTERFACE; }
-//     ULONG STDMETHODCALLTYPE AddRef(void) override {	return 0; }
-//     ULONG STDMETHODCALLTYPE Release(void) override { return 0; }
-//
-//     std::unordered_set<std::string> IncludedFiles;
-// };
