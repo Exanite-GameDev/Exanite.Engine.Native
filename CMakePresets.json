@@ -9,7 +9,7 @@
     {
       "name": "Linux-Clang-Debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/builds/cmake/linux-clang-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/linux-clang-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -19,7 +19,7 @@
     {
       "name": "Linux-Clang-Release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/builds/cmake/linux-clang-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/linux-clang-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -29,7 +29,7 @@
     {
       "name": "Linux-GCC-Debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/builds/cmake/linux-gcc-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/linux-gcc-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "gcc",
@@ -39,7 +39,7 @@
     {
       "name": "Linux-GCC-Release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/builds/cmake/linux-gcc-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/linux-gcc-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "gcc",
@@ -49,7 +49,7 @@
     {
       "name": "Windows-VS2022-Debug",
       "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2022-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/windows-vs2022-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "cl",
@@ -60,7 +60,7 @@
     {
       "name": "Windows-VS2022-Release",
       "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2022-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/windows-vs2022-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "cl",
@@ -71,7 +71,7 @@
     {
       "name": "Windows-VS2019-Debug",
       "generator": "Visual Studio 16 2019",
-      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2019-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/windows-vs2019-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "cl",
@@ -82,7 +82,7 @@
     {
       "name": "Windows-VS2019-Release",
       "generator": "Visual Studio 16 2019",
-      "binaryDir": "${sourceDir}/builds/cmake/windows-vs2019-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake/windows-vs2019-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "cl",
