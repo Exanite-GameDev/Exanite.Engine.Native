@@ -13,11 +13,4 @@ set_target_properties(Exanite.TestProject
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
 target_sources(Exanite.TestProject PRIVATE ${sources})
 
-target_link_libraries(Exanite.TestProject PRIVATE Vulkan::Vulkan)
-target_link_libraries(Exanite.TestProject PRIVATE VulkanMemoryAllocator)
 target_link_libraries(Exanite.TestProject PRIVATE slang)
-target_link_libraries(Exanite.TestProject PRIVATE dxc)
-
-if (UNIX)
-    target_link_libraries(Exanite.TestProject PRIVATE ZLIB::ZLIB)
-endif ()

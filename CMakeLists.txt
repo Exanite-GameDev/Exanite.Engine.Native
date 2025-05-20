@@ -102,21 +102,10 @@ add_library(Exanite::VulkanMemoryAllocator-Headers ALIAS VulkanMemoryAllocator-H
 
 target_include_directories(VulkanMemoryAllocator-Headers INTERFACE ./native/VulkanMemoryAllocator/include)
 
-# debuginfod
-# Optional dependency of Tracy, but we require it on Unix to make things consistent
-if (UNIX)
-    find_library(DEBUGINFOD_LIBRARY REQUIRED NAMES debuginfod)
-endif ()
-
 # Tracy library
 set(TRACY_ENABLE ON)
 set(TRACY_ON_DEMAND ON)
 set(TRACY_CALLSTACK ON)
-
-#if (DEBUGINFOD_LIBRARY)
-#    message(STATUS "Found libdebuginfod. Setting TRACY_DEBUGINFOD to ON")
-#    set(TRACY_DEBUGINFOD ON)
-#endif()
 
 # Disable IPO for Tracy
 # Tracy changes its library type to OBJECT instead of SHARED if IPO is enabled
@@ -125,15 +114,18 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 add_subdirectory(./native/tracy)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${CMAKE_INTERPROCEDURAL_OPTIMIZATION_TEMP})
 
+# Slang
+add_subdirectory(./native/slang)
+
 # ----- Wrapped third party -----
 
 add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
 
-# Currently none
+add_subdirectory(./native/Exanite.TestProject)
 
-# ----- Meta -----
+# ----- Additional targets -----
 
 add_custom_target(BuildAllNative ALL
     DEPENDS
