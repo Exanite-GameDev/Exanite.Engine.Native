@@ -115,8 +115,8 @@ int main()
     // Create target
     slang::TargetDesc targetDesc {};
     {
-        targetDesc.format = SLANG_SPIRV;
-        targetDesc.profile = globalSession->findProfile("spirv_1_5");
+        targetDesc.format = SLANG_GLSL;
+        targetDesc.profile = globalSession->findProfile("glsl_460");
     }
 
     // Create session
@@ -142,7 +142,9 @@ int main()
 
     request->compile();
 
-    // Get the compiled SPIRV code
-    size_t spirvCodeSize;
-    auto pSpirvCode = request->getEntryPointCode(0, &spirvCodeSize);
+    // Get the compiled code
+    size_t codeSize;
+    auto pCode = request->getEntryPointCode(0, &codeSize);
+
+    std::cout << static_cast<const char*>(pCode) << std::endl;
 }
