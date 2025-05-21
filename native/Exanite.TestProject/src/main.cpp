@@ -99,7 +99,7 @@ public:
     }
 };
 
-int main()
+int main_disabled()
 {
     // Create global session
     Slang::ComPtr<slang::IGlobalSession> globalSession {};

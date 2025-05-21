@@ -21,30 +21,137 @@ void diagnoseIfNeeded(slang::IBlob* diagnosticsBlob)
     }
 }
 
-int main_disabled()
+class SlangUtility
+{
+public:
+    static constexpr SlangResult resultOk = 0;
+    static constexpr SlangResult resultUnspecifiedFailure = -2147467259;
+    static constexpr SlangResult resultNoInterface = -2147467262;
+};
+
+class StringBlob : public ISlangBlob
+{
+private:
+    std::string data {};
+    int refCount = 0;
+
+public:
+    explicit StringBlob(const std::string& data)
+    {
+        this->data = data;
+    }
+
+    void const* getBufferPointer() override
+    {
+        return data.data();
+    }
+
+    size_t getBufferSize() override
+    {
+        return data.size();
+    }
+
+    SlangResult queryInterface(SlangUUID const& uuid, void** outObject) override
+    {
+        return SlangUtility::resultNoInterface;
+    }
+
+    uint32_t addRef() override
+    {
+        refCount++;
+        return refCount;
+    }
+
+    uint32_t release() override
+    {
+        refCount--;
+        if (refCount == 0)
+        {
+            delete this;
+        }
+
+        return refCount;
+    }
+};
+
+class CustomFileSystem : public ISlangFileSystem
+{
+private:
+    int refCount = 0;
+
+public:
+    SlangResult loadFile(char const* path, ISlangBlob** outBlob) override
+    {
+        std::cout << std::format("Loading file at: {}", path) << std::endl;
+
+        if (std::string(path) == std::string("shortest.slang"))
+        {
+            auto blob = Slang::ComPtr(new StringBlob(shortestShader));
+            blob->addRef(); // TODO: Not sure why this is required
+            *outBlob = blob;
+
+            std::cout << std::format("Successfully loaded") << std::endl;
+
+            return SlangUtility::resultOk;
+        }
+
+        std::cout << std::format("Failed to load") << std::endl;
+
+        return SlangUtility::resultUnspecifiedFailure;
+    }
+
+    void* castAs(const SlangUUID& guid) override
+    {
+        return nullptr;
+    }
+
+    SlangResult queryInterface(SlangUUID const& uuid, void** outObject) override
+    {
+        return SlangUtility::resultNoInterface;
+    }
+
+    uint32_t addRef() override
+    {
+        refCount++;
+        return refCount;
+    }
+
+    uint32_t release() override
+    {
+        refCount--;
+        if (refCount == 0)
+        {
+            delete this;
+        }
+
+        return refCount;
+    }
+};
+
+int main()
 {
     // 1. Create Global Session
     Slang::ComPtr<slang::IGlobalSession> globalSession;
     createGlobalSession(globalSession.writeRef());
 
-    // 2. Create Session
-    slang::SessionDesc sessionDesc = {};
+    // 1.5. Create target
     slang::TargetDesc targetDesc = {};
+
     targetDesc.format = SLANG_GLSL;
     targetDesc.profile = globalSession->findProfile("spirv_1_5");
+
+    // 2. Create Session
+    slang::SessionDesc sessionDesc = {};
+
+    Slang::ComPtr<CustomFileSystem> fileSystem = Slang::ComPtr(new CustomFileSystem);
+    sessionDesc.fileSystem = fileSystem;
 
     sessionDesc.targets = &targetDesc;
     sessionDesc.targetCount = 1;
 
-    std::array<slang::CompilerOptionEntry, 1> options =
-        {
-            {
-                slang::CompilerOptionName::EmitSpirvDirectly,
-                {slang::CompilerOptionValueKind::Int, 1, 0, nullptr, nullptr}
-            }
-        };
-    sessionDesc.compilerOptionEntries = options.data();
-    sessionDesc.compilerOptionEntryCount = options.size();
+    auto searchPath = "/";
+    sessionDesc.searchPathCount = 1;
+    sessionDesc.searchPaths = &searchPath;
 
     Slang::ComPtr<slang::ISession> session;
     globalSession->createSession(sessionDesc, session.writeRef());
@@ -53,11 +160,13 @@ int main_disabled()
     Slang::ComPtr<slang::IModule> slangModule;
     {
         Slang::ComPtr<slang::IBlob> diagnosticsBlob;
-        slangModule = session->loadModuleFromSourceString(
-            "shortest",                  // Module name
-            "shortest.slang",            // Module path
-            shortestShader,              // Shader source code
-            diagnosticsBlob.writeRef()); // Optional diagnostic container
+        // slangModule = session->loadModuleFromSourceString(
+        //     "shortest.slang",                        // Module name
+        //     "shortest.slang",                        // Module path
+        //     shortestShader,                          // Shader source code
+        //     diagnosticsBlob.writeRef()); // Optional diagnostic container
+
+        slangModule = session->loadModule("shortest.slang", diagnosticsBlob.writeRef());
         diagnoseIfNeeded(diagnosticsBlob);
         if (!slangModule)
         {
