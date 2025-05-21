@@ -73,7 +73,7 @@ public:
 
     void* castAs(const SlangUUID& guid) override
     {
-        return this;
+        return nullptr;
     }
 
     SlangResult queryInterface(SlangUUID const& uuid, void** outObject) override
