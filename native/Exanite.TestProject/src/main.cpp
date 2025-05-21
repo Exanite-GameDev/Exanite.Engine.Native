@@ -101,16 +101,12 @@ public:
 
 int main()
 {
-    std::cout << "hello world" << std::endl;
-
     // Create global session
     Slang::ComPtr<slang::IGlobalSession> globalSession {};
     createGlobalSession(globalSession.writeRef());
 
     // Create file system
     auto fileSystem = Slang::ComPtr(new CustomFileSystem());
-    std::cout << fileSystem->addRef() << std::endl;
-    std::cout << fileSystem->release() << std::endl;
 
     // Create target
     slang::TargetDesc targetDesc {};
