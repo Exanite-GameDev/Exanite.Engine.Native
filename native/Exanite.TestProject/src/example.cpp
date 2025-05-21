@@ -4,14 +4,7 @@
 #include <array>
 #include <iostream>
 
-const char* shortestShader =
-"RWStructuredBuffer<float> result;"
-"[shader(\"compute\")]"
-"[numthreads(1,1,1)]"
-"void computeMain(uint3 threadId : SV_DispatchThreadID)"
-"{"
-"    result[threadId.x] = threadId.x;"
-"}";
+const char* shortestShader = "[shader(\"compute\")] void main() {}";
 
 void diagnoseIfNeeded(slang::IBlob* diagnosticsBlob)
 {
@@ -178,7 +171,7 @@ int main()
     Slang::ComPtr<slang::IEntryPoint> entryPoint;
     {
         Slang::ComPtr<slang::IBlob> diagnosticsBlob;
-        slangModule->findEntryPointByName("computeMain", entryPoint.writeRef());
+        slangModule->findEntryPointByName("main", entryPoint.writeRef());
         if (!entryPoint)
         {
             std::cout << "Error getting entry point" << std::endl;
