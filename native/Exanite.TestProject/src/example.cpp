@@ -86,8 +86,8 @@ public:
 
         if (std::string(path) == std::string("shortest.slang"))
         {
-            auto blob = Slang::ComPtr(new StringBlob(shortestShader));
-            blob->addRef(); // TODO: Not sure why this is required
+            auto blob = new StringBlob(shortestShader);
+            blob->addRef();
             *outBlob = blob;
 
             std::cout << std::format("Successfully loaded") << std::endl;
