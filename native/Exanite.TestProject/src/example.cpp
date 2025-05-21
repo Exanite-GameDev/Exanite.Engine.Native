@@ -21,7 +21,7 @@ void diagnoseIfNeeded(slang::IBlob* diagnosticsBlob)
     }
 }
 
-int main()
+int main_disabled()
 {
     // 1. Create Global Session
     Slang::ComPtr<slang::IGlobalSession> globalSession;
