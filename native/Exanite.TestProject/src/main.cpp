@@ -63,10 +63,11 @@ private:
 public:
     SlangResult loadFile(char const* path, ISlangBlob** outBlob) override
     {
+        std::cout << "Hello from CustomFileSystem!" << std::endl;
+        std::cout << std::format("Loading file at: {}", path) << std::endl;
+
         auto blob = new StringBlob("// Hello world!");;
         *outBlob = blob;
-
-        std::cout << "Hello from CustomFileSystem!" << std::endl;
 
         return SlangUtility::resultUnspecifiedFailure;
     }
@@ -101,23 +102,22 @@ public:
 
 int main()
 {
-    std::cout << "hello world" << std::endl;
-
     // Create global session
     Slang::ComPtr<slang::IGlobalSession> globalSession {};
     createGlobalSession(globalSession.writeRef());
 
     // Create file system
     auto fileSystem = Slang::ComPtr(new CustomFileSystem());
-    std::cout << fileSystem->addRef() << std::endl;
-    std::cout << fileSystem->release() << std::endl;
 
     // Create target
     slang::TargetDesc targetDesc {};
     {
         targetDesc.format = SLANG_GLSL;
-        targetDesc.profile = globalSession->findProfile("glsl_460");
+        targetDesc.profile = globalSession->findProfile("spirv_1_5");
     }
+
+    // Declare search path
+    auto searchPath = "/";
 
     // Create session
     Slang::ComPtr<slang::ISession> session {};
@@ -126,6 +126,10 @@ int main()
         // Set file system
         sessionDesc.fileSystem = fileSystem;
 
+        // Set search paths
+        sessionDesc.searchPathCount = 1;
+        sessionDesc.searchPaths = &searchPath;
+
         // Set target
         sessionDesc.targetCount = 1;
         sessionDesc.targets = &targetDesc;
@@ -133,18 +137,136 @@ int main()
 
     globalSession->createSession(sessionDesc, session.writeRef());
 
-    // Compile some code
-    Slang::ComPtr<SlangCompileRequest> request {};
-    session->createCompileRequest(request.writeRef());
+    // Compile code by loading by string source code
+    {
+        Slang::ComPtr<slang::IModule> slangModule;
+        {
+            auto modulePath = "from-source.slang";
 
-    auto translationUnitIndex = request->addTranslationUnit(SLANG_SOURCE_LANGUAGE_SLANG, "source-test.slang");
-    request->addTranslationUnitSourceString(translationUnitIndex, "source-test.slang", "[shader(\"compute\")] void main() {}");
+            Slang::ComPtr<ISlangBlob> diagnostics {};
+            auto module = session->loadModuleFromSourceString(modulePath, modulePath, "[shader(\"compute\")] void main() {}", diagnostics.writeRef());
 
-    request->compile();
+            if (diagnostics)
+            {
+                std::cout << static_cast<const char*>(diagnostics->getBufferPointer()) << std::endl;
+            }
 
-    // Get the compiled code
-    size_t codeSize;
-    auto pCode = request->getEntryPointCode(0, &codeSize);
+            if (!module)
+            {
+                throw std::runtime_error("Failed to compile module");
+            }
 
-    std::cout << static_cast<const char*>(pCode) << std::endl;
+            *slangModule.writeRef() = module;
+        }
+
+        for (int i = 0; i < slangModule->getDefinedEntryPointCount(); ++i)
+        {
+            Slang::ComPtr<slang::IEntryPoint> entrypoint {};
+            slangModule->getDefinedEntryPoint(i, entrypoint.writeRef());
+
+            if (!entrypoint)
+            {
+                throw std::runtime_error(std::format("Failed to get entrypoint: {}", i));
+            }
+
+            std::array<slang::IComponentType*, 2> componentTypes =
+            {
+                slangModule,
+                entrypoint
+            };
+
+            Slang::ComPtr<slang::IComponentType> composedProgram;
+            {
+                Slang::ComPtr<slang::IBlob> diagnostics;
+                session->createCompositeComponentType(componentTypes.data(), componentTypes.size(), composedProgram.writeRef(), diagnostics.writeRef());
+
+                if (diagnostics)
+                {
+                    std::cout << static_cast<const char*>(diagnostics->getBufferPointer()) << std::endl;
+                }
+
+                if (composedProgram)
+                {
+                    throw std::runtime_error(std::format("Failed to compose entrypoint with program: {}", i));
+                }
+            }
+
+            Slang::ComPtr<slang::IComponentType> linkedProgram;
+            {
+                Slang::ComPtr<slang::IBlob> diagnostics;
+                SlangResult result = composedProgram->link(linkedProgram.writeRef(), diagnostics.writeRef());
+
+                if (diagnostics)
+                {
+                    std::cout << static_cast<const char*>(diagnostics->getBufferPointer()) << std::endl;
+                }
+
+                if (linkedProgram)
+                {
+                    throw std::runtime_error(std::format("Failed to compose link program for entrypoint: {}", i));
+                }
+            }
+
+            Slang::ComPtr<slang::IBlob> code;
+            {
+                Slang::ComPtr<slang::IBlob> diagnostics;
+                linkedProgram->getEntryPointCode(0, 0, code.writeRef(), diagnostics.writeRef());
+
+                if (code)
+                {
+                    std::cout << static_cast<const char*>(diagnostics->getBufferPointer()) << std::endl;
+                }
+
+                if (code)
+                {
+                    throw std::runtime_error(std::format("Failed to get code for entrypoint: {}", i));
+                }
+            }
+
+            std::cout << "Compiled " << code->getBufferSize() << " bytes of SPIR-V" << std::endl;
+
+            // Slang::ComPtr<ISlangBlob> code {};
+            // Slang::ComPtr<ISlangBlob> diagnostics {};
+            // entrypoint->getEntryPointCode(0, 0, code.writeRef(), diagnostics.writeRef());
+            // // , 0, code.writeRef(), diagnostics.writeRef()
+            //
+            // if (diagnostics)
+            // {
+            //     std::cout << static_cast<const char*>(diagnostics->getBufferPointer()) << std::endl;
+            // }
+            //
+            // if (!code)
+            // {
+            //     throw std::runtime_error(std::format("Failed to get code for entrypoint: {}", i));
+            // }
+            //
+            // if (diagnostics)
+            // {
+            //     std::cout << std::format("Code for entrypoint {}:\n{}", i, static_cast<const char*>(code->getBufferPointer())) << std::endl;
+            // }
+        }
+    }
+
+    // Compile code by loading by module path
+    {
+        Slang::ComPtr<slang::IModule> slangModule;
+        {
+            auto modulePath = "from-path.slang";
+
+            Slang::ComPtr<ISlangBlob> diagnostics {};
+            auto module = session->loadModule(modulePath, diagnostics.writeRef());
+
+            if (diagnostics)
+            {
+                std::cout << static_cast<const char*>(diagnostics->getBufferPointer()) << std::endl;
+            }
+
+            if (!module)
+            {
+                throw std::runtime_error("Failed to compile module");
+            }
+
+            *slangModule.writeRef() = module;
+        }
+    }
 }
