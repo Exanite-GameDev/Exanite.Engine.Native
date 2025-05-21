@@ -119,12 +119,19 @@ int main()
         targetDesc.profile = globalSession->findProfile("glsl_460");
     }
 
+    // Declare search path
+    auto searchPath = "/";
+
     // Create session
     Slang::ComPtr<slang::ISession> session {};
     slang::SessionDesc sessionDesc {};
     {
         // Set file system
-        // sessionDesc.fileSystem = fileSystem;
+        sessionDesc.fileSystem = fileSystem;
+
+        // Set search paths
+        sessionDesc.searchPathCount = 1;
+        sessionDesc.searchPaths = &searchPath;
 
         // Set target
         sessionDesc.targetCount = 1;
@@ -138,7 +145,7 @@ int main()
     session->createCompileRequest(request.writeRef());
 
     auto translationUnitIndex = request->addTranslationUnit(SLANG_SOURCE_LANGUAGE_SLANG, "source-test.slang");
-    request->addTranslationUnitSourceString(translationUnitIndex, "source-test.slang", "#include \"yay.slang\"\n\n[shader(\"compute\")] void main() {}");
+    request->addTranslationUnitSourceString(translationUnitIndex, "/source-test.slang", "#include \"yay.slang\"\n\n[shader(\"compute\")] void main() {}");
 
     request->compile();
 
