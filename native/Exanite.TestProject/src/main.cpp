@@ -104,7 +104,7 @@ int main()
     std::cout << "hello world" << std::endl;
 
     // Create global session
-    Slang::ComPtr<slang::IGlobalSession> globalSession;
+    Slang::ComPtr<slang::IGlobalSession> globalSession {};
     createGlobalSession(globalSession.writeRef());
 
     // Create file system
@@ -120,7 +120,7 @@ int main()
     }
 
     // Create session
-    Slang::ComPtr<slang::ISession> session;
+    Slang::ComPtr<slang::ISession> session {};
     slang::SessionDesc sessionDesc {};
     {
         // Set file system
@@ -134,5 +134,15 @@ int main()
     globalSession->createSession(sessionDesc, session.writeRef());
 
     // Compile some code
-    Slang::ComPtr<ISlangBlob> diagnostics;
+    Slang::ComPtr<SlangCompileRequest> request {};
+    session->createCompileRequest(request.writeRef());
+
+    auto translationUnitIndex = request->addTranslationUnit(SLANG_SOURCE_LANGUAGE_SLANG, "source-test.slang");
+    request->addTranslationUnitSourceString(translationUnitIndex, "source-test.slang", "[shader(\"compute\")] void main() {}");
+
+    request->compile();
+
+    // Get the compiled SPIRV code
+    size_t spirvCodeSize;
+    auto pSpirvCode = request->getEntryPointCode(0, &spirvCodeSize);
 }
