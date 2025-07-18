@@ -121,7 +121,7 @@ public:
     }
 };
 
-int main()
+int runExample()
 {
     // 1. Create Global Session
     Slang::ComPtr<slang::IGlobalSession> globalSession;
