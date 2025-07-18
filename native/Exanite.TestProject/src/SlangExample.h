@@ -121,7 +121,7 @@ public:
     }
 };
 
-int runExample()
+int runSlangExample()
 {
     // 1. Create Global Session
     Slang::ComPtr<slang::IGlobalSession> globalSession;
@@ -223,4 +223,6 @@ int runExample()
     }
 
     std::cout << static_cast<const char*>(code->getBufferPointer()) << std::endl;
+
+    return 0;
 }

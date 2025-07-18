@@ -1,6 +1,9 @@
 #include <iostream>
+#include "SlangExample.h"
 
 int main()
 {
-    std::cout << "Hello" << std::endl;
+    runSlangExample();
+
+    return 0;
 }
