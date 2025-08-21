@@ -1,4 +1,5 @@
 #include <iostream>
+#include "SlangExample.h"
 
 typedef struct UIntBitfield {
     int bits : 8;
@@ -9,7 +10,7 @@ typedef struct UIntBitfield {
 
 int main()
 {
-    std::cout << sizeof(UIntBitfield) << std::endl;
+    runSlangExample();
 
     return 0;
 }
