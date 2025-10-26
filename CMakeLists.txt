@@ -96,10 +96,7 @@ endif()
 
 # ----- Third party -----
 
-find_package(Tracy)
-
-# ----- Wrapped third party -----
-
+add_subdirectory(./native/Exanite.TracyClient)
 add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
@@ -111,6 +108,6 @@ add_subdirectory(./native/Exanite.SlangTestProject)
 
 add_custom_target(BuildAllNative ALL
     DEPENDS
-        Tracy::TracyClient
+        Exanite::TracyClient
         Exanite::VulkanMemoryAllocator
 )
