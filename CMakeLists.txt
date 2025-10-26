@@ -19,12 +19,12 @@ set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 # --- Compilation options ---
 
 # Define DEBUG symbol if build configuration is Debug
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
 
 # Enable architecture specific optimizations
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-march=native)
 endif()
 
@@ -34,7 +34,7 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Warning: IPO is extremely slow and will slow down iteration times
-if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
+if(NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
     # Enable Inter-Procedural Optimization (IPO) if supported by the compiler
     include(CheckIPOSupported)
     check_ipo_supported(RESULT IS_IPO_SUPPORTED)
@@ -52,7 +52,7 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries by default")
 set(CMAKE_DEBUG_POSTFIX d)
 
 # Globally disable shared library prefix for Windows
-if (WIN32)
+if(WIN32)
     set(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif()
 
@@ -60,7 +60,7 @@ endif()
 
 # Target Windows 10 or later
 # See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
-if (WIN32)
+if(WIN32)
     add_definitions(-D_WIN32_WINNT=0x0A00)
 endif()
 
@@ -76,7 +76,7 @@ endif()
 
 # Use mold linker when possible to reduce linking times
 find_program(MOLD_LINKER mold)
-if (MOLD_LINKER)
+if(MOLD_LINKER)
     message(STATUS "Mold linker found: ${MOLD_LINKER}")
     set(CMAKE_CXX_LINKER_FLAGS "${CMAKE_CXX_LINKER_FLAGS} -fuse-ld=mold")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fuse-ld=mold")
@@ -86,7 +86,7 @@ endif()
 # --- Debug ---
 
 # Hardcoded AddressSanitizer toggle
-if (OFF)
+if(OFF)
     add_compile_options(-fsanitize=address)
     add_link_options(-fsanitize=address)
 endif()
