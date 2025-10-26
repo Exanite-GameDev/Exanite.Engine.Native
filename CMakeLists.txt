@@ -96,20 +96,7 @@ endif()
 
 # ----- Third party -----
 
-# Tracy library
-set(TRACY_ENABLE ON)
-set(TRACY_ON_DEMAND ON)
-set(TRACY_CALLSTACK ON)
-
-# Disable IPO for Tracy
-# Tracy changes its library type to OBJECT instead of SHARED if IPO is enabled
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_TEMP ${CMAKE_INTERPROCEDURAL_OPTIMIZATION})
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
-add_subdirectory(./native/tracy)
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${CMAKE_INTERPROCEDURAL_OPTIMIZATION_TEMP})
-
-# Slang
-add_subdirectory(./native/slang)
+find_package(Tracy)
 
 # ----- Wrapped third party -----
 
