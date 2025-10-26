@@ -103,11 +103,3 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
-
-# ----- Additional targets -----
-
-add_custom_target(BuildAllNative ALL
-    DEPENDS
-        Exanite::TracyClient
-        Exanite::VulkanMemoryAllocator
-)

@@ -8,7 +8,6 @@ find_package(VulkanMemoryAllocator REQUIRED)
 # --- Build ---
 
 add_library(Exanite.VulkanMemoryAllocator SHARED)
-add_library(Exanite::VulkanMemoryAllocator ALIAS Exanite.VulkanMemoryAllocator)
 set_target_properties(Exanite.VulkanMemoryAllocator
     PROPERTIES
         CXX_STANDARD 23

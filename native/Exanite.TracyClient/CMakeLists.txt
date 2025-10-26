@@ -8,7 +8,6 @@ find_package(Tracy REQUIRED)
 # --- Build ---
 
 add_library(Exanite.TracyClient SHARED src/placeholder.cpp)
-add_library(Exanite::TracyClient ALIAS Exanite.TracyClient)
 set_target_properties(Exanite.TracyClient
     PROPERTIES
         CXX_STANDARD 23
