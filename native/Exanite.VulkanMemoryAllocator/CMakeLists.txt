@@ -3,7 +3,6 @@ project(Exanite.VulkanMemoryAllocator LANGUAGES CXX)
 
 # --- Dependencies ---
 
-find_package(Vulkan REQUIRED)
 find_package(VulkanMemoryAllocator REQUIRED)
 
 # --- Build ---
@@ -19,5 +18,4 @@ set_target_properties(vma
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
 target_sources(vma PRIVATE ${sources})
 
-target_link_libraries(vma PRIVATE Vulkan::Vulkan)
 target_link_libraries(vma PRIVATE Exanite::VulkanMemoryAllocator-Headers)
