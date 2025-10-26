@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.VulkanMemoryAllocator LANGUAGES CXX)
 
+# --- Dependencies ---
+
+find_package(Vulkan REQUIRED)
+find_package(VulkanMemoryAllocator REQUIRED)
+
 # --- Build ---
 
 add_library(vma SHARED)

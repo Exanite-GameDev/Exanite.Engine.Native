@@ -96,12 +96,6 @@ endif()
 
 # ----- Third party -----
 
-# Vulkan
-find_package(Vulkan REQUIRED)
-
-# VulkanMemoryAllocator
-find_package(VulkanMemoryAllocator REQUIRED)
-
 # Tracy library
 set(TRACY_ENABLE ON)
 set(TRACY_ON_DEMAND ON)
