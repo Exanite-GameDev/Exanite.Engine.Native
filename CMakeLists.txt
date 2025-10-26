@@ -16,6 +16,9 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 cmake_policy(SET CMP0069 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 
+# Tell CMake where to find CMake find modules
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 # --- Compilation options ---
 
 # Define DEBUG symbol if build configuration is Debug
@@ -97,10 +100,7 @@ endif()
 find_package(Vulkan REQUIRED)
 
 # VulkanMemoryAllocator
-add_library(VulkanMemoryAllocator-Headers INTERFACE)
-add_library(Exanite::VulkanMemoryAllocator-Headers ALIAS VulkanMemoryAllocator-Headers)
-
-target_include_directories(VulkanMemoryAllocator-Headers INTERFACE ./native/VulkanMemoryAllocator/include)
+find_package(VulkanMemoryAllocator REQUIRED)
 
 # Tracy library
 set(TRACY_ENABLE ON)
