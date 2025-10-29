@@ -31,6 +31,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     add_compile_options(-march=native)
 endif()
 
+# Compile as a universal dylib for Mac
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
+endif()
+
 # --- Linking options ---
 
 # This allows shared libraries to be loaded at different memory addresses
