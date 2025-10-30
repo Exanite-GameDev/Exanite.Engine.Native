@@ -5,6 +5,15 @@ project(Exanite.GameDev LANGUAGES CXX)
 
 # --- CMake options ---
 
+# Default to release builds
+if(NOT CMAKE_BUILD_TYPE)
+    message(STATUS "Setting build type to 'Release' as none was specified")
+    set(CMAKE_BUILD_TYPE "Release" CACHE FORCE)
+endif()
+
+# Add ExternalProject support
+include(ExternalProject)
+
 # Set option variable policy
 # The NEW policy enables the use of the option() function
 cmake_policy(SET CMP0077 NEW)
@@ -20,10 +29,6 @@ set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # --- Compilation options ---
-
-# Set global C/C++ versions
-set(CMAKE_C_STANDARD 17)
-set(CMAKE_CXX_STANDARD 23)
 
 # Define DEBUG symbol if build configuration is Debug
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

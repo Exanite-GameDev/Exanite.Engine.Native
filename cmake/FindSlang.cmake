@@ -12,16 +12,17 @@ if(NOT TARGET Slang::Slang)
                 -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
-                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-                -DCMAKE_C_STANDARD=${CMAKE_C_STANDARD}
-                -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
+                -DCMAKE_BUILD_TYPE=Release
 
-                -DSLANG_ENABLE_TESTS=OFF
-                -DSLANG_ENABLE_EXAMPLES=OFF
-                -DSLANG_ENABLE_GFX=OFF
-                -DSLANG_ENABLE_SLANGD=OFF
+                -DSLANG_ENABLE_DXIL=FALSE
+                -DSLANG_ENABLE_EXAMPLES=FALSE
+                -DSLANG_ENABLE_GFX=FALSE
+                -DSLANG_ENABLE_OPTIX=FALSE
+                -DSLANG_ENABLE_RELEASE_DEBUG_INFO=FALSE
+                -DSLANG_ENABLE_SLANGD=FALSE
+                -DSLANG_ENABLE_SLANGI=FALSE
+                -DSLANG_ENABLE_SLANG_GLSLANG=FALSE
+                -DSLANG_ENABLE_TESTS=FALSE
 
                 # Build static library
                 -DSLANG_LIB_TYPE=STATIC

@@ -1,5 +1,3 @@
-include(ExternalProject)
-
 if(NOT TARGET Tracy::TracyClient)
     block()
         # Define install directory
@@ -14,11 +12,7 @@ if(NOT TARGET Tracy::TracyClient)
                 -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
-                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-                -DCMAKE_C_STANDARD=${CMAKE_C_STANDARD}
-                -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
+                -DCMAKE_BUILD_TYPE=Release
 
                 -DTRACY_ENABLE=ON
                 -DTRACY_ON_DEMAND=ON
