@@ -17,4 +17,4 @@ set_target_properties(Exanite.VulkanMemoryAllocator
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
 target_sources(Exanite.VulkanMemoryAllocator PRIVATE ${sources})
 
-target_link_libraries(Exanite.VulkanMemoryAllocator PRIVATE Exanite::VulkanMemoryAllocator-Headers)
+target_link_libraries(Exanite.VulkanMemoryAllocator PRIVATE VulkanMemoryAllocator::Headers)
