@@ -7,7 +7,7 @@ if(NOT TARGET Slang::Slang)
         ExternalProject_Add(External.Slang
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
             INSTALL_DIR ${SLANG_INSTALL_DIR}
-            BUILD_BYPRODUCTS "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            BUILD_BYPRODUCTS "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
                 -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
@@ -37,7 +37,7 @@ if(NOT TARGET Slang::Slang)
         # Define imported target
         add_library(Slang SHARED IMPORTED GLOBAL)
         set_target_properties(Slang PROPERTIES
-            IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
             INTERFACE_INCLUDE_DIRECTORIES "${SLANG_INSTALL_DIR}/include"
         )
         add_dependencies(Slang External.Slang)
