@@ -8,7 +8,7 @@
 
 const char* shaderSource = "[shader(\"compute\")] void main() {}";
 
-void diagnoseIfNeeded(slang::IBlob* diagnosticsBlob)
+void logDiagnostics(slang::IBlob* diagnosticsBlob)
 {
     if (diagnosticsBlob != nullptr)
     {
@@ -162,7 +162,7 @@ int runSlangExample()
         //     diagnosticsBlob.writeRef()); // Optional diagnostic container
 
         slangModule = session->loadModule("shortest.slang", diagnosticsBlob.writeRef());
-        diagnoseIfNeeded(diagnosticsBlob);
+        logDiagnostics(diagnosticsBlob);
         if (!slangModule)
         {
             return -1;
@@ -196,7 +196,7 @@ int runSlangExample()
             componentTypes.size(),
             composedProgram.writeRef(),
             diagnosticsBlob.writeRef());
-        diagnoseIfNeeded(diagnosticsBlob);
+        logDiagnostics(diagnosticsBlob);
         SLANG_RETURN_ON_FAIL(result);
     }
 
@@ -207,7 +207,7 @@ int runSlangExample()
         SlangResult result = composedProgram->link(
             linkedProgram.writeRef(),
             diagnosticsBlob.writeRef());
-        diagnoseIfNeeded(diagnosticsBlob);
+        logDiagnostics(diagnosticsBlob);
         SLANG_RETURN_ON_FAIL(result);
     }
 
@@ -220,7 +220,7 @@ int runSlangExample()
             0,
             code.writeRef(),
             diagnosticsBlob.writeRef());
-        diagnoseIfNeeded(diagnosticsBlob);
+        logDiagnostics(diagnosticsBlob);
         SLANG_RETURN_ON_FAIL(result);
     }
 
