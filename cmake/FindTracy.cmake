@@ -32,7 +32,7 @@ if(NOT TARGET Tracy::TracyClient)
         set_target_properties(TracyClient
             PROPERTIES
                 IMPORTED_LOCATION "${TRACY_INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}TracyClient${CMAKE_STATIC_LIBRARY_SUFFIX}"
-                INTERFACE_INCLUDE_DIRECTORIES "${TRACY_INSTALL_DIR}/include"
+                INTERFACE_INCLUDE_DIRECTORIES "${TRACY_INSTALL_DIR}/include/tracy"
         )
         add_dependencies(TracyClient External.Tracy)
 
