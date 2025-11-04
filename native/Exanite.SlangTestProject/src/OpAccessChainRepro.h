@@ -19,7 +19,7 @@ void logDiagnostics(slang::IBlob* diagnostics)
     }
 }
 
-int runSlangExample()
+SlangResult runSlangExample()
 {
     // Create global session
     Slang::ComPtr<slang::IGlobalSession> globalSession;
@@ -28,7 +28,7 @@ int runSlangExample()
     // Create target
     slang::TargetDesc targetDesc =
     {
-        .format = SLANG_GLSL,
+        .format = SLANG_SPIRV,
         .profile = globalSession->findProfile("spirv_1_5"),
     };
 
@@ -100,7 +100,7 @@ int runSlangExample()
         SLANG_RETURN_ON_FAIL(result);
     }
 
-    std::cout << static_cast<const char*>(code->getBufferPointer()) << std::endl;
+    std::cout << "Successfully compiled shader" << std::endl;
 
     return 0;
 }

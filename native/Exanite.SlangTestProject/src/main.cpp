@@ -3,7 +3,8 @@
 
 int main()
 {
-    runSlangExample();
+    SlangResult result = runSlangExample();
+    SLANG_ASSERT_ON_FAIL(result);
 
-    return 0;
+    return result;
 }
