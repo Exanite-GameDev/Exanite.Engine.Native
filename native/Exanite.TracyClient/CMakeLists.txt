@@ -14,4 +14,4 @@ set_target_properties(Exanite.TracyClient
         OUTPUT_NAME "TracyClient"
 )
 
-target_link_libraries(Exanite.TracyClient PUBLIC TracyClient)
+target_link_libraries(Exanite.TracyClient PUBLIC Tracy::TracyClient)
