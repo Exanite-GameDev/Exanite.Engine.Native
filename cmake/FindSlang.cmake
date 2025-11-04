@@ -3,6 +3,14 @@ if(NOT TARGET Slang::Slang)
         # Define install directory
         set(SLANG_INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
 
+        # Define import paths
+        if(WIN32)
+            set(SLANG_IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/bin/slang-compiler.dll")
+            set(SLANG_IMPORTED_IMPLIB "${SLANG_INSTALL_DIR}/lib/slang-compiler.lib")
+        else()
+            set(SLANG_IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        endif()
+
         # Add as external project
         ExternalProject_Add(External.Slang
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
@@ -38,7 +46,8 @@ if(NOT TARGET Slang::Slang)
         # Define imported target
         add_library(Slang SHARED IMPORTED GLOBAL)
         set_target_properties(Slang PROPERTIES
-            IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            IMPORTED_LOCATION "${SLANG_IMPORTED_LOCATION}"
+            IMPORTED_IMPLIB "${SLANG_IMPORTED_IMPLIB}"
             INTERFACE_INCLUDE_DIRECTORIES "${SLANG_INSTALL_DIR}/include"
         )
         add_dependencies(Slang External.Slang)
