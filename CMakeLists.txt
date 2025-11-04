@@ -40,7 +40,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     add_compile_options(-march=native)
 endif()
 
-# Compile as a universal dylib for Mac
+# Compile as a universal binary for Mac
 if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
