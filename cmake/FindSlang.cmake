@@ -52,10 +52,11 @@ if(NOT TARGET Slang::Slang)
 
         # Define imported target
         add_library(Slang SHARED IMPORTED GLOBAL)
-        set_target_properties(Slang PROPERTIES
-            IMPORTED_LOCATION "${SLANG_IMPORTED_LOCATION}"
-            IMPORTED_IMPLIB "${SLANG_IMPORTED_IMPLIB}"
-            INTERFACE_INCLUDE_DIRECTORIES "${SLANG_INSTALL_DIR}/include"
+        set_target_properties(Slang
+            PROPERTIES
+                IMPORTED_LOCATION "${SLANG_IMPORTED_LOCATION}"
+                IMPORTED_IMPLIB "${SLANG_IMPORTED_IMPLIB}"
+                INTERFACE_INCLUDE_DIRECTORIES "${SLANG_INSTALL_DIR}/include"
         )
         add_dependencies(Slang External.Slang)
 
