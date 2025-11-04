@@ -24,7 +24,7 @@ if(NOT TARGET Tracy::TracyClient)
                 -DTRACY_LTO=OFF
 
                 # Compile as a universal binary for Mac
-                -DCMAKE_OSX_ARCHITECTURES=arm64;x86_64
+                -DCMAKE_OSX_ARCHITECTURES=x86_64;arm64
                 -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
         )
 

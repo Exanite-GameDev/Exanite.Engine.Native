@@ -50,7 +50,7 @@ endif()
 
 # Compile as a universal binary for Mac
 if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
 endif()
 
