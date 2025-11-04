@@ -22,6 +22,10 @@ if(NOT TARGET Tracy::TracyClient)
                 -DTRACY_STATIC=ON
                 -DBUILD_SHARED_LIBS=OFF
                 -DTRACY_LTO=OFF
+
+                # Pass through Mac settings
+                -DCMAKE_OSX_ARCHITECTURES="${CMAKE_OSX_ARCHITECTURES}"
+                -DCMAKE_OSX_DEPLOYMENT_TARGET="${CMAKE_OSX_DEPLOYMENT_TARGET}"
         )
 
         # Preemptively create include dir

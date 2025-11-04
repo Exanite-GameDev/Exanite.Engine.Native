@@ -25,12 +25,14 @@ if(NOT TARGET Slang::Slang)
                 # Set version
                 -DSLANG_VERSION_NUMERIC=2025.21
 
+                # Keep slangc enabled
+                -DSLANG_ENABLE_SLANGC=TRUE
+
                 # Disable unnecessary features
                 -DSLANG_ENABLE_DXIL=FALSE
                 -DSLANG_ENABLE_EXAMPLES=FALSE
                 -DSLANG_ENABLE_GFX=FALSE
                 -DSLANG_ENABLE_RELEASE_DEBUG_INFO=FALSE
-                -DSLANG_ENABLE_SLANGC=FALSE
                 -DSLANG_ENABLE_SLANGD=FALSE
                 -DSLANG_ENABLE_SLANGI=FALSE
                 -DSLANG_ENABLE_SLANGRT=FALSE
@@ -49,6 +51,10 @@ if(NOT TARGET Slang::Slang)
 
                 # Build shared library
                 -DSLANG_LIB_TYPE=SHARED
+
+                # Pass through Mac settings
+                -DCMAKE_OSX_ARCHITECTURES="${CMAKE_OSX_ARCHITECTURES}"
+                -DCMAKE_OSX_DEPLOYMENT_TARGET="${CMAKE_OSX_DEPLOYMENT_TARGET}"
         )
 
         # Preemptively create include dir
