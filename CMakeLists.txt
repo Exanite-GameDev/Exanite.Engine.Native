@@ -48,12 +48,6 @@ if(WIN32)
     add_definitions(-D_WIN32_WINNT=0x0A00)
 endif()
 
-# Compile as a universal binary for Mac
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
-endif()
-
 # --- Linking options ---
 
 # This allows shared libraries to be loaded at different memory addresses

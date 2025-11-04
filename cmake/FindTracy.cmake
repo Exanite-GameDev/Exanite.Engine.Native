@@ -22,10 +22,6 @@ if(NOT TARGET Tracy::TracyClient)
                 -DTRACY_STATIC=ON
                 -DBUILD_SHARED_LIBS=OFF
                 -DTRACY_LTO=OFF
-
-                # Compile as a universal binary for Mac
-                -DCMAKE_OSX_ARCHITECTURES=x86_64;arm64
-                -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
         )
 
         # Preemptively create include dir
