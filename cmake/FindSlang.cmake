@@ -22,6 +22,10 @@ if(NOT TARGET Slang::Slang)
 
                 -DCMAKE_BUILD_TYPE=Release
 
+                # Set version
+                -DSLANG_VERSION_NUMERIC=2025.21
+
+                # Disable unnecessary features
                 -DSLANG_ENABLE_DXIL=FALSE
                 -DSLANG_ENABLE_EXAMPLES=FALSE
                 -DSLANG_ENABLE_GFX=FALSE
