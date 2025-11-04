@@ -5,15 +5,6 @@ project(Exanite.GameDev LANGUAGES CXX)
 
 # --- CMake options ---
 
-# Default to release builds
-if(NOT CMAKE_BUILD_TYPE)
-    message(STATUS "Setting build type to 'Release' as none was specified")
-    set(CMAKE_BUILD_TYPE "Release" CACHE FORCE)
-endif()
-
-# Add ExternalProject support
-include(ExternalProject)
-
 # Set option variable policy
 # The NEW policy enables the use of the option() function
 cmake_policy(SET CMP0077 NEW)
@@ -28,7 +19,18 @@ set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 # Tell CMake where to find CMake find modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+# --- CMake modules ---
+
+# Add ExternalProject support
+include(ExternalProject)
+
 # --- Compilation options ---
+
+# Default to release builds
+if(NOT CMAKE_BUILD_TYPE)
+    message(STATUS "Setting build type to 'Release' as none was specified")
+    set(CMAKE_BUILD_TYPE "Release" CACHE FORCE)
+endif()
 
 # Define DEBUG symbol if build configuration is Debug
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -38,6 +40,12 @@ endif()
 # Enable architecture specific optimizations
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-march=native)
+endif()
+
+# Target Windows 10 or later
+# See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
+if(WIN32)
+    add_definitions(-D_WIN32_WINNT=0x0A00)
 endif()
 
 # Compile as a universal binary for Mac
@@ -72,14 +80,6 @@ set(CMAKE_DEBUG_POSTFIX d)
 # Globally disable shared library prefix for Windows
 if(WIN32)
     set(CMAKE_SHARED_LIBRARY_PREFIX "")
-endif()
-
-# --- Windows ---
-
-# Target Windows 10 or later
-# See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
-if(WIN32)
-    add_definitions(-D_WIN32_WINNT=0x0A00)
 endif()
 
 # --- Debug ---
