@@ -23,6 +23,7 @@ if(NOT TARGET Slang::Slang)
                 -DSLANG_ENABLE_SLANGI=OFF
                 -DSLANG_ENABLE_SLANGRT=OFF
                 -DSLANG_ENABLE_SLANG_GLSLANG=OFF
+                -DSLANG_ENABLE_SLANG_RHI=OFF
                 -DSLANG_ENABLE_TESTS=OFF
 
                 -DSLANG_SLANG_LLVM_FLAVOR=DISABLE
