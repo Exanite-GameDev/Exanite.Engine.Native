@@ -1,5 +1,5 @@
+#include "OpAccessChainRepro.h"
 #include <iostream>
-#include "SlangExample.h"
 
 int main()
 {

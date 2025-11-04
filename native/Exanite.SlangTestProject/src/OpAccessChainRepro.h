@@ -6,7 +6,8 @@
 #include <array>
 #include <iostream>
 
-const char* shaderSource = "[shader(\"compute\")] void main() {}";
+const char* shaderSource = "struct Input\r\n{\r\n    uint VertexId : SV_VertexId;\r\n};\r\n\r\nstruct Output\r\n{\r\n    float4 Position : SV_Position;\r\n    float2 Uv : Uv;\r\n};\r\n\r\nvoid main(in Input input, out Output output)\r\n{\r\n    float4 positionUvs[3];\r\n    positionUvs[0] = float4(-1, -1, 0, 0);\r\n    positionUvs[1] = float4(3, -1, 2, 0);\r\n    positionUvs[2] = float4(-1, 3, 0, 2);\r\n\r\n    output.Position = float4(positionUvs[input.VertexId].xy, 0, 1);\r\n    output.Uv = float2(positionUvs[input.VertexId].zw);\r\n}";
+// const char* shaderSource = "[shader(\"compute\")] void main() {}";
 
 void diagnoseIfNeeded(slang::IBlob* diagnosticsBlob)
 {
@@ -69,77 +70,20 @@ public:
     }
 };
 
-class CustomFileSystem : public ISlangFileSystem
-{
-private:
-    int refCount = 0;
-
-public:
-    SlangResult loadFile(char const* path, ISlangBlob** outBlob) override
-    {
-        std::cout << std::format("Loading file at: {}", path) << std::endl;
-
-        if (std::string(path) == std::string("shortest.slang"))
-        {
-            auto blob = new StringBlob(shaderSource);
-            blob->addRef();
-            *outBlob = blob;
-
-            std::cout << std::format("Successfully loaded") << std::endl;
-
-            return SlangUtility::resultOk;
-        }
-
-        std::cout << std::format("Failed to load") << std::endl;
-
-        return SlangUtility::resultUnspecifiedFailure;
-    }
-
-    void* castAs(const SlangUUID& guid) override
-    {
-        return nullptr;
-    }
-
-    SlangResult queryInterface(SlangUUID const& uuid, void** outObject) override
-    {
-        return SlangUtility::resultNoInterface;
-    }
-
-    uint32_t addRef() override
-    {
-        refCount++;
-        return refCount;
-    }
-
-    uint32_t release() override
-    {
-        refCount--;
-        if (refCount == 0)
-        {
-            delete this;
-        }
-
-        return refCount;
-    }
-};
-
 int runSlangExample()
 {
-    // 1. Create Global Session
+    // Create Global Session
     Slang::ComPtr<slang::IGlobalSession> globalSession;
     createGlobalSession(globalSession.writeRef());
 
-    // 1.5. Create target
+    // Create target
     slang::TargetDesc targetDesc = {};
 
     targetDesc.format = SLANG_GLSL;
     targetDesc.profile = globalSession->findProfile("spirv_1_5");
 
-    // 2. Create Session
+    // Create Session
     slang::SessionDesc sessionDesc = {};
-
-    Slang::ComPtr<CustomFileSystem> fileSystem = Slang::ComPtr(new CustomFileSystem);
-    sessionDesc.fileSystem = fileSystem;
 
     sessionDesc.targets = &targetDesc;
     sessionDesc.targetCount = 1;
@@ -151,17 +95,11 @@ int runSlangExample()
     Slang::ComPtr<slang::ISession> session;
     globalSession->createSession(sessionDesc, session.writeRef());
 
-    // 3. Load module
+    // Load module
     Slang::ComPtr<slang::IModule> slangModule;
     {
         Slang::ComPtr<slang::IBlob> diagnosticsBlob;
-        // slangModule = session->loadModuleFromSourceString(
-        //     "shortest.slang",                        // Module name
-        //     "shortest.slang",                        // Module path
-        //     shortestShader,                          // Shader source code
-        //     diagnosticsBlob.writeRef()); // Optional diagnostic container
-
-        slangModule = session->loadModule("shortest.slang", diagnosticsBlob.writeRef());
+        slangModule = session->loadModuleFromSourceString("shader.slang","shader.slang",shaderSource,diagnosticsBlob.writeRef());
         diagnoseIfNeeded(diagnosticsBlob);
         if (!slangModule)
         {
@@ -169,11 +107,11 @@ int runSlangExample()
         }
     }
 
-    // 4. Query Entry Points
+    // Query Entry Points
     Slang::ComPtr<slang::IEntryPoint> entryPoint;
     {
         Slang::ComPtr<slang::IBlob> diagnosticsBlob;
-        slangModule->findEntryPointByName("main", entryPoint.writeRef());
+        slangModule->findAndCheckEntryPoint("main", SLANG_STAGE_VERTEX, entryPoint.writeRef(), diagnosticsBlob.writeRef());
         if (!entryPoint)
         {
             std::cout << "Error getting entry point" << std::endl;
@@ -181,12 +119,12 @@ int runSlangExample()
         }
     }
 
-    // 5. Compose Modules + Entry Points
+    // Compose Modules + Entry Points
     std::array<slang::IComponentType*, 2> componentTypes =
-        {
-            slangModule,
-            entryPoint
-        };
+    {
+        slangModule,
+        entryPoint
+    };
 
     Slang::ComPtr<slang::IComponentType> composedProgram;
     {
@@ -200,7 +138,7 @@ int runSlangExample()
         SLANG_RETURN_ON_FAIL(result);
     }
 
-    // 6. Link
+    // Link
     Slang::ComPtr<slang::IComponentType> linkedProgram;
     {
         Slang::ComPtr<slang::IBlob> diagnosticsBlob;
@@ -211,7 +149,7 @@ int runSlangExample()
         SLANG_RETURN_ON_FAIL(result);
     }
 
-    // 7. Get Target Kernel Code
+    // Get Target Kernel Code
     Slang::ComPtr<slang::IBlob> code;
     {
         Slang::ComPtr<slang::IBlob> diagnosticsBlob;
