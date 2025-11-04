@@ -116,10 +116,7 @@ endif()
 
 # ----- Third party -----
 
-if(NOT APPLE)
-    add_subdirectory(./native/Exanite.TracyClient)
-endif()
-
+add_subdirectory(./native/Exanite.TracyClient)
 add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
