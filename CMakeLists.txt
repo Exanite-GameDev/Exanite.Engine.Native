@@ -64,11 +64,6 @@ endif()
 # Use shared libraries by default
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries by default")
 
-# Enable RPaths on Mac
-if(APPLE)
-    set(CMAKE_MACOSX_RPATH ON)
-endif()
-
 # --- Output options ---
 
 # This postfixes a "d" to shared library names in DEBUG mode
