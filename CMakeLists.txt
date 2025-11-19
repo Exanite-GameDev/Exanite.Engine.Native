@@ -92,3 +92,12 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
+
+# ----- Call all find modules -----
+
+# This is so that the targets always exist
+
+find_package(Slang REQUIRED)
+find_package(Tracy REQUIRED)
+find_package(Vulkan REQUIRED)
+find_package(VulkanMemoryAllocator REQUIRED)
