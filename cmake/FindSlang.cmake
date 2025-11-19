@@ -1,21 +1,21 @@
 if(NOT TARGET Slang::Slang)
     block()
         # Define install directory
-        set(SLANG_INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
+        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
 
         # Define import paths
         if(WIN32)
-            set(SLANG_IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/bin/slang-compiler.dll")
-            set(SLANG_IMPORTED_IMPLIB "${SLANG_INSTALL_DIR}/lib/slang-compiler.lib")
+            set(IMPORTED_LOCATION "${INSTALL_DIR}/bin/slang-compiler.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/slang-compiler.lib")
         else()
-            set(SLANG_IMPORTED_LOCATION "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(IMPORTED_LOCATION "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
         ExternalProject_Add(External.Slang
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
-            INSTALL_DIR ${SLANG_INSTALL_DIR}
-            BUILD_BYPRODUCTS "${SLANG_INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            INSTALL_DIR ${INSTALL_DIR}
+            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
                 -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
@@ -54,15 +54,15 @@ if(NOT TARGET Slang::Slang)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${SLANG_INSTALL_DIR}/include)
+        file(MAKE_DIRECTORY ${INSTALL_DIR}/include)
 
         # Define imported target
         add_library(Slang SHARED IMPORTED GLOBAL)
         set_target_properties(Slang
             PROPERTIES
-                IMPORTED_LOCATION "${SLANG_IMPORTED_LOCATION}"
-                IMPORTED_IMPLIB "${SLANG_IMPORTED_IMPLIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${SLANG_INSTALL_DIR}/include"
+                IMPORTED_LOCATION "${IMPORTED_LOCATION}"
+                IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
         add_dependencies(Slang External.Slang)
 
