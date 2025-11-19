@@ -68,9 +68,6 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries by default")
 
 # --- Output options ---
 
-# This postfixes a "d" to shared library names in DEBUG mode
-set(CMAKE_DEBUG_POSTFIX d)
-
 # Globally disable shared library prefix for Windows
 if(WIN32)
     set(CMAKE_SHARED_LIBRARY_PREFIX "")
