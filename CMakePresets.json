@@ -47,6 +47,28 @@
       }
     },
     {
+      "name": "Windows-VS2026-Debug",
+      "generator": "Visual Studio 18 2026",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v145"
+      }
+    },
+    {
+      "name": "Windows-VS2026-Release",
+      "generator": "Visual Studio 18 2026",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v145"
+      }
+    },
+    {
       "name": "Windows-VS2022-Debug",
       "generator": "Visual Studio 17 2022",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-debug",
