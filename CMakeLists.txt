@@ -29,7 +29,7 @@ include(ExternalProject)
 # Default to release builds
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to 'Release' as none was specified")
-    set(CMAKE_BUILD_TYPE "Release" CACHE FORCE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
 
 # Define DEBUG symbol if build configuration is Debug
