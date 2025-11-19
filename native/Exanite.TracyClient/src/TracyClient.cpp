@@ -10,7 +10,7 @@
 #include <tracy/Tracy.hpp>
 
 // Used to ensure that Tracy's symbols are detected as used and properly exported
-EXPORT_SYMBOL int ExportHelper()
+EXPORT_SYMBOL void ExportHelper()
 {
     TracyNoop;
 }
