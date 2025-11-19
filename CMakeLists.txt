@@ -100,5 +100,6 @@ add_subdirectory(./native/Exanite.SlangTestProject)
 
 find_package(Slang REQUIRED)
 find_package(Tracy REQUIRED)
+find_package(TracyProfiler REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(VulkanMemoryAllocator REQUIRED)
