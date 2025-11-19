@@ -1,6 +1,7 @@
 if(NOT TARGET Tracy::TracyClient)
     block()
-        # Define install directory
+        # Define build and install directories
+        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/tracy)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/tracy)
 
         # Define import paths
@@ -14,13 +15,14 @@ if(NOT TARGET Tracy::TracyClient)
         # Add as external project
         ExternalProject_Add(External.Tracy
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/tracy
+            BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}TracyClient${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
                 -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
-                -DCMAKE_BUILD_TYPE=Release
+                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 
                 -DTRACY_ENABLE=ON
                 -DTRACY_ON_DEMAND=ON
