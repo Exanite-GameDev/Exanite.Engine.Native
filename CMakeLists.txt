@@ -86,7 +86,6 @@ endif()
 
 # ----- Third party -----
 
-add_subdirectory(./native/Exanite.TracyClient)
 add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
