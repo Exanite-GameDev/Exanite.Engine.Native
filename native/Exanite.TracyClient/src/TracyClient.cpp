@@ -7,6 +7,7 @@
 #define TRACY_ENABLE ON
 #define TRACY_ON_DEMAND ON
 #define TRACY_CALLSTACK ON
+#define TRACY_EXPORTS ON
 #include <tracy/Tracy.hpp>
 
 // Used to ensure that Tracy's symbols are detected as used and properly exported
