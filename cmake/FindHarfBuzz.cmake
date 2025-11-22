@@ -23,6 +23,7 @@ if(NOT TARGET External.HarfBuzz)
             CMAKE_ARGS
                 -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype
 
                 -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 
@@ -32,6 +33,7 @@ if(NOT TARGET External.HarfBuzz)
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
         )
+        add_dependencies(External.HarfBuzz External.FreeType)
 
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include/harfbuzz)
