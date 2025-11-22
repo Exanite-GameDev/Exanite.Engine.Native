@@ -94,6 +94,7 @@ add_subdirectory(./native/Exanite.SlangTestProject)
 
 # This is so that the targets always exist
 
+find_package(FreeType REQUIRED)
 find_package(HarfBuzz REQUIRED)
 find_package(Slang REQUIRED)
 find_package(Tracy REQUIRED)
