@@ -32,7 +32,7 @@ if(NOT TARGET External.FreeType)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_DIR}/include/freetype)
+        file(MAKE_DIRECTORY ${INSTALL_DIR}/include/freetype2)
 
         # Define imported target
         add_library(FreeType SHARED IMPORTED GLOBAL)
@@ -40,7 +40,7 @@ if(NOT TARGET External.FreeType)
                 PROPERTIES
                 IMPORTED_LOCATION "${IMPORTED_LOCATION}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/freetype"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/freetype2"
         )
         add_dependencies(FreeType External.FreeType)
 
