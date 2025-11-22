@@ -24,6 +24,9 @@ if(NOT TARGET External.HarfBuzz)
 
                 -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 
+                # Enable freetype integration
+                -DHB_HAVE_FREETYPE=ON
+
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
         )
