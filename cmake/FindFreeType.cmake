@@ -37,7 +37,7 @@ if(NOT TARGET External.FreeType)
         # Define imported target
         add_library(FreeType SHARED IMPORTED GLOBAL)
         set_target_properties(FreeType
-                PROPERTIES
+            PROPERTIES
                 IMPORTED_LOCATION "${IMPORTED_LOCATION}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/freetype2"
