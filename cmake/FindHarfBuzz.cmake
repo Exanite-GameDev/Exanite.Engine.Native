@@ -1,5 +1,7 @@
 if(NOT TARGET External.HarfBuzz)
     block()
+        find_package(FreeType REQUIRED)
+
         # Define build and install directories
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/harfbuzz)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/harfbuzz)
