@@ -23,6 +23,9 @@ if(NOT TARGET External.HarfBuzz)
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
                 -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+
+                # Build shared library
+                -DBUILD_SHARED_LIBS=ON
         )
 
         # Preemptively create include dir
