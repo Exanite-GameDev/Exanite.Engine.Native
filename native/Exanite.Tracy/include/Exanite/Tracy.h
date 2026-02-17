@@ -2,6 +2,7 @@
 
 #define TRACY_ENABLE
 
+#include <tracy/TracyC.h>
 #include <tracy/Tracy.hpp>
 
 #if defined(_WIN32)
