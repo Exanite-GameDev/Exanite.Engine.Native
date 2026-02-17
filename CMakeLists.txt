@@ -90,6 +90,7 @@ endif()
 
 # ----- Third party -----
 
+add_subdirectory(./native/Exanite.Tracy)
 add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----

@@ -11,7 +11,7 @@ add_library(Exanite.VulkanMemoryAllocator SHARED)
 set_target_properties(Exanite.VulkanMemoryAllocator
     PROPERTIES
         CXX_STANDARD 23
-        OUTPUT_NAME "vma"
+        OUTPUT_NAME "ExaniteVulkanMemoryAllocator"
 )
 
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)

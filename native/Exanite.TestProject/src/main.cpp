@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Exanite/Tracy.h>
 
 typedef struct UIntBitfield {
     int bits : 8;
@@ -10,6 +11,11 @@ typedef struct UIntBitfield {
 int main()
 {
     std::cout << sizeof(UIntBitfield) << std::endl;
+    std::cout << ___tracy_get_time() << std::endl;
+    std::cout << ___tracy_get_time() << std::endl;
+    std::cout << ___tracy_get_time() << std::endl;
+    std::cout << ___tracy_get_time() << std::endl;
+    std::cout << ___tracy_connected() << std::endl;
 
     return 0;
 }
