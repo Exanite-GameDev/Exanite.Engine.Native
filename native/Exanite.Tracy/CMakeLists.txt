@@ -21,3 +21,8 @@ target_include_directories(Exanite.Tracy PUBLIC "include")
 target_compile_definitions(Exanite.Tracy PRIVATE EXANITE_TRACY_EXPORT)
 
 target_link_libraries(Exanite.Tracy PUBLIC Tracy::TracyClient)
+if(WIN32)
+    target_link_options(Exanite.Tracy PRIVATE "/WHOLEARCHIVE:$<TARGET_FILE:Tracy::TracyClient>")
+else()
+    target_link_libraries(Exanite.Tracy PRIVATE -Wl,--whole-archive Tracy::TracyClient -Wl,--no-whole-archive)
+endif()
