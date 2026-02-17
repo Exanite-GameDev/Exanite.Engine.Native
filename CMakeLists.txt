@@ -5,6 +5,13 @@ project(Exanite.GameDev LANGUAGES CXX)
 
 # --- CMake options ---
 
+# Hide symbols by default to prevent cross-platform issues
+# This ensures that symbols are consistently exported
+# Windows is strict and requires explicit exports
+# Linux and Mac will export most symbols by default
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+
 # Set option variable policy
 # The NEW policy enables the use of the option() function
 cmake_policy(SET CMP0077 NEW)
