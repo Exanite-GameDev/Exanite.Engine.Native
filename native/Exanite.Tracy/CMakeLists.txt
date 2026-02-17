@@ -15,7 +15,7 @@ set_target_properties(Exanite.Tracy
         WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
-file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB sources CONFIGURE_DEPENDS src/*.cpp src/*.def)
 target_sources(Exanite.Tracy PRIVATE ${sources})
 target_include_directories(Exanite.Tracy PUBLIC "include")
 
