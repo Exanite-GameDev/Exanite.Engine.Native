@@ -20,11 +20,4 @@ target_include_directories(Exanite.Tracy PUBLIC "include")
 
 target_compile_definitions(Exanite.Tracy PRIVATE EXANITE_TRACY_EXPORT)
 
-target_link_libraries(Exanite.Tracy PUBLIC Tracy::TracyClient)
-if(WIN32)
-    target_link_options(Exanite.Tracy PRIVATE "/WHOLEARCHIVE:$<TARGET_FILE:Tracy::TracyClient>")
-elseif(APPLE)
-    target_link_options(Exanite.Tracy PRIVATE -Wl,-force_load,$<TARGET_FILE:Tracy::TracyClient>)
-else()
-    target_link_options(Exanite.Tracy PRIVATE "LINKER:--whole-archive" Tracy::TracyClient "LINKER:--no-whole-archive")
-endif()
+target_link_libraries(Exanite.Tracy PUBLIC "$<LINK_LIBRARY:WHOLE_ARCHIVE,Tracy::TracyClient>")
