@@ -15,6 +15,11 @@ if(NOT TARGET External.TracyProfiler)
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
                 -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+
+                # Force consistent output folders between Debug/Release
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/bin
         )
     endblock()
 endif()

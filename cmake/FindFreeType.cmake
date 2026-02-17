@@ -29,6 +29,11 @@ if(NOT TARGET External.FreeType)
 
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
+
+                # Force consistent output folders between Debug/Release
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/bin
         )
 
         # Preemptively create include dir

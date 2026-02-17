@@ -53,6 +53,11 @@ if(NOT TARGET Slang::Slang)
 
                 # Build shared library
                 -DSLANG_LIB_TYPE=SHARED
+
+                # Force consistent output folders between Debug/Release
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/bin
         )
 
         # Preemptively create include dir
