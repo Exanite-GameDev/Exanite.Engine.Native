@@ -7,9 +7,9 @@
   },
   "configurePresets": [
     {
-      "name": "Linux-Clang-Debug",
+      "name": "linux-debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -17,9 +17,9 @@
       }
     },
     {
-      "name": "Linux-Clang-Release",
+      "name": "linux-release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -27,132 +27,68 @@
       }
     },
     {
-      "name": "Linux-GCC-Debug",
+      "name": "windows-debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-gcc-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-debug",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "host=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++"
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
       }
     },
     {
-      "name": "Linux-GCC-Release",
+      "name": "windows-release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-gcc-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-release",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "host=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++"
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
       }
     },
     {
-      "name": "Windows-VS2026-Debug",
-      "generator": "Visual Studio 18 2026",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-debug",
+      "name": "mac-debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v145"
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
       }
     },
     {
-      "name": "Windows-VS2026-Release",
-      "generator": "Visual Studio 18 2026",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-release",
+      "name": "mac-release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v145"
-      }
-    },
-    {
-      "name": "Windows-VS2022-Debug",
-      "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v143"
-      }
-    },
-    {
-      "name": "Windows-VS2022-Release",
-      "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-release",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v143"
-      }
-    },
-    {
-      "name": "Windows-VS2019-Debug",
-      "generator": "Visual Studio 16 2019",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2019-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v142"
-      }
-    },
-    {
-      "name": "Windows-VS2019-Release",
-      "generator": "Visual Studio 16 2019",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2019-release",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v142"
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
       }
     }
   ],
   "buildPresets": [
-    {
-      "name": "Linux-Clang-Debug",
-      "configurePreset": "Linux-Clang-Debug",
-      "configuration": "Debug"
-    },
-    {
-      "name": "Linux-Clang-Release",
-      "configurePreset": "Linux-Clang-Release",
-      "configuration": "Release"
-    },
-    {
-      "name": "Linux-GCC-Debug",
-      "configurePreset": "Linux-GCC-Debug",
-      "configuration": "Debug"
-    },
-    {
-      "name": "Linux-GCC-Release",
-      "configurePreset": "Linux-GCC-Release",
-      "configuration": "Release"
-    },
-    {
-      "name": "Windows-VS2022-Debug",
-      "configurePreset": "Windows-VS2022-Debug",
-      "configuration": "Debug"
-    },
-    {
-      "name": "Windows-VS2022-Release",
-      "configurePreset": "Windows-VS2022-Release",
-      "configuration": "Release"
-    },
-    {
-      "name": "Windows-VS2019-Debug",
-      "configurePreset": "Windows-VS2019-Debug",
-      "configuration": "Debug"
-    },
-    {
-      "name": "Windows-VS2019-Release",
-      "configurePreset": "Windows-VS2019-Release",
-      "configuration": "Release"
-    }
+    { "name": "linux-debug", "configurePreset": "linux-debug", "configuration": "Debug" },
+    { "name": "linux-release", "configurePreset": "linux-release", "configuration": "Release" },
+    { "name": "windows-debug", "configurePreset": "windows-debug", "configuration": "Debug" },
+    { "name": "windows-release", "configurePreset": "windows-release", "configuration": "Release" },
+    { "name": "mac-debug", "configurePreset": "mac-debug", "configuration": "Debug" },
+    { "name": "mac-release", "configurePreset": "mac-release", "configuration": "Release" }
   ]
 }
