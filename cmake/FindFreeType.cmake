@@ -19,7 +19,7 @@ if(NOT TARGET External.FreeType)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}freetype${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
-                -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
                 -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
@@ -31,9 +31,9 @@ if(NOT TARGET External.FreeType)
                 -DBUILD_SHARED_LIBS=ON
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
         )
 
         # Preemptively create include dir

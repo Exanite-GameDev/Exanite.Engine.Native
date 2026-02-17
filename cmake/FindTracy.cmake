@@ -14,7 +14,7 @@ if(NOT TARGET Tracy::TracyClient)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}TracyClient${CMAKE_STATIC_LIBRARY_SUFFIX}"
             CMAKE_ARGS
-                -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
                 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
                 -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
@@ -29,9 +29,9 @@ if(NOT TARGET Tracy::TracyClient)
                 -DTRACY_LTO=OFF
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=<INSTALL_DIR>/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
         )
 
         # Preemptively create include dir
