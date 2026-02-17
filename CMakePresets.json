@@ -7,9 +7,9 @@
   },
   "configurePresets": [
     {
-      "name": "linux-debug",
+      "name": "linux-clang-debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -17,9 +17,9 @@
       }
     },
     {
-      "name": "linux-release",
+      "name": "linux-clang-release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -27,9 +27,9 @@
       }
     },
     {
-      "name": "windows-debug",
+      "name": "windows-vs2026-debug",
       "generator": "Visual Studio 18 2026",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "cl",
@@ -38,9 +38,9 @@
       }
     },
     {
-      "name": "windows-release",
+      "name": "windows-vs2026-release",
       "generator": "Visual Studio 18 2026",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "cl",
@@ -49,9 +49,31 @@
       }
     },
     {
-      "name": "mac-debug",
+      "name": "windows-vs2022-debug",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v143"
+      }
+    },
+    {
+      "name": "windows-vs2022-release",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_GENERATOR_TOOLSET": "v143"
+      }
+    },
+    {
+      "name": "mac-clang-debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-debug",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-clang-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -59,9 +81,9 @@
       }
     },
     {
-      "name": "mac-release",
+      "name": "mac-clang-release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-release",
+      "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-clang-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -70,11 +92,13 @@
     }
   ],
   "buildPresets": [
-    { "name": "linux-debug", "configurePreset": "linux-debug", "configuration": "Debug" },
-    { "name": "linux-release", "configurePreset": "linux-release", "configuration": "Release" },
-    { "name": "windows-debug", "configurePreset": "windows-debug", "configuration": "Debug" },
-    { "name": "windows-release", "configurePreset": "windows-release", "configuration": "Release" },
-    { "name": "mac-debug", "configurePreset": "mac-debug", "configuration": "Debug" },
-    { "name": "mac-release", "configurePreset": "mac-release", "configuration": "Release" }
+    { "name": "linux-clang-debug", "configurePreset": "linux-clang-debug", "configuration": "Debug" },
+    { "name": "linux-clang-release", "configurePreset": "linux-clang-release", "configuration": "Release" },
+    { "name": "windows-vs2026-debug", "configurePreset": "windows-vs2026-debug", "configuration": "Debug" },
+    { "name": "windows-vs2026-release", "configurePreset": "windows-vs2026-release", "configuration": "Release" },
+    { "name": "windows-vs2022-debug", "configurePreset": "windows-vs2022-debug", "configuration": "Debug" },
+    { "name": "windows-vs2022-release", "configurePreset": "windows-vs2022-release", "configuration": "Release" },
+    { "name": "mac-clang-debug", "configurePreset": "mac-clang-debug", "configuration": "Debug" },
+    { "name": "mac-clang-release", "configurePreset": "mac-clang-release", "configuration": "Release" }
   ]
 }
