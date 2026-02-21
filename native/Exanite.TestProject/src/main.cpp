@@ -27,7 +27,7 @@ int main()
     ___tracy_set_thread_name("Main");
 
     {
-        auto source = ___tracy_alloc_srcloc(123, "hello-cpu.cpp", 13, "cpu", 3, 0);
+        auto source = ___tracy_alloc_srcloc_name(123, "hello-cpu.cpp", 13, "cpu", 3, 0, 0, 0);
         auto zone = ___tracy_emit_zone_begin_alloc(source, 1);
         {
             sleep(1);
@@ -47,7 +47,7 @@ int main()
 
     // Create GPU zone
     {
-        auto source = ___tracy_alloc_srcloc(123, "hello-gpu.cpp", 13, "gpu", 3, 0);
+        auto source = ___tracy_alloc_srcloc_name(123, "hello-gpu.cpp", 13, "gpu", 3, 0, 0, 0);
         ___tracy_emit_gpu_zone_begin_alloc_serial(___tracy_gpu_zone_begin_data(source, startQueryId, context));
         ___tracy_emit_gpu_zone_end_serial(___tracy_gpu_zone_end_data(endQueryId, context));
     }
