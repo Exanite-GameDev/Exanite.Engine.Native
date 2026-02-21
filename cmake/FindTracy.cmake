@@ -21,7 +21,6 @@ if(NOT TARGET Tracy::TracyClient)
 
                 -DTRACY_ENABLE=ON
                 -DTRACY_ON_DEMAND=ON
-                -DTRACY_CALLSTACK=ON
 
                 # Build static library
                 -DBUILD_SHARED_LIBS=OFF
