@@ -42,7 +42,7 @@ int main()
 
     // Create context
     ___tracy_emit_gpu_new_context_serial(___tracy_gpu_new_context_data(static_cast<int64_t>(0.25f * nanoSecondsPerSecond), 1, context, 0, 0));
-    ___tracy_emit_gpu_context_name(___tracy_gpu_context_name_data(context, "Graphics"));
+    ___tracy_emit_gpu_context_name(___tracy_gpu_context_name_data(context, "Graphics", 8));
     ___tracy_emit_gpu_time_sync_serial(___tracy_gpu_time_sync_data(static_cast<int64_t>(0.5f * nanoSecondsPerSecond), context));
 
     // Create GPU zone
