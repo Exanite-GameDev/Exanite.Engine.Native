@@ -1,4 +1,6 @@
+#include <chrono>
 #include <iostream>
+#include <thread>
 #include <unistd.h>
 #include <Exanite/Tracy.h>
 
@@ -9,7 +11,7 @@ typedef struct UIntBitfield {
     unsigned char bits3 : 8;
 } UIntBitfield;
 
-int main()
+[[noreturn]] int main()
 {
     std::cout << sizeof(UIntBitfield) << std::endl;
     std::cout << ___tracy_get_time() << std::endl;
@@ -24,39 +26,65 @@ int main()
 
     std::cout << "Connected!" << std::endl;
 
+    auto start = std::chrono::steady_clock::now();
+    const auto nanoSecondsPerSecond = 1000000000.0f;
+
+    // Initialize CPU timeline
     ___tracy_set_thread_name("Main");
 
-    {
-        auto source = ___tracy_alloc_srcloc_name(123, "hello-cpu.cpp", 13, "cpu", 3, 0, 0, 0);
-        auto zone = ___tracy_emit_zone_begin_alloc(source, 1);
-        {
-            sleep(1);
-        }
-        ___tracy_emit_zone_end(zone);
-    }
-
+    // Initialize GPU timeline
     auto context = 0;
-    auto startQueryId = 0;
-    auto endQueryId = 1;
-    auto nanoSecondsPerSecond = 1000000000.0f;
-
-    // Create context
-    ___tracy_emit_gpu_new_context_serial(___tracy_gpu_new_context_data(static_cast<int64_t>(0.25f * nanoSecondsPerSecond), 1, context, 0, 2));
+    ___tracy_emit_gpu_new_context_serial(___tracy_gpu_new_context_data(0, 1, context, 0, 2));
     ___tracy_emit_gpu_context_name(___tracy_gpu_context_name_data(context, "Graphics", 8));
-    ___tracy_emit_gpu_time_sync_serial(___tracy_gpu_time_sync_data(static_cast<int64_t>(0.5f * nanoSecondsPerSecond), context));
 
-    // Create GPU zone
+    while (true)
     {
-        auto source = ___tracy_alloc_srcloc_name(123, "hello-gpu.cpp", 13, "gpu", 3, 0, 0, 0);
-        ___tracy_emit_gpu_zone_begin_alloc_serial(___tracy_gpu_zone_begin_data(source, startQueryId, context));
+        // Mark start of frame
+        ___tracy_emit_frame_mark("Main");
+
+        // Simulate CPU work
+        {
+            auto cpuSource = ___tracy_alloc_srcloc_name(1, "hello-cpu.cpp", 13, "cpu1", 4, 0, 0, 0);
+            auto zone = ___tracy_emit_zone_begin_alloc(cpuSource, 1);
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            }
+            ___tracy_emit_zone_end(zone);
+        }
+
+        // Simulate GPU work
+        auto simulatedGpuTime = static_cast<float>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - start).count());
+        auto startQueryId = 0;
+        auto endQueryId = 1;
+        auto gpuSource = ___tracy_alloc_srcloc_name(123, "hello-gpu.cpp", 13, "gpu", 3, 0, 0, 0);
+        ___tracy_emit_gpu_zone_begin_alloc_serial(___tracy_gpu_zone_begin_data(gpuSource, startQueryId, context));
+        {
+            // Simulate recording time
+            {
+                auto cpuSource = ___tracy_alloc_srcloc_name(2, "hello-cpu.cpp", 13, "cpu2", 4, 0, 0, 0);
+                auto zone = ___tracy_emit_zone_begin_alloc(cpuSource, 1);
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                }
+                ___tracy_emit_zone_end(zone);
+            }
+        }
         ___tracy_emit_gpu_zone_end_serial(___tracy_gpu_zone_end_data(endQueryId, context));
+
+        // Simulate CPU work
+        {
+            auto cpuSource = ___tracy_alloc_srcloc_name(3, "hello-cpu.cpp", 13, "cpu3", 4, 0, 0, 0);
+            auto zone = ___tracy_emit_zone_begin_alloc(cpuSource, 1);
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            }
+            ___tracy_emit_zone_end(zone);
+        }
+
+        // Submit GPU timestamps
+        ___tracy_emit_gpu_time_serial(___tracy_gpu_time_data(static_cast<int64_t>(simulatedGpuTime + 0.2f * nanoSecondsPerSecond), startQueryId, context));
+        ___tracy_emit_gpu_time_serial(___tracy_gpu_time_data(static_cast<int64_t>(simulatedGpuTime + 0.4f * nanoSecondsPerSecond), endQueryId, context));
     }
-
-    // Emit data
-    ___tracy_emit_gpu_time_serial(___tracy_gpu_time_data(static_cast<int64_t>(1.0f * nanoSecondsPerSecond), startQueryId, context));
-    ___tracy_emit_gpu_time_serial(___tracy_gpu_time_data(static_cast<int64_t>(2.0f * nanoSecondsPerSecond), endQueryId, context));
-
-    sleep(1);
 
     return 0;
 }
