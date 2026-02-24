@@ -17,5 +17,6 @@
 
 extern "C"
 {
-    EXANITE_TRACY_API int64_t ___tracy_get_time();
+    // Not actually needed. Keeping as reference for how to add a custom export.
+    // EXANITE_TRACY_API int64_t ___tracy_get_time();
 }
