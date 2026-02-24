@@ -1,3 +1,5 @@
+Set-Location -Path $PSScriptRoot
+
 # This is very hardcoded right now
 $lib = "..\..\outputs\cache\cmake-user\windows-vs2022-release\install\tracy\lib\TracyClient.lib"
 $output = "src\Exports.def"
