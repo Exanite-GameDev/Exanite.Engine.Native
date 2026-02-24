@@ -9,5 +9,6 @@ $symbols = dumpbin /SYMBOLS $lib |
 
 "EXPORTS" | Out-File -FilePath $output
 $symbols |
+    Sort-Object |
     ForEach-Object { "    $_" } |
     Out-File -FilePath $output -Append
