@@ -1,4 +1,8 @@
 #include "OpAccessChainRepro.h"
+
+#include <slang-com-helper.h>
+
+#include <cassert>
 #include <iostream>
 
 int main()
