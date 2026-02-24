@@ -73,6 +73,17 @@ endif()
 # Use shared libraries by default
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries by default")
 
+# Ensure RPath is set for built binaries
+if(APPLE)
+    set(CMAKE_INSTALL_RPATH "@loader_path")
+elseif(UNIX)
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+endif()
+
+if(UNIX)
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+endif()
+
 # --- Output options ---
 
 # Globally disable shared library prefix for Windows
