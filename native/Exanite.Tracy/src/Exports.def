@@ -44,10 +44,8 @@ EXPORTS
     ___tracy_emit_memory_free_callstack_named
     ___tracy_emit_memory_discard
     ___tracy_emit_memory_discard_callstack
-    ___tracy_emit_message
-    ___tracy_emit_messageL
-    ___tracy_emit_messageC
-    ___tracy_emit_messageLC
+    ___tracy_emit_logString
+    ___tracy_emit_logStringL
     ___tracy_emit_frame_mark
     ___tracy_emit_frame_mark_start
     ___tracy_emit_frame_mark_end
@@ -65,3 +63,5 @@ EXPORTS
     ___tracy_after_try_lock_lockable_ctx
     ___tracy_mark_lockable_ctx
     ___tracy_custom_name_lockable_ctx
+    ___tracy_begin_sampling_profiling
+    ___tracy_end_sampling_profiling
