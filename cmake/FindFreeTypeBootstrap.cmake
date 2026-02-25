@@ -30,10 +30,10 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
+                # ----- Dependency specific options -----
+
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
-
-                # ----- Dependency specific options -----
 
                 # Disable dependencies since this is the bootstrap build
                 -DFT_DISABLE_ZLIB=ON

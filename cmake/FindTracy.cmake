@@ -25,12 +25,12 @@ if(NOT TARGET Tracy::TracyClient)
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
+                # ----- Dependency specific options -----
+
                 # Build static library
                 -DBUILD_SHARED_LIBS=OFF
                 -DTRACY_STATIC=ON
                 -DTRACY_LTO=OFF
-
-                # ----- Dependency specific options -----
 
                 -DTRACY_ENABLE=ON
                 -DTRACY_ON_DEMAND=ON

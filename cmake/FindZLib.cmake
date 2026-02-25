@@ -32,8 +32,11 @@ if(NOT TARGET ZLib::ZLib)
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
+                # ----- Dependency specific options -----
+
                 # Build static library
-                -DBUILD_SHARED_LIBS=OFF
+                -DZLIB_BUILD_SHARED=OFF
+                -DZLIB_BUILD_STATIC=ON
         )
 
         # Preemptively create include dir

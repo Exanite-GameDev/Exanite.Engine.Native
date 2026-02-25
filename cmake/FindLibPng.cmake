@@ -34,10 +34,11 @@ if(NOT TARGET LibPng::LibPng)
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
-                # Build static library
-                -DBUILD_SHARED_LIBS=OFF
-
                 # ----- Dependency specific options -----
+
+                # Build static library
+                -DPNG_SHARED=OFF
+                -DPNG_STATIC=ON
 
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/zlib

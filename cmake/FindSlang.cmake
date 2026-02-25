@@ -39,10 +39,10 @@ if(NOT TARGET Slang::Slang)
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
+                # ----- Dependency specific options -----
+
                 # Build shared library
                 -DSLANG_LIB_TYPE=SHARED
-
-                # ----- Dependency specific options -----
 
                 # This is defined by slang/external/miniz/CMakeLists.txt
                 # This changes miniz be statically linked

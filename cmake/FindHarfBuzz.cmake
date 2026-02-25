@@ -32,10 +32,10 @@ if(NOT TARGET External.HarfBuzz)
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
+                # ----- Dependency specific options -----
+
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
-
-                # ----- Dependency specific options -----
 
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype-bootstrap
