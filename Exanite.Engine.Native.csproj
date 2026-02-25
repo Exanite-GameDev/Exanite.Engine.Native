@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Exanite.Engine.Native</AssemblyName>
+    <RootNamespace>Exanite.Engine.Native</RootNamespace>
+
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Exanite.Engine.Native.$(Configuration)</PackageId>
+    <Version>6.0.0</Version>
+    <Authors>Exanite</Authors>
+    <Company>Exanite</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="runtimes-shared\**" LinkBase="runtimes-shared">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration) == Release">
+    <None Include="runtimes-release\**" LinkBase="runtimes-release">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration) == Debug">
+    <None Include="runtimes-debug\**" LinkBase="runtimes-debug">
+      <Pack>true</Pack>
+      <PackagePath>runtimes\</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </None>
+  </ItemGroup>
+</Project>
