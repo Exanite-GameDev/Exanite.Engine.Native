@@ -46,11 +46,11 @@ if(NOT TARGET Brotli::BrotliCommon)
 
                 # Build static library
                 -DBUILD_SHARED_LIBS=OFF
+                -DBROTLI_BUILD_FOR_PACKAGE=OFF
+                -DBROTLI_BUNDLED_MODE=OFF
 
                 -DBROTLI_DISABLE_TESTS=ON
-
-                # This ensures that install works
-                -DBROTLI_BUNDLED_MODE=OFF
+                -DBROTLI_BUILD_TOOLS=OFF
         )
 
         # Preemptively create include dir
