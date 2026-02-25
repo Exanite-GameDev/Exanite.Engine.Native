@@ -2,7 +2,7 @@ if(NOT TARGET Slang::Slang)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
 
-        # Define build and install directories
+        # Define build and install folders
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/slang)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
 

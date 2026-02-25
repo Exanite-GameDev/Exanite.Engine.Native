@@ -2,9 +2,9 @@ if(NOT TARGET External.HarfBuzz)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
 
-        find_package(FreeType REQUIRED)
+        find_package(FreeTypeBootstrap REQUIRED)
 
-        # Define build and install directories
+        # Define build and install folders
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/harfbuzz)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/harfbuzz)
 
@@ -37,12 +37,13 @@ if(NOT TARGET External.HarfBuzz)
 
                 # ----- Dependency specific options -----
 
-                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype
+                # Reference the bootstrap install folder
+                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype-bootstrap
 
                 # Enable freetype integration
                 -DHB_HAVE_FREETYPE=ON
         )
-        add_dependencies(External.HarfBuzz External.FreeType)
+        add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include/harfbuzz)

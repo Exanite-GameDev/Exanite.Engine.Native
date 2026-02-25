@@ -1,12 +1,10 @@
-if(NOT TARGET External.FreeType)
+if(NOT TARGET External.FreeTypeBootstrap)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
 
-        find_package(HarfBuzz REQUIRED)
-
         # Define build and install folders
-        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/freetype)
-        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/freetype)
+        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
+        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
 
         # Define import paths
         if(WIN32)
@@ -17,7 +15,7 @@ if(NOT TARGET External.FreeType)
         endif()
 
         # Add as external project
-        ExternalProject_Add(External.FreeType
+        ExternalProject_Add(External.FreeTypeBootstrap
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
@@ -37,35 +35,21 @@ if(NOT TARGET External.FreeType)
 
                 # ----- Dependency specific options -----
 
-                # Enable dependencies since this is the final build
-                -DFT_DISABLE_ZLIB=OFF
-                -DFT_DISABLE_BZIP2=OFF
-                -DFT_DISABLE_PNG=OFF
-                -DFT_DISABLE_HARFBUZZ=OFF
-                -DFT_DISABLE_BROTLI=OFF
+                # Disable dependencies since this is the bootstrap build
+                -DFT_DISABLE_ZLIB=ON
+                -DFT_DISABLE_BZIP2=ON
+                -DFT_DISABLE_PNG=ON
+                -DFT_DISABLE_HARFBUZZ=ON
+                -DFT_DISABLE_BROTLI=ON
 
-                -DFT_REQUIRE_ZLIB=ON
-                -DFT_REQUIRE_BZIP2=ON
-                -DFT_REQUIRE_PNG=ON
-                -DFT_REQUIRE_HARFBUZZ=ON
-                -DFT_REQUIRE_BROTLI=ON
+                -DFT_REQUIRE_ZLIB=OFF
+                -DFT_REQUIRE_BZIP2=OFF
+                -DFT_REQUIRE_PNG=OFF
+                -DFT_REQUIRE_HARFBUZZ=OFF
+                -DFT_REQUIRE_BROTLI=OFF
         )
-        add_dependencies(External.FreeType External.HarfBuzz)
 
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include/freetype2)
-
-        # Define imported target
-        add_library(FreeType SHARED IMPORTED GLOBAL)
-        set_target_properties(FreeType
-            PROPERTIES
-                IMPORTED_LOCATION "${IMPORTED_LOCATION}"
-                IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/freetype2"
-        )
-        add_dependencies(FreeType External.FreeType)
-
-        # Define aliases
-        add_library(FreeType::FreeType ALIAS FreeType)
     endblock()
 endif()
