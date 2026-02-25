@@ -23,13 +23,6 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 # This allows shared libraries to be loaded at different memory addresses
 set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE BOOL "" FORCE)
 
-# Hide symbols by default to prevent cross-platform issues
-# This ensures that symbols are consistently exported
-# Windows is strict and requires explicit exports
-# Linux and Mac will export most symbols by default
-set(CMAKE_CXX_VISIBILITY_PRESET "hidden" CACHE STRING "" FORCE)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN ON CACHE BOOL "" FORCE)
-
 # Ensure RPath is set for built binaries
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path" CACHE STRING "" FORCE)
