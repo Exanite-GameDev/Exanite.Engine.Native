@@ -19,6 +19,10 @@ if(NOT TARGET Slang::Slang)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
+            # slang-glsl-module is included because the install step fails without it
+            # slang-glsl-module is otherwise not used
+            BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target slang slang-glsl-module
+            INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
                 # Shared options
@@ -35,14 +39,12 @@ if(NOT TARGET Slang::Slang)
 
                 # ----- Dependency specific options -----
 
-                # Keep slangc enabled
-                -DSLANG_ENABLE_SLANGC=TRUE
-
                 # Disable unnecessary features
                 -DSLANG_ENABLE_DXIL=FALSE
                 -DSLANG_ENABLE_EXAMPLES=FALSE
                 -DSLANG_ENABLE_GFX=FALSE
                 -DSLANG_ENABLE_RELEASE_DEBUG_INFO=FALSE
+                -DSLANG_ENABLE_SLANGC=FALSE
                 -DSLANG_ENABLE_SLANGD=FALSE
                 -DSLANG_ENABLE_SLANGI=FALSE
                 -DSLANG_ENABLE_SLANGRT=FALSE
