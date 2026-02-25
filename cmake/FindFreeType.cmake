@@ -37,6 +37,9 @@ if(NOT TARGET External.FreeType)
 
                 # ----- Dependency specific options -----
 
+                # Add prefixes for dependencies
+                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz
+
                 # Enable dependencies since this is the final build
                 # zlib, brotli add support for compressed fonts
                 # png adds support for colored emojis
