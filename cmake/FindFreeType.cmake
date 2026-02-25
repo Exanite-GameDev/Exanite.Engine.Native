@@ -67,7 +67,7 @@ if(NOT TARGET External.FreeType)
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include/freetype2)
 
-        # Define imported target
+        # Define imported targets
         add_library(FreeType SHARED IMPORTED GLOBAL)
         set_target_properties(FreeType
             PROPERTIES

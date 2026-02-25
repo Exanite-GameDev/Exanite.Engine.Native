@@ -43,7 +43,7 @@ if(NOT TARGET Tracy::TracyClient)
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include/tracy)
 
-        # Define imported target
+        # Define imported targets
         add_library(TracyClient STATIC IMPORTED GLOBAL)
         set_target_properties(TracyClient
             PROPERTIES

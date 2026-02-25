@@ -52,7 +52,7 @@ if(NOT TARGET External.HarfBuzz)
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include/harfbuzz)
 
-        # Define imported target
+        # Define imported targets
         add_library(HarfBuzz SHARED IMPORTED GLOBAL)
         set_target_properties(HarfBuzz
             PROPERTIES

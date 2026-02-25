@@ -45,7 +45,7 @@ if(NOT TARGET BZip2::BZip2)
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include)
 
-        # Define imported target
+        # Define imported targets
         add_library(BZip2 STATIC IMPORTED GLOBAL)
         set_target_properties(BZip2
             PROPERTIES
