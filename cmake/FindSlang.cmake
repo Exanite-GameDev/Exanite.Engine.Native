@@ -39,6 +39,12 @@ if(NOT TARGET Slang::Slang)
 
                 # ----- Dependency specific options -----
 
+                # This is defined by slang/external/miniz/CMakeLists.txt
+                # This changes miniz be statically linked
+                # Not sure how Slang does it normally though
+                # Their release binaries don't have a dynamic dependency to miniz
+                -DAMALGAMATE_SOURCES=ON
+
                 # Disable unnecessary features
                 -DSLANG_ENABLE_DXIL=OFF
                 -DSLANG_ENABLE_EXAMPLES=OFF
