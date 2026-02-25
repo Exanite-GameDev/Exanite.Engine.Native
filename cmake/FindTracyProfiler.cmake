@@ -19,7 +19,9 @@ if(NOT TARGET External.TracyProfiler)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
-                # Shared options
+
+                # ----- Shared options -----
+
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 

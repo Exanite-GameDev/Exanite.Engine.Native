@@ -33,7 +33,9 @@ if(NOT TARGET Slang::Slang)
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
             BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
-                # Shared options
+
+                # ----- Shared options -----
+
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
