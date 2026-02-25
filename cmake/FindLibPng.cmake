@@ -7,7 +7,7 @@ if(NOT TARGET LibPng::LibPng)
         set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/libpng)
         set(INSTALL_PATH ${CMAKE_BINARY_DIR}/install/libpng)
 
-        # LibPng is named png_static on Windows
+        # Define output names
         if(WIN32)
             set(BASE_NAME "png_static")
         else()
