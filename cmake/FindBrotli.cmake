@@ -14,11 +14,11 @@ if(NOT TARGET Brotli::BrotliCommon)
 
         # Add as external project
         ExternalProject_Add(External.Brotli
-                SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/brotli
-                BINARY_DIR ${BUILD_DIR}
-                INSTALL_DIR ${INSTALL_DIR}
-                BUILD_BYPRODUCTS ${COMMON_OUTPUT}
-                CMAKE_ARGS
+            SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/brotli
+            BINARY_DIR ${BUILD_DIR}
+            INSTALL_DIR ${INSTALL_DIR}
+            BUILD_BYPRODUCTS ${COMMON_OUTPUT}
+            CMAKE_ARGS
                 # ----- Shared options -----
 
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
@@ -46,7 +46,7 @@ if(NOT TARGET Brotli::BrotliCommon)
         # Define imported target
         add_library(BrotliCommon STATIC IMPORTED GLOBAL)
         set_target_properties(BrotliCommon
-                PROPERTIES
+            PROPERTIES
                 IMPORTED_LOCATION "${COMMON_OUTPUT}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
