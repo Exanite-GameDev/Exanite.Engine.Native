@@ -8,11 +8,11 @@ if(NOT TARGET LibPng::LibPng)
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/libpng)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/libpng)
 
-        # LibPng is named png18_static on Windows
+        # LibPng is named png_static on Windows
         if(WIN32)
-            set(LIBPNG_LIBRARY_NAME "png18_static")
+            set(LIBPNG_LIBRARY_NAME "png_static")
         else()
-            set(LIBPNG_LIBRARY_NAME "png18")
+            set(LIBPNG_LIBRARY_NAME "png")
         endif()
 
         # Define import paths
