@@ -17,9 +17,6 @@ set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 
 # --- Linking options ---
 
-# Use shared libraries by default
-set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
-
 # This allows shared libraries to be loaded at different memory addresses
 set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE BOOL "" FORCE)
 
