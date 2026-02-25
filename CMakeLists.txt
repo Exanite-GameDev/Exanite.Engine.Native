@@ -46,10 +46,17 @@ add_subdirectory(./native/Exanite.SlangTestProject)
 
 # This is so that the targets always exist
 
+find_package(BZip2 REQUIRED)
+find_package(Brotli REQUIRED)
+find_package(BrotliCommon REQUIRED)
+find_package(BrotliDecode REQUIRED)
+find_package(BrotliEncode REQUIRED)
 find_package(FreeType REQUIRED)
 find_package(HarfBuzz REQUIRED)
+find_package(LibPng REQUIRED)
 find_package(Slang REQUIRED)
 find_package(Tracy REQUIRED)
 find_package(TracyProfiler REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(VulkanMemoryAllocator REQUIRED)
+find_package(ZLib REQUIRED)
