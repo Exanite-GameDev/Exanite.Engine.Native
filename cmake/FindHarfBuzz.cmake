@@ -1,5 +1,7 @@
 if(NOT TARGET External.HarfBuzz)
     block()
+        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
+
         find_package(FreeType REQUIRED)
 
         # Define build and install directories
@@ -21,22 +23,24 @@ if(NOT TARGET External.HarfBuzz)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}harfbuzz${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
+                # Shared options
+                ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
-                -DCMAKE_POSITION_INDEPENDENT_CODE=ON
-                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype
-
-                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-
-                # Enable freetype integration
-                -DHB_HAVE_FREETYPE=ON
-
-                # Build shared library
-                -DBUILD_SHARED_LIBS=ON
 
                 # Force consistent output folders between Debug/Release
                 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
                 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+
+                # Build shared library
+                -DBUILD_SHARED_LIBS=ON
+
+                # ----- Dependency specific options -----
+
+                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype
+
+                # Enable freetype integration
+                -DHB_HAVE_FREETYPE=ON
         )
         add_dependencies(External.HarfBuzz External.FreeType)
 

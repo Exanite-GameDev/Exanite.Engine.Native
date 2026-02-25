@@ -1,5 +1,7 @@
 if(NOT TARGET Slang::Slang)
     block()
+        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
+
         # Define build and install directories
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/slang)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
@@ -19,13 +21,19 @@ if(NOT TARGET Slang::Slang)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
+                # Shared options
+                ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
-                -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 
-                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+                # Force consistent output folders between Debug/Release
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
-                # Set version
-                -DSLANG_VERSION_NUMERIC=2025.21
+                # Build shared library
+                -DSLANG_LIB_TYPE=SHARED
+
+                # ----- Dependency specific options -----
 
                 # Keep slangc enabled
                 -DSLANG_ENABLE_SLANGC=TRUE
@@ -50,14 +58,6 @@ if(NOT TARGET Slang::Slang)
                 -DSLANG_ENABLE_SLANG_RHI=FALSE
 
                 -DSLANG_SLANG_LLVM_FLAVOR=DISABLE
-
-                # Build shared library
-                -DSLANG_LIB_TYPE=SHARED
-
-                # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
         )
 
         # Preemptively create include dir
