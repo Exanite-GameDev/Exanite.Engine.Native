@@ -13,11 +13,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 
 # --- Compilation options ---
 
-# Enable architecture specific optimizations
-if(NOT MSVC)
-    set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -march=native")
-    set(CMAKE_C_FLAGS_INIT "${CMAKE_C_FLAGS_INIT} -march=native")
-endif()
+# Currently none
 
 # --- Linking options ---
 

@@ -16,6 +16,14 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
 
+# --- Linking options ---
+
+# Currently none
+
+# --- Output options ---
+
+# Currently none
+
 # --- Debug ---
 
 # Hardcoded AddressSanitizer toggle
