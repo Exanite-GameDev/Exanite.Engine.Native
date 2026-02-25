@@ -34,20 +34,16 @@ endif()
 # Ensure RPath is set for installed binaries
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "" FORCE)
 
-# Statically link to the C++ runtime
-if(UNIX AND NOT APPLE)
-    set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -static-libstdc++ -static-libgcc")
-    set(CMAKE_SHARED_LINKER_FLAGS_INIT "${CMAKE_SHARED_LINKER_FLAGS_INIT} -static-libstdc++ -static-libgcc")
-endif()
-
-if(WIN32)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "" FORCE)
-endif()
 
 # Target Windows 10 or later
 # See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
 if(WIN32)
     add_compile_definitions(_WIN32_WINNT=0x0A00)
+endif()
+
+# Dynamically link to the MSVC C++ runtime
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL" CACHE STRING "" FORCE)
 endif()
 
 # --- Output options ---
