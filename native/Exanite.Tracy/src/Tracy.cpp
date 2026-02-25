@@ -8,4 +8,10 @@ extern "C"
     // {
     //     return tracy::Profiler::GetTime();
     // }
+
+    // Ensure Tracy is referenced, otherwise it gets stripped
+    void ___tracy_ensure_ref()
+    {
+        TracyNoop;
+    }
 }
