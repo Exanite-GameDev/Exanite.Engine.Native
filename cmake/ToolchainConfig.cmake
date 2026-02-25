@@ -38,22 +38,12 @@ endif()
 # Specifically, it makes shared libraries look beside themselves for dependencies
 # and makes so names / install names match the shared library file names
 if(TRUE)
-    # Ensure RPath is set for built binaries
-    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE CACHE BOOL "" FORCE)
-    if(APPLE)
-        set(CMAKE_INSTALL_RPATH "@loader_path" CACHE STRING "" FORCE)
-    elseif(UNIX)
-        set(CMAKE_INSTALL_RPATH "\$ORIGIN" CACHE STRING "" FORCE)
-    endif()
+    # Ensure CMake does not skip the setting of RPaths
+    set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
 
     # Ensure RPath is set for installed binaries
     # This has the effect of CMake adding RPaths pointing to the install directories of the dependencies of shared objects
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "" FORCE)
-
-    # Ensure CMake does not skip the setting of RPaths
-    # This doesn't seem to change any behavior regardless of the value
-    # Not sure what it does
-    set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
 
     if(APPLE)
         # Tells CMake to use @rpath in the LC_ID_DYLIB field of the library
