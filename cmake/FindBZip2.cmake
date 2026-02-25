@@ -23,7 +23,6 @@ if(NOT TARGET BZip2::BZip2)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
-
                 # ----- Shared options -----
 
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
