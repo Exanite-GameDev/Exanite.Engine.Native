@@ -14,14 +14,14 @@ if(NOT TARGET ZLib::ZLib)
         endif()
 
         # Define outputs
-        set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${ZLIB_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${ZLIB_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.ZLib
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/zlib
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -47,7 +47,7 @@ if(NOT TARGET ZLib::ZLib)
         add_library(ZLib STATIC IMPORTED GLOBAL)
         set_target_properties(ZLib
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
         add_dependencies(ZLib External.ZLib)

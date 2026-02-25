@@ -9,14 +9,14 @@ if(NOT TARGET External.FreeType)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/freetype)
 
         # Define output names
-        set(OUTPUT_NAME "freetype")
+        set(BASE_NAME "freetype")
 
         # Define outputs
         if(WIN32)
-            set(MAIN_OUTPUT "${INSTALL_DIR}/bin/${OUTPUT_NAME}.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${OUTPUT_NAME}.lib")
+            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${BASE_NAME}.lib")
         else()
-            set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
@@ -24,7 +24,7 @@ if(NOT TARGET External.FreeType)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -71,7 +71,7 @@ if(NOT TARGET External.FreeType)
         add_library(FreeType SHARED IMPORTED GLOBAL)
         set_target_properties(FreeType
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/freetype2"
         )

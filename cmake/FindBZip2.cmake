@@ -8,20 +8,20 @@ if(NOT TARGET BZip2::BZip2)
 
         # Define output names
         if(WIN32)
-            set(OUTPUT_NAME "libbz2")
+            set(BASE_NAME "libbz2")
         else()
-            set(OUTPUT_NAME "bz2")
+            set(BASE_NAME "bz2")
         endif()
 
         # Define outputs
-        set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.BZip2
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/bzip2
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -49,7 +49,7 @@ if(NOT TARGET BZip2::BZip2)
         add_library(BZip2 STATIC IMPORTED GLOBAL)
         set_target_properties(BZip2
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
         add_dependencies(BZip2 External.BZip2)

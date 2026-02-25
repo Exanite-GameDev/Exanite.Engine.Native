@@ -7,17 +7,17 @@ if(NOT TARGET External.TracyProfiler)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/tracy-profiler)
 
         # Define output names
-        set(OUTPUT_NAME "tracy-profiler")
+        set(BASE_NAME "tracy-profiler")
 
         # Define outputs
-        set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
+        set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.TracyProfiler
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/tracy/profiler
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
             CMAKE_ARGS
                 # ----- Shared options -----
 

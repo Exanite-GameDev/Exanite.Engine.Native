@@ -7,14 +7,14 @@ if(NOT TARGET External.FreeTypeBootstrap)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
 
         # Define output names
-        set(OUTPUT_NAME "freetype")
+        set(BASE_NAME "freetype")
 
         # Define outputs
         if(WIN32)
-            set(MAIN_OUTPUT "${INSTALL_DIR}/bin/${OUTPUT_NAME}.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${OUTPUT_NAME}.lib")
+            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${BASE_NAME}.lib")
         else()
-            set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
@@ -22,7 +22,7 @@ if(NOT TARGET External.FreeTypeBootstrap)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
             CMAKE_ARGS
                 # ----- Shared options -----
 

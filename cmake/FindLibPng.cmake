@@ -10,20 +10,20 @@ if(NOT TARGET LibPng::LibPng)
 
         # LibPng is named png_static on Windows
         if(WIN32)
-            set(OUTPUT_NAME "png_static")
+            set(BASE_NAME "png_static")
         else()
-            set(OUTPUT_NAME "png")
+            set(BASE_NAME "png")
         endif()
 
         # Define outputs
-        set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.LibPng
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/libpng
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -54,7 +54,7 @@ if(NOT TARGET LibPng::LibPng)
         add_library(LibPng STATIC IMPORTED GLOBAL)
         set_target_properties(LibPng
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
         add_dependencies(LibPng External.LibPng)
