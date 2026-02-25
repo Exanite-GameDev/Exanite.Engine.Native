@@ -34,6 +34,28 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL" CACHE STRING "" FORCE)
 endif()
 
+# Ensure RPath is set for built binaries
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE CACHE BOOL "" FORCE)
+if(APPLE)
+    set(CMAKE_INSTALL_RPATH "@loader_path" CACHE STRING "" FORCE)
+elseif(UNIX)
+    set(CMAKE_INSTALL_RPATH "\$ORIGIN" CACHE STRING "" FORCE)
+endif()
+
+# Ensure RPath is set for installed binaries
+# This has the effect of CMake adding RPaths pointing to the install directories of the dependencies of shared objects
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "" FORCE)
+
+# Ensure CMake does not skip the setting of RPaths
+# This doesn't seem to change any behavior regardless of the value
+# Not sure what it does
+set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
+
+# TODO: Not sure if does anything
+## Disable versioned SoNames for Linux
+## This is because Exanite.Engine bundles all dependencies as a complete set
+#set(CMAKE_PLATFORM_NO_VERSIONED_SONAME OFF CACHE BOOL "" FORCE)
+
 # --- Output options ---
 
 # Globally disable shared library prefix for Windows
