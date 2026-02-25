@@ -1,7 +1,6 @@
 if(NOT TARGET External.FreeType)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
-
         find_package(HarfBuzz REQUIRED)
 
         # Define build and install folders
@@ -39,18 +38,19 @@ if(NOT TARGET External.FreeType)
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz
 
-                # Enable dependencies since this is the final build
+                # Enable harfbuzz since this is the final build
+                -DFT_REQUIRE_HARFBUZZ=ON
+                -DFT_DISABLE_HARFBUZZ=OFF
+
                 # zlib, brotli add support for compressed fonts
                 # png adds support for colored emojis
                 # harfbuzz adds support for improved hinting
                 -DFT_DISABLE_ZLIB=OFF
                 -DFT_DISABLE_PNG=OFF
-                -DFT_DISABLE_HARFBUZZ=OFF
                 -DFT_DISABLE_BROTLI=OFF
 
                 -DFT_REQUIRE_ZLIB=ON
                 -DFT_REQUIRE_PNG=ON
-                -DFT_REQUIRE_HARFBUZZ=ON
                 -DFT_REQUIRE_BROTLI=ON
 
                 # Disable bzip since it only adds support for very old Linux fonts (.pcf.bz2)

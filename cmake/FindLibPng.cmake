@@ -1,7 +1,6 @@
 if(NOT TARGET LibPng::LibPng)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
-
         find_package(ZLib REQUIRED)
 
         # Define build and install folders
@@ -37,7 +36,6 @@ if(NOT TARGET LibPng::LibPng)
                 -DPNG_STATIC=ON
 
                 # Specify paths for dependencies
-                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/zlib
                 -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
         )
         add_dependencies(External.LibPng External.ZLib)

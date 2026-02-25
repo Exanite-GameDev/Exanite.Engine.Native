@@ -1,6 +1,9 @@
 if(NOT TARGET External.FreeTypeBootstrap)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
+        find_package(ZLib REQUIRED)
+        find_package(LibPng REQUIRED)
+        find_package(Brotli REQUIRED)
 
         # Define build and install folders
         set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
@@ -31,24 +34,35 @@ if(NOT TARGET External.FreeTypeBootstrap)
 
                 # ----- Dependency specific options -----
 
+                # Specify paths for dependencies
+                -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
+                -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
+                -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
+
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
 
-                # Disable dependencies since this is the bootstrap build
-                -DFT_DISABLE_ZLIB=ON
-                -DFT_DISABLE_BZIP2=ON
-                -DFT_DISABLE_PNG=ON
-                -DFT_DISABLE_HARFBUZZ=ON
-                -DFT_DISABLE_BROTLI=ON
-
-                -DFT_REQUIRE_ZLIB=OFF
-                -DFT_REQUIRE_BZIP2=OFF
-                -DFT_REQUIRE_PNG=OFF
+                # Disable harfbuzz since this is the bootstrap build
                 -DFT_REQUIRE_HARFBUZZ=OFF
-                -DFT_REQUIRE_BROTLI=OFF
-        )
+                -DFT_DISABLE_HARFBUZZ=ON
 
-        # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_PATH}/include/freetype2)
+                # zlib, brotli add support for compressed fonts
+                # png adds support for colored emojis
+                # harfbuzz adds support for improved hinting
+                -DFT_DISABLE_ZLIB=OFF
+                -DFT_DISABLE_PNG=OFF
+                -DFT_DISABLE_BROTLI=OFF
+
+                -DFT_REQUIRE_ZLIB=ON
+                -DFT_REQUIRE_PNG=ON
+                -DFT_REQUIRE_BROTLI=ON
+
+                # Disable bzip since it only adds support for very old Linux fonts (.pcf.bz2)
+                -DFT_DISABLE_BZIP2=ON
+                -DFT_REQUIRE_BZIP2=OFF
+        )
+        add_dependencies(External.FreeTypeBootstrap External.ZLib)
+        add_dependencies(External.FreeTypeBootstrap External.LibPng)
+        add_dependencies(External.FreeTypeBootstrap External.Brotli)
     endblock()
 endif()
