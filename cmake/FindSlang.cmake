@@ -3,8 +3,8 @@ if(NOT TARGET Slang::Slang)
         include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
 
         # Define build and install folders
-        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/slang)
-        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
+        set(BUILD_DIR "${CMAKE_BINARY_DIR}/build/slang")
+        set(INSTALL_DIR "${CMAKE_BINARY_DIR}/install/slang")
 
         # Define import paths
         if(WIN32)
@@ -23,21 +23,21 @@ if(NOT TARGET Slang::Slang)
 
         # Add as external project
         ExternalProject_Add(External.Slang
-            SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
-            BINARY_DIR ${BUILD_DIR}
-            INSTALL_DIR ${INSTALL_DIR}
+            SOURCE_DIR "${CMAKE_SOURCE_DIR}/native/slang"
+            BINARY_DIR "${BUILD_DIR}"
+            INSTALL_DIR "${INSTALL_DIR}"
             BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target ${TARGETS}
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
-            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            BUILD_BYPRODUCTS "${IMPORTED_LOCATION}"
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
-                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
+                -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}"
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/lib"
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/lib"
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/bin"
 
                 # Build shared library
                 -DSLANG_LIB_TYPE=SHARED
@@ -74,7 +74,7 @@ if(NOT TARGET Slang::Slang)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_DIR}/include)
+        file(MAKE_DIRECTORY "${INSTALL_DIR}/include")
 
         # Define imported target
         add_library(Slang SHARED IMPORTED GLOBAL)

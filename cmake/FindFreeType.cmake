@@ -5,8 +5,8 @@ if(NOT TARGET External.FreeType)
         find_package(HarfBuzz REQUIRED)
 
         # Define build and install folders
-        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/freetype)
-        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/freetype)
+        set(BUILD_DIR "${CMAKE_BINARY_DIR}/build/freetype")
+        set(INSTALL_DIR "${CMAKE_BINARY_DIR}/install/freetype")
 
         # Define import paths
         if(WIN32)
@@ -18,19 +18,19 @@ if(NOT TARGET External.FreeType)
 
         # Add as external project
         ExternalProject_Add(External.FreeType
-            SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
-            BINARY_DIR ${BUILD_DIR}
-            INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}freetype${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            SOURCE_DIR "${CMAKE_SOURCE_DIR}/native/freetype"
+            BINARY_DIR "${BUILD_DIR}"
+            INSTALL_DIR "${INSTALL_DIR}"
+            BUILD_BYPRODUCTS "${IMPORTED_LOCATION}"
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
-                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
+                -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}"
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/lib"
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/lib"
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/bin"
 
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
@@ -58,7 +58,7 @@ if(NOT TARGET External.FreeType)
         add_dependencies(External.FreeType External.HarfBuzz)
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_DIR}/include/freetype2)
+        file(MAKE_DIRECTORY "${INSTALL_DIR}/include/freetype2")
 
         # Define imported target
         add_library(FreeType SHARED IMPORTED GLOBAL)
