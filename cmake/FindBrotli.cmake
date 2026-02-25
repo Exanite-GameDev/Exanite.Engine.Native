@@ -1,3 +1,3 @@
-find_package(BrotiCommon REQUIRED)
-find_package(BrotiEncode REQUIRED)
-find_package(BrotiDecode REQUIRED)
+find_package(BrotliCommon REQUIRED)
+find_package(BrotliEncode REQUIRED)
+find_package(BrotliDecode REQUIRED)
