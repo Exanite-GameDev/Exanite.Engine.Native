@@ -11,10 +11,10 @@ if(NOT TARGET Slang::Slang)
 
         # Define outputs
         if(WIN32)
-            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
+            set(OUTPUT_PATH "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
             set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${BASE_NAME}.lib")
         else()
-            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Define targets
@@ -31,7 +31,7 @@ if(NOT TARGET Slang::Slang)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target ${TARGETS}
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
+            BUILD_BYPRODUCTS ${OUTPUT_PATH}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -84,7 +84,7 @@ if(NOT TARGET Slang::Slang)
         add_library(Slang SHARED IMPORTED GLOBAL)
         set_target_properties(Slang
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
+                IMPORTED_LOCATION "${OUTPUT_PATH}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )

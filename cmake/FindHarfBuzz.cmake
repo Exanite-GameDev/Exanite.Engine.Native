@@ -13,10 +13,10 @@ if(NOT TARGET External.HarfBuzz)
 
         # Define outputs
         if(WIN32)
-            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
+            set(OUTPUT_PATH "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
             set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${BASE_NAME}.lib")
         else()
-            set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
@@ -24,7 +24,7 @@ if(NOT TARGET External.HarfBuzz)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
+            BUILD_BYPRODUCTS ${OUTPUT_PATH}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -56,7 +56,7 @@ if(NOT TARGET External.HarfBuzz)
         add_library(HarfBuzz SHARED IMPORTED GLOBAL)
         set_target_properties(HarfBuzz
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
+                IMPORTED_LOCATION "${OUTPUT_PATH}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/harfbuzz"
         )

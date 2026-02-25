@@ -10,14 +10,14 @@ if(NOT TARGET Tracy::TracyClient)
         set(BASE_NAME "TracyClient")
 
         # Define outputs
-        set(MAIN_OUTPUT_NAME "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.Tracy
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/tracy
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS ${MAIN_OUTPUT_NAME}
+            BUILD_BYPRODUCTS ${OUTPUT_PATH}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -47,7 +47,7 @@ if(NOT TARGET Tracy::TracyClient)
         add_library(TracyClient STATIC IMPORTED GLOBAL)
         set_target_properties(TracyClient
             PROPERTIES
-                IMPORTED_LOCATION "${MAIN_OUTPUT_NAME}"
+                IMPORTED_LOCATION "${OUTPUT_PATH}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/tracy"
         )
         add_dependencies(TracyClient External.Tracy)
