@@ -49,13 +49,13 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 # zlib, brotli add support for compressed fonts
                 # png adds support for colored emojis
                 # harfbuzz adds support for improved hinting
-                -DFT_DISABLE_ZLIB=OFF
-                -DFT_DISABLE_PNG=OFF
-                -DFT_DISABLE_BROTLI=OFF
-
                 -DFT_REQUIRE_ZLIB=ON
                 -DFT_REQUIRE_PNG=ON
                 -DFT_REQUIRE_BROTLI=ON
+
+                -DFT_DISABLE_ZLIB=OFF
+                -DFT_DISABLE_PNG=OFF
+                -DFT_DISABLE_BROTLI=OFF
 
                 # Disable bzip since it only adds support for very old Linux fonts (.pcf.bz2)
                 -DFT_DISABLE_BZIP2=ON

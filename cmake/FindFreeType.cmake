@@ -37,6 +37,9 @@ if(NOT TARGET External.FreeType)
 
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz
+                -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
+                -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
+                -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
 
                 # Enable harfbuzz since this is the final build
                 -DFT_REQUIRE_HARFBUZZ=ON
@@ -45,17 +48,17 @@ if(NOT TARGET External.FreeType)
                 # zlib, brotli add support for compressed fonts
                 # png adds support for colored emojis
                 # harfbuzz adds support for improved hinting
-                -DFT_DISABLE_ZLIB=OFF
-                -DFT_DISABLE_PNG=OFF
-                -DFT_DISABLE_BROTLI=OFF
-
                 -DFT_REQUIRE_ZLIB=ON
                 -DFT_REQUIRE_PNG=ON
                 -DFT_REQUIRE_BROTLI=ON
 
+                -DFT_DISABLE_ZLIB=OFF
+                -DFT_DISABLE_PNG=OFF
+                -DFT_DISABLE_BROTLI=OFF
+
                 # Disable bzip since it only adds support for very old Linux fonts (.pcf.bz2)
-                -DFT_DISABLE_BZIP2=ON
                 -DFT_REQUIRE_BZIP2=OFF
+                -DFT_DISABLE_BZIP2=ON
         )
         add_dependencies(External.FreeType External.HarfBuzz)
 
