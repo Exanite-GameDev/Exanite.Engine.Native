@@ -17,9 +17,15 @@ target_link_libraries(Exanite.TestProject PRIVATE Exanite.Tracy)
 
 # --- Copy required DLLs -----
 
-if(WIN32)
-    add_custom_command(TARGET Exanite.TestProject POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:Exanite.TestProject> $<TARGET_RUNTIME_DLLS:Exanite.TestProject>
-        COMMAND_EXPAND_LISTS
-    )
-endif()
+get_target_property(linked_libs Exanite.TestProject LINK_LIBRARIES)
+foreach(library ${linked_libs})
+    if(TARGET ${library})
+        get_target_property(library_type ${library} TYPE)
+        if(library_type STREQUAL "SHARED_LIBRARY")
+            add_custom_command(TARGET Exanite.TestProject POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:Exanite.TestProject> $<TARGET_FILE:${library}>
+                COMMENT "Copying ${library} to executable directory"
+            )
+        endif()
+    endif()
+endforeach()

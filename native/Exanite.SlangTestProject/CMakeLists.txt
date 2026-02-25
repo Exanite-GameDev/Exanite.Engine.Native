@@ -21,9 +21,15 @@ target_link_libraries(Exanite.SlangTestProject PRIVATE Slang::Slang)
 
 # --- Copy required DLLs -----
 
-if(WIN32)
-    add_custom_command(TARGET Exanite.SlangTestProject POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:Exanite.SlangTestProject> $<TARGET_RUNTIME_DLLS:Exanite.SlangTestProject>
-        COMMAND_EXPAND_LISTS
-    )
-endif()
+get_target_property(linked_libs Exanite.SlangTestProject LINK_LIBRARIES)
+foreach(library ${linked_libs})
+    if(TARGET ${library})
+        get_target_property(library_type ${library} TYPE)
+        if(library_type STREQUAL "SHARED_LIBRARY")
+            add_custom_command(TARGET Exanite.SlangTestProject POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:Exanite.SlangTestProject> $<TARGET_FILE:${library}>
+                    COMMENT "Copying ${library} to executable directory"
+            )
+        endif()
+    endif()
+endforeach()
