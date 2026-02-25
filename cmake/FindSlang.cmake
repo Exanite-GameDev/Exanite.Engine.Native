@@ -1,20 +1,20 @@
 if(NOT TARGET Slang::Slang)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
 
         # Define build and install folders
-        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/slang)
-        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
+        set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/slang)
+        set(INSTALL_PATH ${CMAKE_BINARY_DIR}/install/slang)
 
         # Define output names
         set(BASE_NAME "slang-compiler")
 
         # Define outputs
         if(WIN32)
-            set(OUTPUT_PATH "${INSTALL_DIR}/bin/${BASE_NAME}.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${BASE_NAME}.lib")
+            set(OUTPUT_PATH "${INSTALL_PATH}/bin/${BASE_NAME}.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_PATH}/lib/${BASE_NAME}.lib")
         else()
-            set(OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Define targets
@@ -25,10 +25,11 @@ if(NOT TARGET Slang::Slang)
         endif()
 
         # Add as external project
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_PATH})
         ExternalProject_Add(External.Slang
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
-            BINARY_DIR ${BUILD_DIR}
-            INSTALL_DIR ${INSTALL_DIR}
+            BINARY_DIR ${BUILD_PATH}
+            INSTALL_DIR ${INSTALL_PATH}
             BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target ${TARGETS}
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
             BUILD_BYPRODUCTS ${OUTPUT_PATH}
@@ -36,12 +37,6 @@ if(NOT TARGET Slang::Slang)
                 # ----- Shared options -----
 
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
-                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
-
-                # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -78,7 +73,7 @@ if(NOT TARGET Slang::Slang)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_DIR}/include)
+        file(MAKE_DIRECTORY ${INSTALL_PATH}/include)
 
         # Define imported targets
         add_library(Slang SHARED IMPORTED GLOBAL)
@@ -86,7 +81,7 @@ if(NOT TARGET Slang::Slang)
             PROPERTIES
                 IMPORTED_LOCATION "${OUTPUT_PATH}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_PATH}/include"
         )
         add_dependencies(Slang External.Slang)
 

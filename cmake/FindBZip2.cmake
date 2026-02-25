@@ -1,10 +1,10 @@
 if(NOT TARGET BZip2::BZip2)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
 
         # Define build and install folders
-        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/bzip2)
-        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/bzip2)
+        set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/bzip2)
+        set(INSTALL_PATH ${CMAKE_BINARY_DIR}/install/bzip2)
 
         # Define output names
         if(WIN32)
@@ -14,24 +14,19 @@ if(NOT TARGET BZip2::BZip2)
         endif()
 
         # Define outputs
-        set(OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_PATH})
         ExternalProject_Add(External.BZip2
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/bzip2
-            BINARY_DIR ${BUILD_DIR}
-            INSTALL_DIR ${INSTALL_DIR}
+            BINARY_DIR ${BUILD_PATH}
+            INSTALL_DIR ${INSTALL_PATH}
             BUILD_BYPRODUCTS ${OUTPUT_PATH}
             CMAKE_ARGS
                 # ----- Shared options -----
 
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
-                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
-
-                # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -43,14 +38,14 @@ if(NOT TARGET BZip2::BZip2)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_DIR}/include)
+        file(MAKE_DIRECTORY ${INSTALL_PATH}/include)
 
         # Define imported targets
         add_library(BZip2 STATIC IMPORTED GLOBAL)
         set_target_properties(BZip2
             PROPERTIES
                 IMPORTED_LOCATION "${OUTPUT_PATH}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_PATH}/include"
         )
         add_dependencies(BZip2 External.BZip2)
 

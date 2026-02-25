@@ -1,10 +1,10 @@
 if(NOT TARGET Brotli::BrotliCommon)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectConfig.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
 
         # Define build and install folders
-        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/brotli)
-        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/brotli)
+        set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/brotli)
+        set(INSTALL_PATH ${CMAKE_BINARY_DIR}/install/brotli)
 
         # Define output names
         if(WIN32)
@@ -18,15 +18,16 @@ if(NOT TARGET Brotli::BrotliCommon)
         endif()
 
         # Define outputs
-        set(COMMON_OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${COMMON_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
-        set(DECODE_OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${DECODE_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
-        set(ENCODE_OUTPUT_PATH "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${ENCODE_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(COMMON_OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${COMMON_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(DECODE_OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${DECODE_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(ENCODE_OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${ENCODE_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_PATH})
         ExternalProject_Add(External.Brotli
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/brotli
-            BINARY_DIR ${BUILD_DIR}
-            INSTALL_DIR ${INSTALL_DIR}
+            BINARY_DIR ${BUILD_PATH}
+            INSTALL_DIR ${INSTALL_PATH}
             BUILD_BYPRODUCTS
                 ${COMMON_OUTPUT_PATH}
                 ${DECODE_OUTPUT_PATH}
@@ -35,12 +36,6 @@ if(NOT TARGET Brotli::BrotliCommon)
                 # ----- Shared options -----
 
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
-                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
-
-                # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -54,7 +49,7 @@ if(NOT TARGET Brotli::BrotliCommon)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_DIR}/include)
+        file(MAKE_DIRECTORY ${INSTALL_PATH}/include)
 
         # Define imported targets
         # Common
@@ -62,7 +57,7 @@ if(NOT TARGET Brotli::BrotliCommon)
         set_target_properties(BrotliCommon
             PROPERTIES
                 IMPORTED_LOCATION "${COMMON_OUTPUT_PATH}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_PATH}/include"
         )
         add_dependencies(BrotliCommon External.Brotli)
 
@@ -71,7 +66,7 @@ if(NOT TARGET Brotli::BrotliCommon)
         set_target_properties(BrotliEncode
             PROPERTIES
                 IMPORTED_LOCATION "${ENCODE_OUTPUT_PATH}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_PATH}/include"
                 INTERFACE_LINK_LIBRARIES BrotliCommon
         )
         add_dependencies(BrotliEncode External.Brotli)
@@ -81,7 +76,7 @@ if(NOT TARGET Brotli::BrotliCommon)
         set_target_properties(BrotliDecode
             PROPERTIES
                 IMPORTED_LOCATION "${DECODE_OUTPUT_PATH}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_PATH}/include"
                 INTERFACE_LINK_LIBRARIES BrotliCommon
         )
         add_dependencies(BrotliDecode External.Brotli)
