@@ -16,9 +16,9 @@ if(NOT TARGET Slang::Slang)
 
         # Define targets
         # slang-proxy and slang-glsl-module are both not used, but required by Slang's install step
-        set(TARGETS "slang slang-glsl-module")
+        set(TARGETS "slang" "slang-glsl-module")
         if(WIN32)
-            set(TARGETS "${TARGETS} slang-proxy")
+            list(APPEND TARGETS "slang-proxy")
         endif()
 
         # Add as external project
