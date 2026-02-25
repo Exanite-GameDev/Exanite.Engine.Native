@@ -34,6 +34,8 @@ endif()
 # Ensure RPath is set for installed binaries
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "" FORCE)
 
+# Ensure CMake does not add temporary development only RPaths
+set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
 
 # Target Windows 10 or later
 # See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
