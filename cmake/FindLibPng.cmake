@@ -10,29 +10,29 @@ if(NOT TARGET LibPng::LibPng)
 
         # LibPng is named png_static on Windows
         if(WIN32)
-            set(LIBPNG_LIBRARY_NAME "png_static")
+            set(OUTPUT_NAME "png_static")
         else()
-            set(LIBPNG_LIBRARY_NAME "png")
+            set(OUTPUT_NAME "png")
         endif()
 
-        # Define import paths
-        set(IMPORTED_LOCATION "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${LIBPNG_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        # Define outputs
+        set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.LibPng
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/libpng
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${LIBPNG_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -53,7 +53,7 @@ if(NOT TARGET LibPng::LibPng)
         add_library(LibPng STATIC IMPORTED GLOBAL)
         set_target_properties(LibPng
             PROPERTIES
-                IMPORTED_LOCATION "${IMPORTED_LOCATION}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
         add_dependencies(LibPng External.LibPng)

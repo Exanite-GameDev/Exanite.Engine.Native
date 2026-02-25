@@ -6,31 +6,31 @@ if(NOT TARGET BZip2::BZip2)
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/bzip2)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/bzip2)
 
-        # BZip2 is named libbz2 on Windows
+        # Define output names
         if(WIN32)
-            set(BZIP_LIBRARY_NAME "libbz2")
+            set(OUTPUT_NAME "libbz2")
         else()
-            set(BZIP_LIBRARY_NAME "bz2")
+            set(OUTPUT_NAME "bz2")
         endif()
 
-        # Define import paths
-        set(IMPORTED_LOCATION "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BZIP_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        # Define outputs
+        set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         ExternalProject_Add(External.BZip2
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/bzip2
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BZIP_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -48,7 +48,7 @@ if(NOT TARGET BZip2::BZip2)
         add_library(BZip2 STATIC IMPORTED GLOBAL)
         set_target_properties(BZip2
             PROPERTIES
-                IMPORTED_LOCATION "${IMPORTED_LOCATION}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
         add_dependencies(BZip2 External.BZip2)

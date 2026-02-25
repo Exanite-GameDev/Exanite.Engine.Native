@@ -6,12 +6,15 @@ if(NOT TARGET Slang::Slang)
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/slang)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/slang)
 
-        # Define import paths
+        # Define output names
+        set(OUTPUT_NAME "slang-compiler")
+
+        # Define outputs
         if(WIN32)
-            set(IMPORTED_LOCATION "${INSTALL_DIR}/bin/slang-compiler.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/slang-compiler.lib")
+            set(MAIN_OUTPUT "${INSTALL_DIR}/bin/${OUTPUT_NAME}.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${OUTPUT_NAME}.lib")
         else()
-            set(IMPORTED_LOCATION "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Define targets
@@ -28,16 +31,16 @@ if(NOT TARGET Slang::Slang)
             INSTALL_DIR ${INSTALL_DIR}
             BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target ${TARGETS}
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
-            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -80,7 +83,7 @@ if(NOT TARGET Slang::Slang)
         add_library(Slang SHARED IMPORTED GLOBAL)
         set_target_properties(Slang
             PROPERTIES
-                IMPORTED_LOCATION "${IMPORTED_LOCATION}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )

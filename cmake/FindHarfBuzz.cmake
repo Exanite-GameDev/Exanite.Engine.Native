@@ -8,12 +8,15 @@ if(NOT TARGET External.HarfBuzz)
         set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/harfbuzz)
         set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/harfbuzz)
 
-        # Define import paths
+        # Define output names
+        set(OUTPUT_NAME "harfbuzz")
+
+        # Define outputs
         if(WIN32)
-            set(IMPORTED_LOCATION "${INSTALL_DIR}/bin/harfbuzz.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/harfbuzz.lib")
+            set(MAIN_OUTPUT "${INSTALL_DIR}/bin/${OUTPUT_NAME}.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_DIR}/lib/${OUTPUT_NAME}.lib")
         else()
-            set(IMPORTED_LOCATION "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}harfbuzz${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(MAIN_OUTPUT "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${OUTPUT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
@@ -21,16 +24,16 @@ if(NOT TARGET External.HarfBuzz)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}harfbuzz${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            BUILD_BYPRODUCTS ${MAIN_OUTPUT}
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${INSTALL_DIR}/bin
 
                 # ----- Dependency specific options -----
 
@@ -52,7 +55,7 @@ if(NOT TARGET External.HarfBuzz)
         add_library(HarfBuzz SHARED IMPORTED GLOBAL)
         set_target_properties(HarfBuzz
             PROPERTIES
-                IMPORTED_LOCATION "${IMPORTED_LOCATION}"
+                IMPORTED_LOCATION "${MAIN_OUTPUT}"
                 IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include/harfbuzz"
         )
