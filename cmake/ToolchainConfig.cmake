@@ -45,7 +45,7 @@ endif()
 
 if(WIN32)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "" FORCE)
-endif ()
+endif()
 
 # Target Windows 10 or later
 # See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
