@@ -14,14 +14,19 @@ if(NOT TARGET Slang::Slang)
             set(IMPORTED_LOCATION "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
+        # Define targets
+        # slang-proxy and slang-glsl-module are both not used, but required by Slang's install step
+        set(TARGETS "slang slang-glsl-module")
+        if(WIN32)
+            set(TARGETS "${TARGETS} slang-proxy")
+        endif()
+
         # Add as external project
         ExternalProject_Add(External.Slang
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
             BINARY_DIR ${BUILD_DIR}
             INSTALL_DIR ${INSTALL_DIR}
-            # slang-glsl-module is included because the install step fails without it
-            # slang-glsl-module is otherwise not used
-            BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target slang slang-glsl-module
+            BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target ${TARGETS}
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
             BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}slang-compiler${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
