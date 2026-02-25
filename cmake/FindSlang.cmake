@@ -40,24 +40,24 @@ if(NOT TARGET Slang::Slang)
                 # ----- Dependency specific options -----
 
                 # Disable unnecessary features
-                -DSLANG_ENABLE_DXIL=FALSE
-                -DSLANG_ENABLE_EXAMPLES=FALSE
-                -DSLANG_ENABLE_GFX=FALSE
-                -DSLANG_ENABLE_RELEASE_DEBUG_INFO=FALSE
-                -DSLANG_ENABLE_SLANGC=FALSE
-                -DSLANG_ENABLE_SLANGD=FALSE
-                -DSLANG_ENABLE_SLANGI=FALSE
-                -DSLANG_ENABLE_SLANGRT=FALSE
-                -DSLANG_ENABLE_SLANG_GLSLANG=FALSE
-                -DSLANG_ENABLE_TESTS=FALSE
+                -DSLANG_ENABLE_DXIL=OFF
+                -DSLANG_ENABLE_EXAMPLES=OFF
+                -DSLANG_ENABLE_GFX=OFF
+                -DSLANG_ENABLE_RELEASE_DEBUG_INFO=OFF
+                -DSLANG_ENABLE_SLANGC=OFF
+                -DSLANG_ENABLE_SLANGD=OFF
+                -DSLANG_ENABLE_SLANGI=OFF
+                -DSLANG_ENABLE_SLANGRT=OFF
+                -DSLANG_ENABLE_SLANG_GLSLANG=OFF
+                -DSLANG_ENABLE_TESTS=OFF
 
-                -DSLANG_ENABLE_CUDA=FALSE
-                -DSLANG_ENABLE_OPTIX=FALSE
-                -DSLANG_ENABLE_NVAPI=FALSE
-                -DSLANG_ENABLE_AFTERMATH=FALSE
-                -DSLANG_ENABLE_XLIB=FALSE
+                -DSLANG_ENABLE_CUDA=OFF
+                -DSLANG_ENABLE_OPTIX=OFF
+                -DSLANG_ENABLE_NVAPI=OFF
+                -DSLANG_ENABLE_AFTERMATH=OFF
+                -DSLANG_ENABLE_XLIB=OFF
 
-                -DSLANG_ENABLE_SLANG_RHI=FALSE
+                -DSLANG_ENABLE_SLANG_RHI=OFF
 
                 -DSLANG_SLANG_LLVM_FLAVOR=DISABLE
         )
