@@ -5,8 +5,8 @@ if(NOT TARGET External.HarfBuzz)
         find_package(FreeTypeBootstrap REQUIRED)
 
         # Define build and install folders
-        set(BUILD_DIR "${CMAKE_BINARY_DIR}/build/harfbuzz")
-        set(INSTALL_DIR "${CMAKE_BINARY_DIR}/install/harfbuzz")
+        set(BUILD_DIR ${CMAKE_BINARY_DIR}/build/harfbuzz)
+        set(INSTALL_DIR ${CMAKE_BINARY_DIR}/install/harfbuzz)
 
         # Define import paths
         if(WIN32)
@@ -18,19 +18,19 @@ if(NOT TARGET External.HarfBuzz)
 
         # Add as external project
         ExternalProject_Add(External.HarfBuzz
-            SOURCE_DIR "${CMAKE_SOURCE_DIR}/native/harfbuzz"
-            BINARY_DIR "${BUILD_DIR}"
-            INSTALL_DIR "${INSTALL_DIR}"
-            BUILD_BYPRODUCTS "${IMPORTED_LOCATION}"
+            SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
+            BINARY_DIR ${BUILD_DIR}
+            INSTALL_DIR ${INSTALL_DIR}
+            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}harfbuzz${CMAKE_SHARED_LIBRARY_SUFFIX}"
             CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
-                -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}"
+                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
                 # Force consistent output folders between Debug/Release
-                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/lib"
-                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/lib"
-                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG="${INSTALL_DIR}/bin"
+                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/lib
+                -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=${INSTALL_DIR}/bin
 
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
@@ -38,7 +38,7 @@ if(NOT TARGET External.HarfBuzz)
                 # ----- Dependency specific options -----
 
                 # Reference the bootstrap install folder
-                -DCMAKE_PREFIX_PATH="${CMAKE_BINARY_DIR}/install/freetype-bootstrap"
+                -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype-bootstrap
 
                 # Enable freetype integration
                 -DHB_HAVE_FREETYPE=ON
@@ -46,7 +46,7 @@ if(NOT TARGET External.HarfBuzz)
         add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY "${INSTALL_DIR}/include/harfbuzz")
+        file(MAKE_DIRECTORY ${INSTALL_DIR}/include/harfbuzz)
 
         # Define imported target
         add_library(HarfBuzz SHARED IMPORTED GLOBAL)
