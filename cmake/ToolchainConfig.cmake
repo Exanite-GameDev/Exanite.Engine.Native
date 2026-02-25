@@ -23,20 +23,6 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 # This allows shared libraries to be loaded at different memory addresses
 set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE BOOL "" FORCE)
 
-# Ensure RPath is set for built binaries
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE CACHE BOOL "" FORCE)
-if(APPLE)
-    set(CMAKE_INSTALL_RPATH "@loader_path" CACHE STRING "" FORCE)
-elseif(UNIX)
-    set(CMAKE_INSTALL_RPATH "\$ORIGIN" CACHE STRING "" FORCE)
-endif()
-
-# Ensure RPath is set for installed binaries
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "" FORCE)
-
-# Ensure CMake does not add temporary development only RPaths
-set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
-
 # Target Windows 10 or later
 # See: https://learn.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt
 if(WIN32)
