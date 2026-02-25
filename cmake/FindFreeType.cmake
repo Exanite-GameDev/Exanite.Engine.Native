@@ -38,17 +38,22 @@ if(NOT TARGET External.FreeType)
                 # ----- Dependency specific options -----
 
                 # Enable dependencies since this is the final build
+                # zlib, brotli add support for compressed fonts
+                # png adds support for colored emojis
+                # harfbuzz adds support for improved hinting
                 -DFT_DISABLE_ZLIB=OFF
-                -DFT_DISABLE_BZIP2=OFF
                 -DFT_DISABLE_PNG=OFF
                 -DFT_DISABLE_HARFBUZZ=OFF
                 -DFT_DISABLE_BROTLI=OFF
 
                 -DFT_REQUIRE_ZLIB=ON
-                -DFT_REQUIRE_BZIP2=ON
                 -DFT_REQUIRE_PNG=ON
                 -DFT_REQUIRE_HARFBUZZ=ON
                 -DFT_REQUIRE_BROTLI=ON
+
+                # Disable bzip since it only adds support for very old Linux fonts (.pcf.bz2)
+                -DFT_DISABLE_BZIP2=ON
+                -DFT_REQUIRE_BZIP2=OFF
         )
         add_dependencies(External.FreeType External.HarfBuzz)
 
