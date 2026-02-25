@@ -39,9 +39,11 @@ if(NOT TARGET LibPng::LibPng)
 
                 # ----- Dependency specific options -----
 
-                # Add prefixes for dependencies
+                # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/zlib
+                -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
         )
+        add_dependencies(External.LibPng External.ZLib)
 
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_DIR}/include)

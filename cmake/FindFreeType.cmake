@@ -37,7 +37,7 @@ if(NOT TARGET External.FreeType)
 
                 # ----- Dependency specific options -----
 
-                # Add prefixes for dependencies
+                # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz
 
                 # Enable dependencies since this is the final build

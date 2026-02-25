@@ -37,7 +37,7 @@ if(NOT TARGET External.HarfBuzz)
 
                 # ----- Dependency specific options -----
 
-                # Add prefixes for dependencies
+                # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype-bootstrap
 
                 # Enable freetype integration
