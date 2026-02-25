@@ -18,11 +18,11 @@ if(NOT TARGET BZip2::BZip2)
 
         # Add as external project
         ExternalProject_Add(External.BZip2
-                SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/bzip2
-                BINARY_DIR ${BUILD_DIR}
-                INSTALL_DIR ${INSTALL_DIR}
-                BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BZIP_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}"
-                CMAKE_ARGS
+            SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/bzip2
+            BINARY_DIR ${BUILD_DIR}
+            INSTALL_DIR ${INSTALL_DIR}
+            BUILD_BYPRODUCTS "${INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BZIP_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            CMAKE_ARGS
                 # Shared options
                 ${EXANITE_EXTERNAL_PROJECT_ARGS}
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
@@ -47,7 +47,7 @@ if(NOT TARGET BZip2::BZip2)
         # Define imported target
         add_library(BZip2 STATIC IMPORTED GLOBAL)
         set_target_properties(BZip2
-                PROPERTIES
+            PROPERTIES
                 IMPORTED_LOCATION "${IMPORTED_LOCATION}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_DIR}/include"
         )
