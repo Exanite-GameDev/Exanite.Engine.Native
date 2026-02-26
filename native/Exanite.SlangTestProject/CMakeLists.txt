@@ -5,7 +5,7 @@ project(Exanite.SlangTestProject LANGUAGES CXX)
 
 find_package(Slang REQUIRED)
 
-# --- Build ---
+# ----- Build -----
 
 add_executable(Exanite.SlangTestProject)
 set_target_properties(Exanite.SlangTestProject
@@ -20,7 +20,7 @@ target_include_directories(Exanite.SlangTestProject PUBLIC "include")
 
 target_link_libraries(Exanite.SlangTestProject PRIVATE Slang::Slang)
 
-# --- Copy required DLLs -----
+# ----- Copy required DLLs -----
 
 get_target_property(linked_libs Exanite.SlangTestProject LINK_LIBRARIES)
 foreach(library ${linked_libs})

@@ -5,7 +5,7 @@ project(Exanite.FreeType LANGUAGES CXX)
 
 find_package(FreeType REQUIRED)
 
-# --- Build ---
+# ----- Build -----
 
 add_library(Exanite.FreeType SHARED)
 set_target_properties(Exanite.FreeType

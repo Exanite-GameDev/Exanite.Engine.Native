@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.TestProject LANGUAGES CXX)
 
-# --- Build ---
+# ----- Build -----
 
 add_executable(Exanite.TestProject)
 set_target_properties(Exanite.TestProject
@@ -16,7 +16,7 @@ target_include_directories(Exanite.TestProject PUBLIC "include")
 
 target_link_libraries(Exanite.TestProject PRIVATE Exanite.Tracy)
 
-# --- Copy required DLLs -----
+# ----- Copy required DLLs -----
 
 get_target_property(linked_libs Exanite.TestProject LINK_LIBRARIES)
 foreach(library ${linked_libs})

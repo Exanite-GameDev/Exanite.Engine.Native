@@ -5,7 +5,7 @@ project(Exanite.VulkanMemoryAllocator LANGUAGES CXX)
 
 find_package(VulkanMemoryAllocator REQUIRED)
 
-# --- Build ---
+# ----- Build -----
 
 add_library(Exanite.VulkanMemoryAllocator SHARED)
 set_target_properties(Exanite.VulkanMemoryAllocator

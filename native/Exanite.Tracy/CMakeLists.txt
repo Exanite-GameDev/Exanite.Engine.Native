@@ -5,7 +5,7 @@ project(Exanite.Tracy LANGUAGES CXX)
 
 find_package(Tracy REQUIRED)
 
-# --- Build ---
+# ----- Build -----
 
 add_library(Exanite.Tracy SHARED)
 set_target_properties(Exanite.Tracy
