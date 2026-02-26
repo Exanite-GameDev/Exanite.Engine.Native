@@ -38,10 +38,6 @@ if(TRUE)
     # Ensure CMake does not skip the setting of RPaths
     set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
 
-    # Ensure RPath is set for installed binaries
-    # This has the effect of CMake adding RPaths pointing to the install directories of the dependencies of shared objects
-    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "" FORCE)
-
     if(APPLE)
         # Tells CMake to use @rpath in the LC_ID_DYLIB field of the library
         set(CMAKE_MACOSX_RPATH TRUE CACHE BOOL "" FORCE)
