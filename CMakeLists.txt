@@ -43,7 +43,7 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
 
-# ----- Call all find modules -----
+# ----- Include find modules -----
 
 # This is so that the targets always exist
 
@@ -58,3 +58,25 @@ find_package(TracyProfiler REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(VulkanMemoryAllocator REQUIRED)
 find_package(ZLib REQUIRED)
+
+# ----- Define all target -----
+
+# This is so that Jetbrains IDEs have an explicit "all" target to show
+
+add_custom_target(AllTargets
+    DEPENDS
+        Exanite.FreeType
+        Exanite.Tracy
+        Exanite.VulkanMemoryAllocator
+        Exanite.TestProject
+        Exanite.SlangTestProject
+        External.BZip2
+        External.Brotli
+        External.FreeType
+        External.HarfBuzz
+        External.LibPng
+        External.Slang
+        External.Tracy
+        External.TracyProfiler
+        External.ZLib
+)
