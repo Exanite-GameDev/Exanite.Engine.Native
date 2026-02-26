@@ -9,9 +9,9 @@ if(NOT TARGET LibPng::LibPng)
 
         # Define output names
         if(WIN32)
-            set(BASE_NAME "png_static")
+            set(BASE_NAME "png16_static")
         else()
-            set(BASE_NAME "png")
+            set(BASE_NAME "png16")
         endif()
 
         # Define outputs
