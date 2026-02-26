@@ -73,15 +73,17 @@ if(NOT TARGET External.FreeTypeBootstrap)
         ExternalProject_Add_Step(External.FreeTypeBootstrap manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/freetype/include
-                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/freetype2
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include
-                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/freetype2
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
-            COMMAND ${CMAKE_COMMAND} -E copy
-                <BINARY_DIR>/${OUTPUT_FILE_NAME}
-                ${OUTPUT_FILE}
+            COMMAND ${CMAKE_COMMAND}
+                -DBUILD_FOLDER=${BUILD_FOLDER}
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}
+                -DFILE_NAME=${OUTPUT_FILE_NAME}
+                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallStaticLibraries.cmake"
             DEPENDEES build
         )
     endblock()

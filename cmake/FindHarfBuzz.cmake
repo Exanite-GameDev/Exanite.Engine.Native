@@ -55,11 +55,13 @@ if(NOT TARGET External.HarfBuzz)
         ExternalProject_Add_Step(External.HarfBuzz manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/harfbuzz/src
-                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/harfbuzz
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/harfbuzz
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
-            COMMAND ${CMAKE_COMMAND} -E copy
-                <BINARY_DIR>/${OUTPUT_FILE_NAME}
-                ${OUTPUT_FILE}
+            COMMAND ${CMAKE_COMMAND}
+                -DBUILD_FOLDER=${BUILD_FOLDER}
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}
+                -DFILE_NAME=${OUTPUT_FILE_NAME}
+                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallStaticLibrary.cmake"
             DEPENDEES build
         )
 
