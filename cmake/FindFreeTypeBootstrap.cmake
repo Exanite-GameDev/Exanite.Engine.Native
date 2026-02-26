@@ -38,9 +38,11 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 # ----- Dependency specific options -----
 
                 # Specify paths for dependencies
-                -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
-                -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
+                -DBZip2_ROOT=${CMAKE_BINARY_DIR}/install/bzip2
+                -DBrotliCommon_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
+                -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
+                -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
 
                 # Specify custom config header
                 -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include/freetype/config/ftoption.h
