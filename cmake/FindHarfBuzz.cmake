@@ -47,6 +47,15 @@ if(NOT TARGET External.HarfBuzz)
         )
         add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
+        # Manually install relevant outputs
+        ExternalProject_Add_Step(External.HarfBuzz manual_install
+            COMMAND ${CMAKE_COMMAND}
+                -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/harfbuzz/src
+                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/harfbuzz
+                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
+            DEPENDEES build
+        )
+
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include/harfbuzz)
 
