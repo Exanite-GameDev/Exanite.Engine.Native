@@ -10,12 +10,10 @@ if(NOT TARGET External.FreeType)
         # Define outputs
         set(BASE_NAME "freetype")
         if(WIN32)
-            set(OUTPUT_FILE_NAME ${BASE_NAME}.dll)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${OUTPUT_FILE_NAME}")
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
             set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
         else()
-            set(OUTPUT_FILE_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX})
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${OUTPUT_FILE_NAME}")
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
@@ -24,7 +22,6 @@ if(NOT TARGET External.FreeType)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${BUILD_FOLDER}
             INSTALL_DIR ${INSTALL_FOLDER}
-            INSTALL_COMMAND ""
             BUILD_BYPRODUCTS ${OUTPUT_FILE}
             CMAKE_ARGS
                 # ----- Shared options -----
@@ -66,24 +63,6 @@ if(NOT TARGET External.FreeType)
                 -DFT_DISABLE_BZIP2=ON
         )
         add_dependencies(External.FreeType External.HarfBuzz)
-
-        # Manually install relevant outputs
-        ExternalProject_Add_Step(External.FreeType manual_install
-            COMMAND ${CMAKE_COMMAND}
-                -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/freetype/include
-                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
-                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
-            COMMAND ${CMAKE_COMMAND}
-                -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
-                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
-                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
-            COMMAND ${CMAKE_COMMAND}
-                -DFILE_NAME=${OUTPUT_FILE_NAME}
-                -DBUILD_FOLDER=${BUILD_FOLDER}
-                -DDESTINATION_FOLDER=${INSTALL_FOLDER}
-                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallStaticLibraries.cmake"
-            DEPENDEES build
-        )
 
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include/freetype2)

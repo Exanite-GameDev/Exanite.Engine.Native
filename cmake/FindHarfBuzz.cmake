@@ -10,12 +10,10 @@ if(NOT TARGET External.HarfBuzz)
         # Define outputs
         set(BASE_NAME "harfbuzz")
         if(WIN32)
-            set(OUTPUT_FILE_NAME ${BASE_NAME}.dll)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${OUTPUT_FILE_NAME}")
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
             set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
         else()
-            set(OUTPUT_FILE_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX})
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${OUTPUT_FILE_NAME}")
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
@@ -24,7 +22,6 @@ if(NOT TARGET External.HarfBuzz)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
             BINARY_DIR ${BUILD_FOLDER}
             INSTALL_DIR ${INSTALL_FOLDER}
-            INSTALL_COMMAND ""
             BUILD_BYPRODUCTS ${OUTPUT_FILE}
             CMAKE_ARGS
                 # ----- Shared options -----
@@ -50,20 +47,6 @@ if(NOT TARGET External.HarfBuzz)
                 -DHAVE_FT_GET_TRANSFORM=TRUE
         )
         add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
-
-        # Manually install relevant outputs
-        ExternalProject_Add_Step(External.HarfBuzz manual_install
-            COMMAND ${CMAKE_COMMAND}
-                -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/harfbuzz/src
-                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/harfbuzz
-                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
-            COMMAND ${CMAKE_COMMAND}
-                -DBUILD_FOLDER=${BUILD_FOLDER}
-                -DDESTINATION_FOLDER=${INSTALL_FOLDER}
-                -DFILE_NAME=${OUTPUT_FILE_NAME}
-                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallStaticLibrary.cmake"
-            DEPENDEES build
-        )
 
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include/harfbuzz)
