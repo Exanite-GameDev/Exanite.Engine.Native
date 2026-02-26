@@ -36,7 +36,6 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 # ----- Dependency specific options -----
 
                 # Specify paths for dependencies
-                -DBrotliCommon_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
                 -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib

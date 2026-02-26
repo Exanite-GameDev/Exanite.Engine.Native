@@ -39,7 +39,6 @@ if(NOT TARGET External.FreeType)
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz
 
-                -DBrotliCommon_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
                 -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
