@@ -44,7 +44,7 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
 
                 # Specify custom config header
-                -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include/freetype/config/ftoption.h
+                -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include/freetype2/freetype/config/ftoption.h
 
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
@@ -76,10 +76,10 @@ if(NOT TARGET External.FreeTypeBootstrap)
         ExternalProject_Add_Step(External.FreeTypeBootstrap manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/freetype/include
-                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include
+                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             COMMAND ${CMAKE_COMMAND}
-                -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
+                -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include
                 -DINSTALL_FOLDER=${INSTALL_FOLDER}/include
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             DEPENDEES build
