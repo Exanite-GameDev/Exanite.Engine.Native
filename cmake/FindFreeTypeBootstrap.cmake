@@ -43,6 +43,9 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
 
+                # Specify custom config header
+                -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/ftoption.h
+
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
 

@@ -42,7 +42,7 @@ if(NOT TARGET External.FreeType)
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
 
                 # Specify custom config header
-                -DFTCONFIG_H_NAME ${CMAKE_SOURCE_DIR}/native/Exanite.FreeType/include/ftoption.h
+                -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeType/ftoption.h
 
                 # Enable harfbuzz since this is the final build
                 -DFT_REQUIRE_HARFBUZZ=ON
