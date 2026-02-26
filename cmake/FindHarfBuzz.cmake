@@ -24,6 +24,10 @@ if(NOT TARGET External.HarfBuzz)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
             BINARY_DIR ${BUILD_PATH}
             INSTALL_DIR ${INSTALL_PATH}
+            # Hack: Don't perform the install step.
+            # Somehow, this still installs the shared object file successfully,
+            # but avoids the errors caused by trying to symlink while so names are disabled
+            INSTALL_COMMAND ""
             BUILD_BYPRODUCTS ${OUTPUT_PATH}
             CMAKE_ARGS
                 # ----- Shared options -----
