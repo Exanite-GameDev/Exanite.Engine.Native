@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 #include <unistd.h>
-#include <Exanite/Tracy.h>
+#include <Exanite/Tracy/Tracy.h>
 
 [[noreturn]] int main()
 {

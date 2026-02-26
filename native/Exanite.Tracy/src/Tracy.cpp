@@ -1,4 +1,4 @@
-#include <Exanite/Tracy.h>
+#include <Exanite/Tracy/Tracy.h>
 #include <tracy/Tracy.hpp>
 
 extern "C"
