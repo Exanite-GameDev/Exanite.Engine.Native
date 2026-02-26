@@ -10,7 +10,7 @@
       "name": "linux-clang-debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-debug",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -21,7 +21,7 @@
       "name": "linux-clang-release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-release",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -32,7 +32,7 @@
       "name": "windows-vs2026-debug",
       "generator": "Visual Studio 18 2026",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-debug",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "cl",
@@ -44,7 +44,7 @@
       "name": "windows-vs2026-release",
       "generator": "Visual Studio 18 2026",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-release",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "cl",
@@ -56,7 +56,7 @@
       "name": "windows-vs2022-debug",
       "generator": "Visual Studio 17 2022",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-debug",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "cl",
@@ -68,7 +68,7 @@
       "name": "windows-vs2022-release",
       "generator": "Visual Studio 17 2022",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-release",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "cl",
@@ -80,7 +80,7 @@
       "name": "mac-clang-debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-clang-debug",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -91,7 +91,7 @@
       "name": "mac-clang-release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-clang-release",
-      "toolchainFile": "${sourceDir}/cmake/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",

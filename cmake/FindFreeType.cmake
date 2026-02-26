@@ -1,6 +1,6 @@
 if(NOT TARGET External.FreeType)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
         find_package(HarfBuzz REQUIRED)
 
         # Define build and install folders

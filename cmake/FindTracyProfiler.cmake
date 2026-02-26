@@ -1,6 +1,6 @@
 if(NOT TARGET External.TracyProfiler)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
 
         # Define build and install folders
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/tracy-profiler)

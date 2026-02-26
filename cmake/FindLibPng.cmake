@@ -1,6 +1,6 @@
 if(NOT TARGET LibPng::LibPng)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
         find_package(ZLib REQUIRED)
 
         # Define build and install folders

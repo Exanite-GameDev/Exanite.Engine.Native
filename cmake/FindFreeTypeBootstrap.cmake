@@ -1,6 +1,6 @@
 if(NOT TARGET External.FreeTypeBootstrap)
     block()
-        include("${CMAKE_CURRENT_LIST_DIR}/ExternalProjectUtility.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
         find_package(ZLib REQUIRED)
         find_package(LibPng REQUIRED)
         find_package(Brotli REQUIRED)
@@ -76,8 +76,8 @@ if(NOT TARGET External.FreeTypeBootstrap)
         ExternalProject_Add_Step(External.FreeTypeBootstrap manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/freetype/include
-                -DINSTALL_PATH=${INSTALL_FOLDER}/include
-                -P "${CMAKE_CURRENT_SOURCE_DIR}/install_headers.cmake"
+                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include
+                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             DEPENDEES build
         )
     endblock()
