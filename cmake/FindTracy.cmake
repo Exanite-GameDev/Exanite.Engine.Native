@@ -6,10 +6,8 @@ if(NOT TARGET Tracy::TracyClient)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/tracy)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/tracy)
 
-        # Define output names
-        set(BASE_NAME "TracyClient")
-
         # Define outputs
+        set(BASE_NAME "TracyClient")
         set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project

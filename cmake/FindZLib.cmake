@@ -6,14 +6,13 @@ if(NOT TARGET ZLib::ZLib)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/zlib)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/zlib)
 
-        # Define output names
+        # Define outputs
         if(WIN32)
             set(BASE_NAME "zlibstatic")
         else()
             set(BASE_NAME "z")
         endif()
 
-        # Define outputs
         set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project

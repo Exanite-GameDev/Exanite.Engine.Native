@@ -6,10 +6,8 @@ if(NOT TARGET Slang::Slang)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/slang)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/slang)
 
-        # Define output names
-        set(BASE_NAME "slang-compiler")
-
         # Define outputs
+        set(BASE_NAME "slang-compiler")
         if(WIN32)
             set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
             set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")

@@ -7,14 +7,13 @@ if(NOT TARGET LibPng::LibPng)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/libpng)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/libpng)
 
-        # Define output names
+        # Define outputs
         if(WIN32)
             set(BASE_NAME "png16_static")
         else()
             set(BASE_NAME "png16")
         endif()
 
-        # Define outputs
         set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project

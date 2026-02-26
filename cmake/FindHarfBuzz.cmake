@@ -7,15 +7,15 @@ if(NOT TARGET External.HarfBuzz)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/harfbuzz)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/harfbuzz)
 
-        # Define output names
-        set(BASE_NAME "harfbuzz")
-
         # Define outputs
+        set(BASE_NAME "harfbuzz")
         if(WIN32)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
+            set(OUTPUT_FILE_NAME ${BASE_NAME}.dll)
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${OUTPUT_FILE_NAME}")
             set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
         else()
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(OUTPUT_FILE_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX})
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${OUTPUT_FILE_NAME}")
         endif()
 
         # Add as external project
@@ -59,6 +59,9 @@ if(NOT TARGET External.HarfBuzz)
                 -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/harfbuzz/src
                 -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/harfbuzz
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
+            COMMAND ${CMAKE_COMMAND} -E copy
+                <BINARY_DIR>/${OUTPUT_FILE_NAME}
+                ${OUTPUT_FILE}
             DEPENDEES build
         )
 

@@ -9,15 +9,15 @@ if(NOT TARGET External.FreeTypeBootstrap)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
 
-        # Define output names
-        set(BASE_NAME "freetype")
-
         # Define outputs
+        set(BASE_NAME "freetype")
         if(WIN32)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
+            set(OUTPUT_FILE_NAME ${BASE_NAME}.dll)
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${OUTPUT_FILE_NAME}")
             set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
         else()
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(OUTPUT_FILE_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX})
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${OUTPUT_FILE_NAME}")
         endif()
 
         # Add as external project
@@ -80,6 +80,9 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include
                 -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
+            COMMAND ${CMAKE_COMMAND} -E copy
+                <BINARY_DIR>/${OUTPUT_FILE_NAME}
+                ${OUTPUT_FILE}
             DEPENDEES build
         )
     endblock()

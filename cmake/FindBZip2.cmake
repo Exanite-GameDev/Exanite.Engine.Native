@@ -6,14 +6,13 @@ if(NOT TARGET BZip2::BZip2)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/bzip2)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/bzip2)
 
-        # Define output names
+        # Define outputs
         if(WIN32)
             set(BASE_NAME "libbz2")
         else()
             set(BASE_NAME "bz2")
         endif()
 
-        # Define outputs
         set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project

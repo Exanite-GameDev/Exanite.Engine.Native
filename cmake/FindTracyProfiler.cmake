@@ -6,10 +6,8 @@ if(NOT TARGET External.TracyProfiler)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/tracy-profiler)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/tracy-profiler)
 
-        # Define output names
-        set(BASE_NAME "tracy-profiler")
-
         # Define outputs
+        set(BASE_NAME "tracy-profiler")
         set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${BASE_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
 
         # Add as external project

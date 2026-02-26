@@ -6,7 +6,7 @@ if(NOT TARGET Brotli::BrotliCommon)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/brotli)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/brotli)
 
-        # Define output names
+        # Define outputs
         if(WIN32)
             set(COMMON_BASE_NAME "brotlicommon-static")
             set(DECODE_BASE_NAME "brotlidec-static")
@@ -17,7 +17,6 @@ if(NOT TARGET Brotli::BrotliCommon)
             set(ENCODE_BASE_NAME "brotlienc")
         endif()
 
-        # Define outputs
         set(COMMON_OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${COMMON_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
         set(DECODE_OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${DECODE_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
         set(ENCODE_OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${ENCODE_BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
