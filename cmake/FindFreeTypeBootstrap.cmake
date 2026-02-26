@@ -6,31 +6,31 @@ if(NOT TARGET External.FreeTypeBootstrap)
         find_package(Brotli REQUIRED)
 
         # Define build and install folders
-        set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
-        set(INSTALL_PATH ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
+        set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
+        set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
 
         # Define output names
         set(BASE_NAME "freetype")
 
         # Define outputs
         if(WIN32)
-            set(OUTPUT_PATH "${INSTALL_PATH}/bin/${BASE_NAME}.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_PATH}/lib/${BASE_NAME}.lib")
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
+            set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
         else()
-            set(OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_PATH})
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
         ExternalProject_Add(External.FreeTypeBootstrap
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
-            BINARY_DIR ${BUILD_PATH}
-            INSTALL_DIR ${INSTALL_PATH}
+            BINARY_DIR ${BUILD_FOLDER}
+            INSTALL_DIR ${INSTALL_FOLDER}
             # Hack: Don't perform the install step.
             # Somehow, this still installs the shared object file successfully,
             # but avoids the errors caused by trying to symlink while so names are disabled
             INSTALL_COMMAND ""
-            BUILD_BYPRODUCTS ${OUTPUT_PATH}
+            BUILD_BYPRODUCTS ${OUTPUT_FILE}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -76,7 +76,7 @@ if(NOT TARGET External.FreeTypeBootstrap)
         ExternalProject_Add_Step(External.FreeTypeBootstrap manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_SOURCE_DIR}/native/freetype/include
-                -DINSTALL_PATH=${INSTALL_PATH}/include
+                -DINSTALL_PATH=${INSTALL_FOLDER}/include
                 -P "${CMAKE_CURRENT_SOURCE_DIR}/install_headers.cmake"
             DEPENDEES build
         )

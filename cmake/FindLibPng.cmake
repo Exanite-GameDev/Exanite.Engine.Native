@@ -4,8 +4,8 @@ if(NOT TARGET LibPng::LibPng)
         find_package(ZLib REQUIRED)
 
         # Define build and install folders
-        set(BUILD_PATH ${CMAKE_BINARY_DIR}/build/libpng)
-        set(INSTALL_PATH ${CMAKE_BINARY_DIR}/install/libpng)
+        set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/libpng)
+        set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/libpng)
 
         # Define output names
         if(WIN32)
@@ -15,15 +15,15 @@ if(NOT TARGET LibPng::LibPng)
         endif()
 
         # Define outputs
-        set(OUTPUT_PATH "${INSTALL_PATH}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_PATH})
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
         ExternalProject_Add(External.LibPng
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/libpng
-            BINARY_DIR ${BUILD_PATH}
-            INSTALL_DIR ${INSTALL_PATH}
-            BUILD_BYPRODUCTS ${OUTPUT_PATH}
+            BINARY_DIR ${BUILD_FOLDER}
+            INSTALL_DIR ${INSTALL_FOLDER}
+            BUILD_BYPRODUCTS ${OUTPUT_FILE}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -41,14 +41,14 @@ if(NOT TARGET LibPng::LibPng)
         add_dependencies(External.LibPng External.ZLib)
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_PATH}/include)
+        file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include)
 
         # Define imported targets
         add_library(LibPng STATIC IMPORTED GLOBAL)
         set_target_properties(LibPng
             PROPERTIES
-                IMPORTED_LOCATION "${OUTPUT_PATH}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_PATH}/include"
+                IMPORTED_LOCATION "${OUTPUT_FILE}"
+                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_FOLDER}/include"
         )
         add_dependencies(LibPng External.LibPng)
 
