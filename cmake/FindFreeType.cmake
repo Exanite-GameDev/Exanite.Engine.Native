@@ -24,8 +24,6 @@ if(NOT TARGET External.FreeType)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${BUILD_FOLDER}
             INSTALL_DIR ${INSTALL_FOLDER}
-            # Hack: Don't perform the install step.
-            # This avoids the errors caused by trying to symlink while so names are disabled
             INSTALL_COMMAND ""
             BUILD_BYPRODUCTS ${OUTPUT_FILE}
             CMAKE_ARGS
