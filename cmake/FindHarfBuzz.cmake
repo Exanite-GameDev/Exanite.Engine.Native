@@ -42,8 +42,15 @@ if(NOT TARGET External.HarfBuzz)
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/freetype-bootstrap
 
-                # Enable freetype integration
+                # Enable FreeType integration
                 -DHB_HAVE_FREETYPE=ON
+
+                # HarfBuzz's function existence checks seem to be flaky and look at the system libraries instead
+                # Let's override them
+                -DHAVE_FT_GET_VAR_BLEND_COORDINATES=TRUE
+                -DHAVE_FT_SET_VAR_BLEND_COORDINATES=TRUE
+                -DHAVE_FT_DONE_MM_VAR=TRUE
+                -DHAVE_FT_GET_TRANSFORM=TRUE
         )
         add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
