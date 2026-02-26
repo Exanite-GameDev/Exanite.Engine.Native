@@ -10,7 +10,7 @@ if(NOT TARGET External.TracyProfiler)
         set(BASE_NAME "tracy-profiler")
 
         # Define outputs
-        set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
+        set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${BASE_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
 
         # Add as external project
         get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
