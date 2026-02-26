@@ -6,15 +6,15 @@ if(NOT TARGET ZLib::ZLib)
         set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/zlib)
         set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/zlib)
 
-        # ZLib is named zlibstatic on Windows
+        # Define output names
         if(WIN32)
-            set(ZLIB_LIBRARY_NAME "zlibstatic")
+            set(BASE_NAME "zlibstatic")
         else()
-            set(ZLIB_LIBRARY_NAME "z")
+            set(BASE_NAME "z")
         endif()
 
         # Define outputs
-        set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${ZLIB_LIBRARY_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
         get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
