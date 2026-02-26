@@ -16,6 +16,7 @@ set_target_properties(Exanite.SlangTestProject
 
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
 target_sources(Exanite.SlangTestProject PRIVATE ${sources})
+target_include_directories(Exanite.SlangTestProject PUBLIC "include")
 
 target_link_libraries(Exanite.SlangTestProject PRIVATE Slang::Slang)
 

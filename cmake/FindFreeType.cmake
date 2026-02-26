@@ -46,7 +46,7 @@ if(NOT TARGET External.FreeType)
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
 
                 # Specify custom config header
-                -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeType/include/freetype2/freetype/config/ftoption.h
+                -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeType/include/freetype/config/ftoption.h
 
                 # Enable harfbuzz since this is the final build
                 -DFT_REQUIRE_HARFBUZZ=ON
@@ -77,7 +77,7 @@ if(NOT TARGET External.FreeType)
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
-                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include
+                -DINSTALL_FOLDER=${INSTALL_FOLDER}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             DEPENDEES build
         )
