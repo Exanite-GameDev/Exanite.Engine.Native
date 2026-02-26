@@ -25,8 +25,7 @@ if(NOT TARGET External.HarfBuzz)
             BINARY_DIR ${BUILD_FOLDER}
             INSTALL_DIR ${INSTALL_FOLDER}
             # Hack: Don't perform the install step.
-            # Somehow, this still installs the shared object file successfully,
-            # but avoids the errors caused by trying to symlink while so names are disabled
+            # This avoids the errors caused by trying to symlink while so names are disabled
             INSTALL_COMMAND ""
             BUILD_BYPRODUCTS ${OUTPUT_FILE}
             CMAKE_ARGS
