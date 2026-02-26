@@ -47,7 +47,6 @@ add_subdirectory(./native/Exanite.SlangTestProject)
 
 # This is so that the targets always exist
 
-find_package(BZip2 REQUIRED)
 find_package(Brotli REQUIRED)
 find_package(FreeType REQUIRED)
 find_package(HarfBuzz REQUIRED)
@@ -70,7 +69,6 @@ add_custom_target(AllTargets
         Exanite.VulkanMemoryAllocator
         Exanite.TestProject
         Exanite.SlangTestProject
-        External.BZip2
         External.Brotli
         External.FreeType
         External.HarfBuzz

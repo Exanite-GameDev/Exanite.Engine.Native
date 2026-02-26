@@ -36,7 +36,6 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 # ----- Dependency specific options -----
 
                 # Specify paths for dependencies
-                -DBZip2_ROOT=${CMAKE_BINARY_DIR}/install/bzip2
                 -DBrotliCommon_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli
                 -DPNG_ROOT=${CMAKE_BINARY_DIR}/install/libpng
@@ -56,16 +55,17 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 # png adds support for colored emojis
                 # harfbuzz adds support for improved hinting
                 -DFT_REQUIRE_BROTLI=ON
-                -DFT_REQUIRE_BZIP2=ON
                 -DFT_REQUIRE_PNG=ON
                 -DFT_REQUIRE_ZLIB=ON
 
                 -DFT_DISABLE_BROTLI=OFF
-                -DFT_DISABLE_BZIP2=OFF
                 -DFT_DISABLE_PNG=OFF
                 -DFT_DISABLE_ZLIB=OFF
+
+                # Disable bzip since it only adds support for very old Linux fonts (.pcf.bz2)
+                -DFT_REQUIRE_BZIP2=OFF
+                -DFT_DISABLE_BZIP2=ON
         )
-        add_dependencies(External.FreeTypeBootstrap External.BZip2)
         add_dependencies(External.FreeTypeBootstrap External.Brotli)
         add_dependencies(External.FreeTypeBootstrap External.LibPng)
         add_dependencies(External.FreeTypeBootstrap External.ZLib)
