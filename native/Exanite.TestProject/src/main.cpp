@@ -3,8 +3,23 @@
 #include <thread>
 #include <unistd.h>
 #include <Exanite/Tracy/Tracy.h>
+#include <Exanite/FreeType/FreeType.h>
 
-[[noreturn]] int main()
+void guardSuccessFreeType(int result)
+{
+    if (result != 0)
+    {
+        throw std::runtime_error("Error while calling FreeType function: " + std::string(FT_Error_String(result)));
+    }
+}
+
+int main()
+{
+    FT_Library library;
+    guardSuccessFreeType(FT_Init_FreeType(&library));
+}
+
+[[noreturn]] void main_tracy()
 {
     while (!___tracy_connected())
     {
@@ -74,6 +89,4 @@
         ___tracy_emit_gpu_time_serial(___tracy_gpu_time_data(static_cast<int64_t>(simulatedGpuTime + 0.2f * nanoSecondsPerSecond), startQueryId, context));
         ___tracy_emit_gpu_time_serial(___tracy_gpu_time_data(static_cast<int64_t>(simulatedGpuTime + 0.4f * nanoSecondsPerSecond), endQueryId, context));
     }
-
-    return 0;
 }
