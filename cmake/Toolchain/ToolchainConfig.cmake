@@ -73,9 +73,11 @@ if(TRUE)
     endif()
 
     if(UNIX)
-        # TODO: Currently testing if this works on Mac
+        # This works on both Linux and Mac
+        #
         # Prevent versioned shared library names
         # Eg: libname.so.1.2.3 stays as libname.so
+        # Eg: libname.1.2.3.dylib stays as libname.dylib
         set(CMAKE_PLATFORM_NO_VERSIONED_SONAME TRUE CACHE BOOL "" FORCE)
     endif()
 endif()
