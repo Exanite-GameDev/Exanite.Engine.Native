@@ -7,7 +7,7 @@ find_package(FreeType REQUIRED)
 
 # ----- Build -----
 
-add_library(Exanite.FreeType SHARED)
+add_library(Exanite.FreeType INTERFACE)
 set_target_properties(Exanite.FreeType
     PROPERTIES
         CXX_STANDARD 23
@@ -15,8 +15,6 @@ set_target_properties(Exanite.FreeType
         WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
-file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
-target_sources(Exanite.FreeType PRIVATE ${sources})
-target_include_directories(Exanite.FreeType PUBLIC "include")
+target_include_directories(Exanite.FreeType INTERFACE "include")
 
-target_link_libraries(Exanite.FreeType PRIVATE FreeType::FreeType)
+target_link_libraries(Exanite.FreeType INTERFACE FreeType::FreeType)
