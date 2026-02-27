@@ -48,25 +48,30 @@ endif()
 # This section emulates Windows DLL loading behavior for Linux and Mac
 # Specifically, it makes shared libraries look beside themselves for dependencies
 # and makes so names / install names match the shared library file names
+#
+# This is fine because Exanite.Engine ships all required binaries together
+# so version incompatibilities isn't a concern
 if(TRUE)
     # Ensure CMake does not skip the setting of RPaths
     set(CMAKE_INSTALL_SKIP_RPATH FALSE CACHE BOOL "" FORCE)
 
     if(APPLE)
-        # Tells CMake to use @rpath in the LC_ID_DYLIB field of the library
+        # Ensure that RPaths are set
         set(CMAKE_MACOSX_RPATH TRUE CACHE BOOL "" FORCE)
 
-        # When building the library, this sets its internal ID to @rpath/libname.dylib
+        # Set the binary install name to @rpath/libname.dylib
         set(CMAKE_INSTALL_NAME_DIR "@rpath" CACHE STRING "" FORCE)
 
-        # The executable looks in its own directory for @rpath
+        # Tells the binary to use its own folder for the @rpath value
+        # In conjunction with the setting above, this tells the binary to look in its own folder first
         set(CMAKE_INSTALL_RPATH "@loader_path" CACHE STRING "" FORCE)
     endif()
 
     if(UNIX AND NOT APPLE)
+        # Tells the binary to look in its own folder first
         set(CMAKE_INSTALL_RPATH "\$ORIGIN")
 
-        # This prevents libfoo.so.1.2.3 from being the so name and keeps it as libfoo.so
+        # This prevents libfoo.so.1.2.3 from being the soname and keeps it as libfoo.so
         set(CMAKE_PLATFORM_NO_VERSIONED_SONAME TRUE CACHE BOOL "" FORCE)
     endif()
 endif()
