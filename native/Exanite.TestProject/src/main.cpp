@@ -17,11 +17,12 @@ int main()
     FT_Library library;
     guardSuccessFreeType(FT_Init_FreeType(&library));
 
-    int size = sizeof(FT_FaceRec); // 216 on Windows
-    int sizeShort = sizeof(FT_Short); // 2 on Windows
-    int sizeInt = sizeof(FT_Int); // 4 on Windows
-    int sizeLong = sizeof(FT_Long); // 4 on Windows
-    int offset = offsetof(FT_FaceRec, glyph); // 120 on Windows
+    // TODO: Override FreeType's own typedefs
+    int size = sizeof(FT_FaceRec); // 216 on Windows, 248 on Linux
+    int sizeShort = sizeof(FT_Short); // 2 on Windows, 2 on Linux
+    int sizeInt = sizeof(FT_Int); // 4 on Windows, 4 on Linux
+    int sizeLong = sizeof(FT_Long); // 4 on Windows, 8 on Linux
+    int offset = offsetof(FT_FaceRec, glyph); // 120 on Windows, 152 on Linux
 }
 
 [[noreturn]] void main_tracy()
