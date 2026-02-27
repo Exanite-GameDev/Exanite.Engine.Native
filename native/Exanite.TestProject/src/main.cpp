@@ -1,7 +1,6 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
-#include <unistd.h>
 #include <Exanite/Tracy/Tracy.h>
 #include <Exanite/FreeType/FreeType.h>
 
@@ -28,7 +27,7 @@ int main()
     {
         std::cout << "Waiting for connection from Tracy UI" << std::endl;
 
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 
     std::cout << "Connected!" << std::endl;

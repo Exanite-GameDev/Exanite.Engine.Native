@@ -31,7 +31,6 @@ foreach(library ${linked_libs})
         if(library_type STREQUAL "SHARED_LIBRARY")
             add_custom_command(TARGET Exanite.TestProject POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:Exanite.TestProject> $<TARGET_FILE:${library}>
-                COMMENT "Copying ${library} to executable directory"
             )
         endif()
     endif()
