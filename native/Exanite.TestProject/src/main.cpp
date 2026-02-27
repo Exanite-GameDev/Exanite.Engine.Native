@@ -17,6 +17,9 @@ int main()
 {
     FT_Library library;
     guardSuccessFreeType(FT_Init_FreeType(&library));
+
+    int size = sizeof(FT_FaceRec);
+    int offset = offsetof(FT_FaceRec, glyph);
 }
 
 [[noreturn]] void main_tracy()
