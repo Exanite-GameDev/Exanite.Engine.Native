@@ -33,6 +33,7 @@ if(NOT TARGET LibPng::LibPng)
                 # Build static library
                 -DPNG_SHARED=OFF
                 -DPNG_STATIC=ON
+                -DPNG_FRAMEWORK=OFF
 
                 # Specify paths for dependencies
                 -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
