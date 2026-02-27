@@ -65,21 +65,15 @@ if(TRUE)
         # Tells the binary to use its own folder for the @rpath value
         # In conjunction with the setting above, this tells the binary to look in its own folder first
         set(CMAKE_INSTALL_RPATH "@loader_path" CACHE STRING "" FORCE)
-
-        # TODO: Verify new AI generated stuff below
-        # Global toggle to prevent versioned names (e.g., libfoo.1.dylib)
-        set(CMAKE_SHARED_LIBRARY_SONAME_MACOSX_FLAG "" CACHE STRING "" FORCE)
-        set(CMAKE_MACH_INFO_PREFIX "" CACHE STRING "" FORCE)
-
-        # Force the linker to ignore versioning for all targets
-        set(CMAKE_XCODE_ATTRIBUTE_DYLIB_CURRENT_VERSION "" CACHE STRING "" FORCE)
-        set(CMAKE_XCODE_ATTRIBUTE_DYLIB_COMPATIBILITY_VERSION "" CACHE STRING "" FORCE)
     endif()
 
     if(UNIX AND NOT APPLE)
         # Tells the binary to look in its own folder first
         set(CMAKE_INSTALL_RPATH "\$ORIGIN")
+    endif()
 
+    if(UNIX)
+        # TODO: Currently testing if this works on Mac
         # Prevent versioned shared library names
         # Eg: libname.so.1.2.3 stays as libname.so
         set(CMAKE_PLATFORM_NO_VERSIONED_SONAME TRUE CACHE BOOL "" FORCE)
