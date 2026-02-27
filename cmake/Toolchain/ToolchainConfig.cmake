@@ -26,6 +26,20 @@ if(WIN32)
     add_compile_definitions(_WIN32_WINNT=0x0A00)
 endif()
 
+# Target macOS 11.0 or later (Required for arm64 support)
+if(APPLE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "" FORCE)
+endif()
+
+# Target Linux (Equivalent to Ubuntu 22.04, glibc 2.35 or later)
+if(UNIX AND NOT APPLE)
+    # 202405L = POSIX.1-2024
+    add_compile_definitions(_POSIX_C_SOURCE=202405L)
+
+    # Allows glibc-specific optimizations without breaking the POSIX baseline
+    add_compile_definitions(_GNU_SOURCE)
+endif()
+
 # Dynamically link to the MSVC C++ runtime
 if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL" CACHE STRING "" FORCE)
