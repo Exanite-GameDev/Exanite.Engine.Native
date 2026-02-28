@@ -4,27 +4,27 @@ if(NOT TARGET External.HarfBuzz)
         find_package(FreeTypeBootstrap REQUIRED)
 
         # Define build and install folders
-        set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/harfbuzz)
-        set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/harfbuzz)
+        set(build_folder ${CMAKE_BINARY_DIR}/build/harfbuzz)
+        set(install_folder ${CMAKE_BINARY_DIR}/install/harfbuzz)
 
         # Define outputs
-        set(BASE_NAME "harfbuzz")
+        set(base_name "harfbuzz")
         if(WIN32)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
-            set(OUTPUT_LIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
+            set(output_file "${install_folder}/bin/${base_name}.dll")
+            set(output_lib "${install_folder}/lib/${base_name}.lib")
         else()
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(output_file "${install_folder}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
         ExternalProject_Add(External.HarfBuzz
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
-            BINARY_DIR ${BUILD_FOLDER}
-            INSTALL_DIR ${INSTALL_FOLDER}
+            BINARY_DIR ${build_folder}
+            INSTALL_DIR ${install_folder}
             BUILD_BYPRODUCTS
-                ${OUTPUT_FILE}
-                ${OUTPUT_LIB}
+                ${output_file}
+                ${output_lib}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -51,17 +51,17 @@ if(NOT TARGET External.HarfBuzz)
         add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include/harfbuzz)
+        file(MAKE_DIRECTORY ${install_folder}/include/harfbuzz)
 
         # Define imported targets
         add_library(HarfBuzz SHARED IMPORTED GLOBAL)
         add_dependencies(HarfBuzz External.HarfBuzz)
         set_target_properties(HarfBuzz
             PROPERTIES
-                IMPORTED_LOCATION "${OUTPUT_FILE}"
-                IMPORTED_IMPLIB "${OUTPUT_LIB}"
+                IMPORTED_LOCATION "${output_file}"
+                IMPORTED_IMPLIB "${output_lib}"
         )
-        target_include_directories(HarfBuzz INTERFACE "${INSTALL_FOLDER}/include/harfbuzz")
+        target_include_directories(HarfBuzz INTERFACE "${install_folder}/include/harfbuzz")
         target_link_libraries(HarfBuzz INTERFACE FreeType::FreeType)
 
         # Define aliases

@@ -3,20 +3,20 @@ if(NOT TARGET Tracy::TracyClient)
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
 
         # Define build and install folders
-        set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/tracy)
-        set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/tracy)
+        set(build_folder ${CMAKE_BINARY_DIR}/build/tracy)
+        set(install_folder ${CMAKE_BINARY_DIR}/install/tracy)
 
         # Define outputs
-        set(BASE_NAME "TracyClient")
-        set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+        set(base_name "TracyClient")
+        set(output_file "${install_folder}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
         ExternalProject_Add(External.Tracy
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/tracy
-            BINARY_DIR ${BUILD_FOLDER}
-            INSTALL_DIR ${INSTALL_FOLDER}
-            BUILD_BYPRODUCTS ${OUTPUT_FILE}
+            BINARY_DIR ${build_folder}
+            INSTALL_DIR ${install_folder}
+            BUILD_BYPRODUCTS ${output_file}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -34,14 +34,14 @@ if(NOT TARGET Tracy::TracyClient)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include/tracy)
+        file(MAKE_DIRECTORY ${install_folder}/include/tracy)
 
         # Define imported targets
         add_library(TracyClient STATIC IMPORTED GLOBAL)
         set_target_properties(TracyClient
             PROPERTIES
-                IMPORTED_LOCATION "${OUTPUT_FILE}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_FOLDER}/include/tracy"
+                IMPORTED_LOCATION "${output_file}"
+                INTERFACE_INCLUDE_DIRECTORIES "${install_folder}/include/tracy"
         )
         add_dependencies(TracyClient External.Tracy)
 

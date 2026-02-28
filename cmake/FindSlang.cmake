@@ -3,16 +3,16 @@ if(NOT TARGET Slang::Slang)
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
 
         # Define build and install folders
-        set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/slang)
-        set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/slang)
+        set(build_folder ${CMAKE_BINARY_DIR}/build/slang)
+        set(install_folder ${CMAKE_BINARY_DIR}/install/slang)
 
         # Define outputs
-        set(BASE_NAME "slang-compiler")
+        set(base_name "slang-compiler")
         if(WIN32)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
-            set(OUTPUT_LIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
+            set(output_file "${install_folder}/bin/${base_name}.dll")
+            set(output_lib "${install_folder}/lib/${base_name}.lib")
         else()
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(output_file "${install_folder}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Define targets
@@ -23,16 +23,16 @@ if(NOT TARGET Slang::Slang)
         endif()
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
         ExternalProject_Add(External.Slang
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/slang
-            BINARY_DIR ${BUILD_FOLDER}
-            INSTALL_DIR ${INSTALL_FOLDER}
+            BINARY_DIR ${build_folder}
+            INSTALL_DIR ${install_folder}
             BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config $<CONFIG> --target ${TARGETS}
             INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config $<CONFIG>
             BUILD_BYPRODUCTS
-                ${OUTPUT_FILE}
-                ${OUTPUT_LIB}
+                ${output_file}
+                ${output_lib}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -73,15 +73,15 @@ if(NOT TARGET Slang::Slang)
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include)
+        file(MAKE_DIRECTORY ${install_folder}/include)
 
         # Define imported targets
         add_library(Slang SHARED IMPORTED GLOBAL)
         set_target_properties(Slang
             PROPERTIES
-                IMPORTED_LOCATION "${OUTPUT_FILE}"
-                IMPORTED_IMPLIB "${OUTPUT_LIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_FOLDER}/include"
+                IMPORTED_LOCATION "${output_file}"
+                IMPORTED_IMPLIB "${output_lib}"
+                INTERFACE_INCLUDE_DIRECTORIES "${install_folder}/include"
         )
         add_dependencies(Slang External.Slang)
 

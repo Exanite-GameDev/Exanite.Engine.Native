@@ -6,27 +6,27 @@ if(NOT TARGET External.FreeTypeBootstrap)
         find_package(Brotli REQUIRED)
 
         # Define build and install folders
-        set(BUILD_FOLDER ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
-        set(INSTALL_FOLDER ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
+        set(build_folder ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
+        set(install_folder ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
 
         # Define outputs
-        set(BASE_NAME "freetype")
+        set(base_name "freetype")
         if(WIN32)
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
-            set(OUTPUT_LIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
+            set(output_file "${install_folder}/bin/${base_name}.dll")
+            set(output_lib "${install_folder}/lib/${base_name}.lib")
         else()
-            set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(output_file "${install_folder}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${INSTALL_FOLDER})
+        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
         ExternalProject_Add(External.FreeTypeBootstrap
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
-            BINARY_DIR ${BUILD_FOLDER}
-            INSTALL_DIR ${INSTALL_FOLDER}
+            BINARY_DIR ${build_folder}
+            INSTALL_DIR ${install_folder}
             BUILD_BYPRODUCTS
-                ${OUTPUT_FILE}
-                ${OUTPUT_LIB}
+                ${output_file}
+                ${output_lib}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -75,7 +75,7 @@ if(NOT TARGET External.FreeTypeBootstrap)
         ExternalProject_Add_Step(External.FreeTypeBootstrap manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include
-                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
+                -DDESTINATION_FOLDER=${install_folder}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             DEPENDEES install
         )
