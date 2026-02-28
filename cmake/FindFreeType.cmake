@@ -11,7 +11,7 @@ if(NOT TARGET External.FreeType)
         set(BASE_NAME "freetype")
         if(WIN32)
             set(OUTPUT_FILE "${INSTALL_FOLDER}/bin/${BASE_NAME}.dll")
-            set(IMPORTED_IMPLIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
+            set(OUTPUT_LIB "${INSTALL_FOLDER}/lib/${BASE_NAME}.lib")
         else()
             set(OUTPUT_FILE "${INSTALL_FOLDER}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${BASE_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
@@ -22,7 +22,9 @@ if(NOT TARGET External.FreeType)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${BUILD_FOLDER}
             INSTALL_DIR ${INSTALL_FOLDER}
-            BUILD_BYPRODUCTS ${OUTPUT_FILE}
+            BUILD_BYPRODUCTS
+                ${OUTPUT_FILE}
+                ${OUTPUT_LIB}
             CMAKE_ARGS
                 # ----- Shared options -----
 
@@ -81,7 +83,7 @@ if(NOT TARGET External.FreeType)
         set_target_properties(FreeType
             PROPERTIES
                 IMPORTED_LOCATION "${OUTPUT_FILE}"
-                IMPORTED_IMPLIB "${IMPORTED_IMPLIB}"
+                IMPORTED_IMPLIB "${OUTPUT_LIB}"
                 INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_FOLDER}/include/freetype2"
         )
         add_dependencies(FreeType External.FreeType)
