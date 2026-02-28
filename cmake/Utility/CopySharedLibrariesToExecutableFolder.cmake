@@ -33,7 +33,7 @@ function(_exanite_copy_shared_libraries_to_executable_folder_visit root_target c
             endif()
 
             add_custom_command(TARGET ${root_target} POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:${root_target}> $<TARGET_FILE:${current_target}>
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different -t $<TARGET_FILE_DIR:${root_target}> $<TARGET_FILE:${current_target}>
             )
         endif()
     endif()
