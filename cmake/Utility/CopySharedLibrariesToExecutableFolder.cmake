@@ -5,6 +5,13 @@ function(_exanite_copy_shared_libraries_to_executable_folder_visit root_target c
         return()
     endif()
 
+    # Resolve alias
+    get_target_property(is_alias ${current_target} ALIAS_GLOBAL)
+    if(is_alias)
+        get_target_property(current_target ${current_target} ALIASED_TARGET)
+    endif()
+
+    # Ignore if already visited
     if(current_target IN_LIST ${visited_variable})
         return()
     endif()
