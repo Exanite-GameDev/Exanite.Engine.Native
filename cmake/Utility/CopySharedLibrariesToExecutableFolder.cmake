@@ -1,13 +1,37 @@
-﻿function(exanite_copy_shared_libraries_to_executable_folder target)
-    get_target_property(linked_libs ${target} LINK_LIBRARIES)
-    foreach(library ${linked_libs})
-        if(TARGET ${library})
-            get_target_property(library_type ${library} TYPE)
-            if(library_type STREQUAL "SHARED_LIBRARY")
-                add_custom_command(TARGET ${target} POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:${target}> $<TARGET_FILE:${library}>
-                )
-            endif()
+﻿function(_exanite_copy_shared_libraries_to_executable_folder_visit root_target current_target visited_variable)
+    if(current_target IN_LIST ${visited_variable})
+        return()
+    endif()
+
+    message("Current: ${current_target}")
+
+    # Add to visited and explicitly set in outer scope
+    list(APPEND ${visited_variable} ${current_target})
+    set(${visited_variable} ${${visited_variable}} PARENT_SCOPE)
+
+    # Only copy if the current is a shared library and not the root target
+    if(NOT current_target STREQUAL root_target)
+        get_target_property(current_type ${current_target} TYPE)
+        if(current_type STREQUAL "SHARED_LIBRARY")
+            message("Copying target: ${current_target}")
+            add_custom_command(TARGET ${root_target} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:${root_target}> $<TARGET_FILE:${current_target}>
+            )
+        endif()
+    endif()
+
+    # Continue visiting dependencies
+    get_target_property(dependencies ${current_target} LINK_LIBRARIES)
+    message("Dependencies: ${dependencies}")
+    foreach(dependency ${dependencies})
+        if(TARGET ${dependency})
+            _exanite_copy_shared_libraries_to_executable_folder_visit(${root_target} ${dependency} ${visited_variable})
         endif()
     endforeach()
+endfunction()
+
+function(exanite_copy_shared_libraries_to_executable_folder target)
+    message("Processing target: ${target}")
+    set(visited_targets "")
+    _exanite_copy_shared_libraries_to_executable_folder_visit(${target} ${target} visited_targets)
 endfunction()
