@@ -1,4 +1,6 @@
-﻿function(_exanite_copy_shared_libraries_to_executable_folder_visit root_target current_target visited_variable)
+﻿set(_exanite_copy_shared_libraries_to_executable_folder_enable_logs OFF)
+
+function(_exanite_copy_shared_libraries_to_executable_folder_visit root_target current_target visited_variable)
     if(NOT TARGET ${current_target})
         return()
     endif()
@@ -7,8 +9,10 @@
         return()
     endif()
 
-    # message("-----")
-    # message("Current: ${current_target}")
+    if(_exanite_copy_shared_libraries_to_executable_folder_enable_logs)
+        message("-----")
+        message("Current: ${current_target}")
+    endif()
 
     # Add to visited
     list(APPEND ${visited_variable} ${current_target})
@@ -17,7 +21,10 @@
     if(NOT current_target STREQUAL root_target)
         get_target_property(current_type ${current_target} TYPE)
         if(current_type STREQUAL "SHARED_LIBRARY")
-            # message("Copying target: ${current_target}")
+            if(_exanite_copy_shared_libraries_to_executable_folder_enable_logs)
+                message("Copying target: ${current_target}")
+            endif()
+
             add_custom_command(TARGET ${root_target} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:${root_target}> $<TARGET_FILE:${current_target}>
             )
@@ -25,14 +32,22 @@
     endif()
 
     # Continue visiting dependencies
-    get_target_property(dependencies ${current_target} LINK_LIBRARIES)
-    # message("LINK_LIBRARIES: ${dependencies}")
-    foreach(dependency ${dependencies})
-        _exanite_copy_shared_libraries_to_executable_folder_visit(${root_target} ${dependency} ${visited_variable})
-    endforeach()
+    get_target_property(link_dependencies ${current_target} LINK_LIBRARIES)
+    get_target_property(interface_link_dependencies ${current_target} INTERFACE_LINK_LIBRARIES)
 
-    get_target_property(dependencies ${current_target} INTERFACE_LINK_LIBRARIES)
-    # message("INTERFACE_LINK_LIBRARIES: ${dependencies}")
+    if(_exanite_copy_shared_libraries_to_executable_folder_enable_logs)
+        message("LINK_LIBRARIES: ${link_dependencies}")
+        message("INTERFACE_LINK_LIBRARIES: ${interface_link_dependencies}")
+    endif()
+
+    set(dependencies "")
+    if (link_dependencies)
+        list(APPEND dependencies ${link_dependencies})
+    endif()
+    if (interface_link_dependencies)
+        list(APPEND dependencies ${interface_link_dependencies})
+    endif()
+
     foreach(dependency ${dependencies})
         _exanite_copy_shared_libraries_to_executable_folder_visit(${root_target} ${dependency} ${visited_variable})
     endforeach()
