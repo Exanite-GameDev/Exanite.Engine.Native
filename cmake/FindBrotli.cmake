@@ -53,11 +53,9 @@ if(NOT TARGET External.Brotli)
         # Define imported targets
         # Common
         add_library(BrotliCommon STATIC IMPORTED GLOBAL)
-        set_target_properties(BrotliCommon
-            PROPERTIES
-                IMPORTED_LOCATION "${common_output_file}"
-                INTERFACE_INCLUDE_DIRECTORIES "${install_folder}/include"
-        )
+        set_target_properties(BrotliCommon PROPERTIES IMPORTED_LOCATION "${common_output_file}")
+        target_include_directories(BrotliCommon INTERFACE "${install_folder}/include")
+
         add_dependencies(BrotliCommon External.Brotli)
 
         # Encode

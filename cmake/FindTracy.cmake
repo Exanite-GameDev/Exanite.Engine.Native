@@ -38,11 +38,9 @@ if(NOT TARGET Tracy::TracyClient)
 
         # Define imported targets
         add_library(TracyClient STATIC IMPORTED GLOBAL)
-        set_target_properties(TracyClient
-            PROPERTIES
-                IMPORTED_LOCATION "${output_file}"
-                INTERFACE_INCLUDE_DIRECTORIES "${install_folder}/include/tracy"
-        )
+        set_target_properties(TracyClient PROPERTIES IMPORTED_LOCATION "${output_file}")
+        target_include_directories(TracyClient INTERFACE "${install_folder}/include/tracy")
+
         add_dependencies(TracyClient External.Tracy)
 
         # Define aliases

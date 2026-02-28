@@ -47,11 +47,9 @@ if(NOT TARGET LibPng::LibPng)
 
         # Define imported targets
         add_library(LibPng STATIC IMPORTED GLOBAL)
-        set_target_properties(LibPng
-            PROPERTIES
-                IMPORTED_LOCATION "${output_file}"
-                INTERFACE_INCLUDE_DIRECTORIES "${install_folder}/include"
-        )
+        set_target_properties(LibPng PROPERTIES IMPORTED_LOCATION "${output_file}")
+        target_include_directories(LibPng INTERFACE  "${install_folder}/include")
+
         add_dependencies(LibPng External.LibPng)
 
         # Define aliases

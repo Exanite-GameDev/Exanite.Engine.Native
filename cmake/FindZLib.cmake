@@ -39,11 +39,9 @@ if(NOT TARGET ZLib::ZLib)
 
         # Define imported targets
         add_library(ZLib STATIC IMPORTED GLOBAL)
-        set_target_properties(ZLib
-            PROPERTIES
-                IMPORTED_LOCATION "${output_file}"
-                INTERFACE_INCLUDE_DIRECTORIES "${install_folder}/include"
-        )
+        set_target_properties(ZLib PROPERTIES IMPORTED_LOCATION "${output_file}")
+        target_include_directories(ZLib INTERFACE "${install_folder}/include")
+
         add_dependencies(ZLib External.ZLib)
 
         # Define aliases

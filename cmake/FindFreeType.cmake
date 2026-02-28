@@ -85,14 +85,10 @@ if(NOT TARGET External.FreeType)
 
         # Define imported targets
         add_library(FreeType SHARED IMPORTED GLOBAL)
-        set_target_properties(FreeType
-            PROPERTIES
-                IMPORTED_LOCATION "${output_file}"
-                IMPORTED_IMPLIB "${output_lib}"
-        )
-        add_dependencies(FreeType External.FreeType)
-
+        set_target_properties(FreeType PROPERTIES IMPORTED_LOCATION "${output_file}" IMPORTED_IMPLIB "${output_lib}")
         target_include_directories(FreeType INTERFACE "${install_folder}/include/freetype2")
+
+        add_dependencies(FreeType External.FreeType)
         target_link_libraries(FreeType INTERFACE HarfBuzz::HarfBuzz)
 
         # Define aliases
