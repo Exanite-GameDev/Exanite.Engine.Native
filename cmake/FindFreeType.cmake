@@ -32,9 +32,6 @@ if(NOT TARGET External.FreeType)
 
                 # ----- Dependency specific options -----
 
-                # Build shared library
-                -DBUILD_SHARED_LIBS=ON
-
                 # Specify paths for dependencies
                 -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz
 
@@ -44,6 +41,12 @@ if(NOT TARGET External.FreeType)
 
                 # Specify custom config header
                 -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeType/include/freetype/config/ftoption.h
+
+                # Build shared library
+                -DBUILD_SHARED_LIBS=ON
+
+                # Disable debug postfix
+                -DDISABLE_FORCE_DEBUG_POSTFIX=ON
 
                 # Enable harfbuzz since this is the final build
                 -DFT_REQUIRE_HARFBUZZ=ON

@@ -45,6 +45,9 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 # Build shared library
                 -DBUILD_SHARED_LIBS=ON
 
+                # Disable debug postfix
+                -DDISABLE_FORCE_DEBUG_POSTFIX=ON
+
                 # Disable harfbuzz since this is the bootstrap build
                 -DFT_REQUIRE_HARFBUZZ=OFF
                 -DFT_DISABLE_HARFBUZZ=ON

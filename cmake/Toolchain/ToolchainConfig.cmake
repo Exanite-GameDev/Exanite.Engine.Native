@@ -84,7 +84,12 @@ endif()
 
 # --- Output options ---
 
-# Globally disable shared library prefix for Windows
+# Disable debug suffix
+# Eg: freetyped.dll becomes freetype.dll
+set(CMAKE_DEBUG_POSTFIX "" CACHE STRING "" FORCE)
+
+# Disable shared library prefix for Windows
+# Eg: libfreetype.dll becomes freetype.dll
 if(WIN32)
     set(CMAKE_SHARED_LIBRARY_PREFIX "" CACHE STRING "" FORCE)
 endif()
