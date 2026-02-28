@@ -65,5 +65,14 @@ if(NOT TARGET External.FreeTypeBootstrap)
         add_dependencies(External.FreeTypeBootstrap External.Brotli)
         add_dependencies(External.FreeTypeBootstrap External.LibPng)
         add_dependencies(External.FreeTypeBootstrap External.ZLib)
+
+        # Manually install relevant outputs
+        ExternalProject_Add_Step(External.FreeTypeBootstrap manual_install
+            COMMAND ${CMAKE_COMMAND}
+                -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
+                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
+            DEPENDEES install
+        )
     endblock()
 endif()

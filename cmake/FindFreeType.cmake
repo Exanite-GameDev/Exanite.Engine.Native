@@ -64,6 +64,15 @@ if(NOT TARGET External.FreeType)
         )
         add_dependencies(External.FreeType External.HarfBuzz)
 
+        # Manually install relevant outputs
+        ExternalProject_Add_Step(External.FreeType manual_install
+            COMMAND ${CMAKE_COMMAND}
+                -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
+                -DDESTINATION_FOLDER=${INSTALL_FOLDER}/include/freetype2
+                -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
+            DEPENDEES build
+        )
+
         # Preemptively create include dir
         file(MAKE_DIRECTORY ${INSTALL_FOLDER}/include/freetype2)
 
