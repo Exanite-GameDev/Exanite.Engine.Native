@@ -22,16 +22,4 @@ target_link_libraries(Exanite.TestProject PRIVATE Exanite.Tracy)
 target_link_libraries(Exanite.TestProject PRIVATE Exanite.FreeType)
 target_link_libraries(Exanite.TestProject PRIVATE HarfBuzz::HarfBuzz)
 
-# ----- Copy required DLLs -----
-
-get_target_property(linked_libs Exanite.TestProject LINK_LIBRARIES)
-foreach(library ${linked_libs})
-    if(TARGET ${library})
-        get_target_property(library_type ${library} TYPE)
-        if(library_type STREQUAL "SHARED_LIBRARY")
-            add_custom_command(TARGET Exanite.TestProject POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy -t $<TARGET_FILE_DIR:Exanite.TestProject> $<TARGET_FILE:${library}>
-            )
-        endif()
-    endif()
-endforeach()
+exanite_copy_shared_libraries_to_executable_folder(Exanite.TestProject)

@@ -9,6 +9,9 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # Add ExternalProject support
 include(ExternalProject)
 
+# Include repo specific utilities
+include(cmake/Utility/CopySharedLibrariesToExecutableFolder.cmake)
+
 # --- Compilation options ---
 
 # Define DEBUG symbol if build configuration is Debug
