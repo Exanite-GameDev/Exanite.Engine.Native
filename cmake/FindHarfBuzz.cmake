@@ -55,13 +55,14 @@ if(NOT TARGET External.HarfBuzz)
 
         # Define imported targets
         add_library(HarfBuzz SHARED IMPORTED GLOBAL)
+        add_dependencies(HarfBuzz External.HarfBuzz)
         set_target_properties(HarfBuzz
             PROPERTIES
                 IMPORTED_LOCATION "${OUTPUT_FILE}"
                 IMPORTED_IMPLIB "${OUTPUT_LIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_FOLDER}/include/harfbuzz"
         )
-        add_dependencies(HarfBuzz External.HarfBuzz)
+        target_include_directories(HarfBuzz INTERFACE "${INSTALL_FOLDER}/include/harfbuzz")
+        target_link_libraries(HarfBuzz INTERFACE FreeType::FreeType)
 
         # Define aliases
         add_library(HarfBuzz::HarfBuzz ALIAS HarfBuzz)

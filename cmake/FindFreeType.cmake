@@ -87,9 +87,11 @@ if(NOT TARGET External.FreeType)
             PROPERTIES
                 IMPORTED_LOCATION "${OUTPUT_FILE}"
                 IMPORTED_IMPLIB "${OUTPUT_LIB}"
-                INTERFACE_INCLUDE_DIRECTORIES "${INSTALL_FOLDER}/include/freetype2"
         )
         add_dependencies(FreeType External.FreeType)
+
+        target_include_directories(FreeType INTERFACE "${INSTALL_FOLDER}/include/freetype2")
+        target_link_libraries(FreeType INTERFACE HarfBuzz::HarfBuzz)
 
         # Define aliases
         add_library(FreeType::FreeType ALIAS FreeType)
