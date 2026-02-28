@@ -42,7 +42,7 @@ endif()
 
 # Dynamically link to the MSVC C++ runtime
 if(MSVC)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL" CACHE STRING "" FORCE)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL" CACHE STRING "" FORCE)
 endif()
 
 # This section emulates Windows DLL loading behavior for Linux and Mac
