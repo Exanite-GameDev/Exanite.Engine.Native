@@ -1,7 +1,6 @@
 if(NOT TARGET External.HarfBuzz)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
-        find_package(FreeTypeBootstrap REQUIRED)
 
         # Define build and install folders
         set(build_folder ${CMAKE_BINARY_DIR}/build/harfbuzz)
@@ -48,6 +47,10 @@ if(NOT TARGET External.HarfBuzz)
                 -DHAVE_FT_DONE_MM_VAR=TRUE
                 -DHAVE_FT_GET_TRANSFORM=TRUE
         )
+
+        # Define dependencies
+        find_package(FreeType REQUIRED)
+        find_package(FreeTypeBootstrap REQUIRED)
         add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
         # Preemptively create include dir

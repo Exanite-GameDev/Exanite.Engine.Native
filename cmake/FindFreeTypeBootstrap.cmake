@@ -1,9 +1,6 @@
 if(NOT TARGET External.FreeTypeBootstrap)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
-        find_package(ZLib REQUIRED)
-        find_package(LibPng REQUIRED)
-        find_package(Brotli REQUIRED)
 
         # Define build and install folders
         set(build_folder ${CMAKE_BINARY_DIR}/build/freetype-bootstrap)
@@ -67,6 +64,12 @@ if(NOT TARGET External.FreeTypeBootstrap)
                 -DFT_REQUIRE_BZIP2=OFF
                 -DFT_DISABLE_BZIP2=ON
         )
+
+        # Define dependencies
+        find_package(ZLib REQUIRED)
+        find_package(LibPng REQUIRED)
+        find_package(Brotli REQUIRED)
+
         add_dependencies(External.FreeTypeBootstrap External.Brotli)
         add_dependencies(External.FreeTypeBootstrap External.LibPng)
         add_dependencies(External.FreeTypeBootstrap External.ZLib)

@@ -1,7 +1,6 @@
 if(NOT TARGET External.FreeType)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
-        find_package(HarfBuzz REQUIRED)
 
         # Define build and install folders
         set(build_folder ${CMAKE_BINARY_DIR}/build/freetype)
@@ -67,6 +66,9 @@ if(NOT TARGET External.FreeType)
                 -DFT_REQUIRE_BZIP2=OFF
                 -DFT_DISABLE_BZIP2=ON
         )
+
+        # Define dependencies
+        find_package(HarfBuzz REQUIRED)
         add_dependencies(External.FreeType External.HarfBuzz)
 
         # Manually install relevant outputs

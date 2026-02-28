@@ -1,4 +1,4 @@
-if(NOT TARGET Brotli::BrotliCommon)
+if(NOT TARGET External.Brotli)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
 
