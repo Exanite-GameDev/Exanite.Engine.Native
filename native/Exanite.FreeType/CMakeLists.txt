@@ -12,7 +12,6 @@ set_target_properties(Exanite.FreeType
     PROPERTIES
         CXX_STANDARD 23
         OUTPUT_NAME "ExaniteFreeType"
-        WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 target_include_directories(Exanite.FreeType INTERFACE "include")

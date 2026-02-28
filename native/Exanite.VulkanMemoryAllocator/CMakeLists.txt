@@ -12,7 +12,6 @@ set_target_properties(Exanite.VulkanMemoryAllocator
     PROPERTIES
         CXX_STANDARD 23
         OUTPUT_NAME "ExaniteVulkanMemoryAllocator"
-        WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 file(GLOB sources CONFIGURE_DEPENDS src/*.cpp)
