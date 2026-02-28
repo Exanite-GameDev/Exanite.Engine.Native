@@ -57,8 +57,10 @@ function(_exanite_copy_shared_libraries_to_executable_folder_visit root_target c
 endfunction()
 
 function(exanite_copy_shared_libraries_to_executable_folder target)
-    # message("----------")
-    # message("Processing target: ${target}")
+    if(_exanite_copy_shared_libraries_to_executable_folder_enable_logs)
+        message("----------")
+        message("Processing target: ${target}")
+    endif()
 
     set(visited_targets "")
     _exanite_copy_shared_libraries_to_executable_folder_visit(${target} ${target} visited_targets)
