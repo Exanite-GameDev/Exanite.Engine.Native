@@ -1,4 +1,4 @@
-function(get_exanite_external_project_args return_variable install_folder)
+function(exanite_get_external_project_args return_variable install_folder)
     set(EXANITE_EXTERNAL_PROJECT_ARGS
         -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
 

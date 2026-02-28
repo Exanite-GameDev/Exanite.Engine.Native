@@ -16,7 +16,7 @@ if(NOT TARGET External.HarfBuzz)
         endif()
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
+        exanite_get_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
         ExternalProject_Add(External.HarfBuzz
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/harfbuzz
             BINARY_DIR ${build_folder}

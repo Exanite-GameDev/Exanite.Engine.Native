@@ -16,7 +16,7 @@ if(NOT TARGET External.FreeType)
         endif()
 
         # Add as external project
-        get_exanite_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
+        exanite_get_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
         ExternalProject_Add(External.FreeType
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
             BINARY_DIR ${build_folder}
