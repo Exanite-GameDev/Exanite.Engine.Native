@@ -21,5 +21,4 @@ target_include_directories(Exanite.TestProject PUBLIC "include")
 target_link_libraries(Exanite.TestProject PRIVATE Exanite.Tracy)
 target_link_libraries(Exanite.TestProject PRIVATE Exanite.FreeType)
 target_link_libraries(Exanite.TestProject PRIVATE HarfBuzz::HarfBuzz)
-
 exanite_copy_shared_libraries_to_executable_folder(Exanite.TestProject)

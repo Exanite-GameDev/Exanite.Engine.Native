@@ -19,7 +19,4 @@ target_sources(Exanite.SlangTestProject PRIVATE ${sources})
 target_include_directories(Exanite.SlangTestProject PUBLIC "include")
 
 target_link_libraries(Exanite.SlangTestProject PRIVATE Slang::Slang)
-
-# ----- Copy required DLLs -----
-
 exanite_copy_shared_libraries_to_executable_folder(Exanite.SlangTestProject)
