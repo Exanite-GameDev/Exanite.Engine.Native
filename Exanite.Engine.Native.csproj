@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <PackageId>Exanite.Engine.Native.$(Configuration)</PackageId>
-    <Version>6.1.0</Version>
+    <Version>6.2.0</Version>
     <Authors>Exanite</Authors>
     <Company>Exanite</Company>
   </PropertyGroup>
