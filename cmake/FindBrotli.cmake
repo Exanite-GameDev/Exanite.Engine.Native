@@ -22,7 +22,7 @@ if(NOT TARGET External.Brotli)
         set(encode_output_file "${install_folder}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${encode_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
         # Add as external project
-        exanite_get_external_project_args(EXANITE_EXTERNAL_PROJECT_ARGS ${install_folder})
+        exanite_get_external_project_args(exanite_external_project_args ${install_folder})
         ExternalProject_Add(External.Brotli
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/brotli
             BINARY_DIR ${build_folder}
@@ -34,7 +34,7 @@ if(NOT TARGET External.Brotli)
             CMAKE_ARGS
                 # ----- Shared options -----
 
-                ${EXANITE_EXTERNAL_PROJECT_ARGS}
+                ${exanite_external_project_args}
 
                 # ----- Dependency specific options -----
 
