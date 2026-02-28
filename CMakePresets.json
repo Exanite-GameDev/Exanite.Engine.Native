@@ -30,50 +30,70 @@
     },
     {
       "name": "windows-vs2026-debug",
-      "generator": "Visual Studio 18 2026",
+      "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-debug",
       "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "v15,host=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v145"
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
       "name": "windows-vs2026-release",
-      "generator": "Visual Studio 18 2026",
+      "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-release",
       "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset":  {
+        "value":  "v145,host=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v145"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
       "name": "windows-vs2022-debug",
-      "generator": "Visual Studio 17 2022",
+      "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-debug",
       "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset":  {
+        "value":  "v143,host=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v143"
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
       "name": "windows-vs2022-release",
-      "generator": "Visual Studio 17 2022",
+      "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-release",
       "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset":  {
+        "value":  "v143,host=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_GENERATOR_TOOLSET": "v143"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
