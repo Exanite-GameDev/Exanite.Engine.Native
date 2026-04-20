@@ -1,4 +1,4 @@
 add_library(Imported.VulkanMemoryAllocator.Headers INTERFACE)
 target_include_directories(Imported.VulkanMemoryAllocator.Headers INTERFACE ${CMAKE_CURRENT_LIST_DIR}/../native/VulkanMemoryAllocator/include)
 
-target_link_libraries(Imported.VulkanMemoryAllocator.Headers INTERFACE Vulkan::Headers)
+target_link_libraries(Imported.VulkanMemoryAllocator.Headers INTERFACE Imported.Vulkan.Headers)
