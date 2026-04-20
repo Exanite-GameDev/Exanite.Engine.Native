@@ -10,7 +10,7 @@
       "name": "linux-clang-debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-debug",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -21,7 +21,7 @@
       "name": "linux-clang-release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/linux-clang-release",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -32,7 +32,7 @@
       "name": "windows-vs2026-debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-debug",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -49,7 +49,7 @@
       "name": "windows-vs2026-release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2026-release",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -66,7 +66,7 @@
       "name": "windows-vs2022-debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-debug",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -83,7 +83,7 @@
       "name": "windows-vs2022-release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/windows-vs2022-release",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -100,7 +100,7 @@
       "name": "mac-clang-debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-clang-debug",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -111,7 +111,7 @@
       "name": "mac-clang-release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/outputs/cache/cmake-user/mac-clang-release",
-      "toolchainFile": "${sourceDir}/cmake/Toolchain/ToolchainConfig.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchain/GlobalOptions.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",

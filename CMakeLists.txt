@@ -1,38 +1,38 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.GameDev LANGUAGES CXX)
 
-# ----- Project wide configuration -----
+# ----- Import utilities -----
 
 # Add ExternalProject support
 include(ExternalProject)
 
 # Include repo specific utilities
-include(cmake/Utility/CopySharedLibrariesToExecutableFolder.cmake)
+include(cmake/external/CopySharedLibrariesToExecutable.cmake)
+include(cmake/external/ExternalProjectArgs.cmake)
 
-# --- Compilation options ---
+# --- First party compilation options ---
+# Note: These do not affect external projects
 
 # Define DEBUG symbol if build configuration is Debug
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
 
-# --- Linking options ---
-
-# Currently none
-
-# --- Output options ---
-
-# Currently none
-
-# --- Debug ---
-
-# Hardcoded AddressSanitizer toggle
-if(OFF)
-    add_compile_options(-fsanitize=address)
-    add_link_options(-fsanitize=address)
-endif()
-
 # ----- Third party -----
+
+add_subdirectory(./cmake/external/Brotli)
+add_subdirectory(./cmake/external/FreeType)
+add_subdirectory(./cmake/external/FreeTypeBootstrap)
+add_subdirectory(./cmake/external/HarfBuzz)
+add_subdirectory(./cmake/external/LibPng)
+add_subdirectory(./cmake/external/Slang)
+add_subdirectory(./cmake/external/Tracy)
+add_subdirectory(./cmake/external/TracyProfiler)
+add_subdirectory(./cmake/external/Vulkan)
+add_subdirectory(./cmake/external/VulkanMemoryAllocator)
+add_subdirectory(./cmake/external/ZLib)
+
+# ----- Wrappers -----
 
 add_subdirectory(./native/Exanite.FreeType)
 add_subdirectory(./native/Exanite.Tracy)
@@ -42,21 +42,6 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
-
-# ----- Include find modules -----
-
-# This is so that the targets always exist
-
-find_package(Brotli REQUIRED)
-find_package(FreeType REQUIRED)
-find_package(HarfBuzz REQUIRED)
-find_package(LibPng REQUIRED)
-find_package(Slang REQUIRED)
-find_package(Tracy REQUIRED)
-find_package(TracyProfiler REQUIRED)
-find_package(Vulkan REQUIRED)
-find_package(VulkanMemoryAllocator REQUIRED)
-find_package(ZLib REQUIRED)
 
 # ----- Define all target -----
 

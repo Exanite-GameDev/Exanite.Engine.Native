@@ -1,8 +1,3 @@
-cmake_minimum_required(VERSION 3.28)
-project(Exanite.Tracy LANGUAGES CXX)
-
-# ----- Build -----
-
 add_library(Exanite.Tracy SHARED)
 set_target_properties(Exanite.Tracy
     PROPERTIES
@@ -16,4 +11,4 @@ target_include_directories(Exanite.Tracy PUBLIC "include")
 
 target_compile_definitions(Exanite.Tracy PRIVATE EXANITE_TRACY_EXPORT)
 
-target_link_libraries(Exanite.Tracy PUBLIC Tracy::TracyClient)
+target_link_libraries(Exanite.Tracy PUBLIC Imported.TracyClient)
