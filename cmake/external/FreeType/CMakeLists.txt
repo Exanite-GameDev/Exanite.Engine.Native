@@ -58,7 +58,6 @@ ExternalProject_Add(External.FreeType
 )
 
 # Define dependencies
-find_package(HarfBuzz REQUIRED)
 add_dependencies(External.FreeType External.HarfBuzz)
 
 # Manually install custom headers
