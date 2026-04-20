@@ -19,11 +19,7 @@ ExternalProject_Add(External.FreeTypeBootstrap
         ${output_bin}
         ${output_lib}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Specify paths for dependencies
         -DBrotliDec_ROOT=${CMAKE_BINARY_DIR}/install/brotli

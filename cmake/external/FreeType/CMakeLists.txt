@@ -19,11 +19,7 @@ ExternalProject_Add(External.FreeType
         ${output_bin}
         ${output_lib}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Specify paths for dependencies
         -DCMAKE_PREFIX_PATH=${CMAKE_BINARY_DIR}/install/harfbuzz

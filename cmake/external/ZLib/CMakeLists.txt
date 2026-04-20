@@ -20,11 +20,7 @@ ExternalProject_Add(External.ZLib
     INSTALL_DIR ${install_dir}
     BUILD_BYPRODUCTS ${output_bin}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Build static library
         -DZLIB_BUILD_SHARED=OFF

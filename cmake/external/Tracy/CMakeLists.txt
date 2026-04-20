@@ -16,11 +16,7 @@ ExternalProject_Add(External.Tracy
     INSTALL_DIR ${install_dir}
     BUILD_BYPRODUCTS ${output_bin}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Build static library
         -DBUILD_SHARED_LIBS=OFF

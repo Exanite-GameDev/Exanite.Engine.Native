@@ -19,11 +19,7 @@ ExternalProject_Add(External.HarfBuzz
         ${output_bin}
         ${output_lib}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Build shared library
         -DBUILD_SHARED_LIBS=ON

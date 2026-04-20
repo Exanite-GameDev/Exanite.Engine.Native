@@ -28,11 +28,7 @@ ExternalProject_Add(External.Slang
         ${output_bin}
         ${output_lib}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Build shared library
         -DSLANG_LIB_TYPE=SHARED

@@ -16,7 +16,5 @@ ExternalProject_Add(External.TracyProfiler
     INSTALL_DIR ${install_dir}
     BUILD_BYPRODUCTS ${output_bin}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
 )

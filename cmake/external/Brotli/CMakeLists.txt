@@ -29,11 +29,7 @@ ExternalProject_Add(External.Brotli
         ${decode_output_bin}
         ${encode_output_bin}
     CMAKE_ARGS
-        # ----- Shared options -----
-
         ${external_project_args}
-
-        # ----- Dependency specific options -----
 
         # Build static library
         -DBUILD_SHARED_LIBS=OFF
