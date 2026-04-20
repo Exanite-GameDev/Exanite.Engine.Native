@@ -2,32 +2,32 @@ if(NOT TARGET External.FreeType)
     block()
         include("${CMAKE_CURRENT_LIST_DIR}/Utility/ExternalProjectArgs.cmake")
 
-        # Define build and install folders
-        set(build_folder ${CMAKE_BINARY_DIR}/build/freetype)
-        set(install_folder ${CMAKE_BINARY_DIR}/install/freetype)
+        # Define relevant folders
+        set(build_dir ${CMAKE_BINARY_DIR}/build/freetype)
+        set(install_dir ${CMAKE_BINARY_DIR}/install/freetype)
 
         # Define outputs
         set(base_name "freetype")
         if(WIN32)
-            set(output_file "${install_folder}/bin/${base_name}.dll")
-            set(output_lib "${install_folder}/lib/${base_name}.lib")
+            set(output_bin "${install_dir}/bin/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(output_lib "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}${base_name}${CMAKE_IMPORT_LIBRARY_SUFFIX}")
         else()
-            set(output_file "${install_folder}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+            set(output_bin "${install_dir}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
 
-        # Add as external project
-        exanite_get_external_project_args(exanite_external_project_args ${install_folder})
+        # Define external project
+        exanite_get_external_project_args(external_project_args ${install_dir})
         ExternalProject_Add(External.FreeType
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/native/freetype
-            BINARY_DIR ${build_folder}
-            INSTALL_DIR ${install_folder}
+            BINARY_DIR ${build_dir}
+            INSTALL_DIR ${install_dir}
             BUILD_BYPRODUCTS
-                ${output_file}
+                ${output_bin}
                 ${output_lib}
             CMAKE_ARGS
                 # ----- Shared options -----
 
-                ${exanite_external_project_args}
+                ${external_project_args}
 
                 # ----- Dependency specific options -----
 
@@ -75,18 +75,18 @@ if(NOT TARGET External.FreeType)
         ExternalProject_Add_Step(External.FreeType manual_install
             COMMAND ${CMAKE_COMMAND}
                 -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
-                -DDESTINATION_FOLDER=${install_folder}/include/freetype2
+                -DDESTINATION_FOLDER=${install_dir}/include/freetype2
                 -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
             DEPENDEES build
         )
 
         # Preemptively create include dir
-        file(MAKE_DIRECTORY ${install_folder}/include/freetype2)
+        file(MAKE_DIRECTORY ${install_dir}/include/freetype2)
 
         # Define imported targets
         add_library(FreeType SHARED IMPORTED GLOBAL)
-        set_target_properties(FreeType PROPERTIES IMPORTED_LOCATION "${output_file}" IMPORTED_IMPLIB "${output_lib}")
-        target_include_directories(FreeType INTERFACE "${install_folder}/include/freetype2")
+        set_target_properties(FreeType PROPERTIES IMPORTED_LOCATION "${output_bin}" IMPORTED_IMPLIB "${output_lib}")
+        target_include_directories(FreeType INTERFACE "${install_dir}/include/freetype2")
 
         add_dependencies(FreeType External.FreeType)
         target_link_libraries(FreeType INTERFACE HarfBuzz::HarfBuzz)

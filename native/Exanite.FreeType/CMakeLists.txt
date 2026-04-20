@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.FreeType LANGUAGES CXX)
 
-# --- Dependencies ---
-
-find_package(FreeType REQUIRED)
-
 # ----- Build -----
 
 add_library(Exanite.FreeType INTERFACE)

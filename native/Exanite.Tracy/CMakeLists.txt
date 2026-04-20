@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.Tracy LANGUAGES CXX)
 
-# --- Dependencies ---
-
-find_package(Tracy REQUIRED)
-
 # ----- Build -----
 
 add_library(Exanite.Tracy SHARED)
