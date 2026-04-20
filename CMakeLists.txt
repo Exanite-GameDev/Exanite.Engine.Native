@@ -3,9 +3,6 @@ project(Exanite.GameDev LANGUAGES CXX)
 
 # ----- Project wide configuration -----
 
-# Tell CMake where to find CMake find modules
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
 # Add ExternalProject support
 include(ExternalProject)
 
@@ -74,6 +71,7 @@ add_custom_target(AllTargets
         Exanite.SlangTestProject
         External.Brotli
         External.FreeType
+        External.FreeTypeBootstrap
         External.HarfBuzz
         External.LibPng
         External.Slang
