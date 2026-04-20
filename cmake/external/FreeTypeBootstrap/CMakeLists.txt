@@ -27,7 +27,7 @@ ExternalProject_Add(External.FreeTypeBootstrap
         -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
 
         # Specify custom config header
-        -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeTypeBootstrap/include/freetype/config/ftoption.h
+        -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/include/freetype/config/ftoption.h
 
         # Build shared library
         -DBUILD_SHARED_LIBS=ON

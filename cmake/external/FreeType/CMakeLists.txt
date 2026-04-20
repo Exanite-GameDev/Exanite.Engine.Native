@@ -29,7 +29,7 @@ ExternalProject_Add(External.FreeType
         -DZLIB_ROOT=${CMAKE_BINARY_DIR}/install/zlib
 
         # Specify custom config header
-        -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/FreeType/include/freetype/config/ftoption.h
+        -DFTCONFIG_H_NAME=${CMAKE_CURRENT_LIST_DIR}/include/freetype/config/ftoption.h
 
         # Build shared library
         -DBUILD_SHARED_LIBS=ON
@@ -61,7 +61,7 @@ add_dependencies(External.FreeType External.HarfBuzz)
 # Manually install custom headers
 ExternalProject_Add_Step(External.FreeType manual_install
     COMMAND ${CMAKE_COMMAND}
-        -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
+        -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/include
         -DDESTINATION_FOLDER=${install_dir}/include/freetype2
         -P "${CMAKE_SOURCE_DIR}/cmake/external/InstallHeaders.cmake"
     DEPENDEES build
