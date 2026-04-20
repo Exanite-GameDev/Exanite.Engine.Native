@@ -37,8 +37,6 @@ ExternalProject_Add(External.HarfBuzz
         -DHAVE_FT_DONE_MM_VAR=TRUE
         -DHAVE_FT_GET_TRANSFORM=TRUE
 )
-
-# Define dependencies
 add_dependencies(External.HarfBuzz External.FreeTypeBootstrap)
 
 # Preemptively create include dir

@@ -56,8 +56,6 @@ ExternalProject_Add(External.FreeType
         -DFT_REQUIRE_BZIP2=OFF
         -DFT_DISABLE_BZIP2=ON
 )
-
-# Define dependencies
 add_dependencies(External.FreeType External.HarfBuzz)
 
 # Manually install custom headers
