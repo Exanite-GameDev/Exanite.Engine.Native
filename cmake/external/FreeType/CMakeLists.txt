@@ -70,7 +70,7 @@ ExternalProject_Add_Step(External.FreeType manual_install
     COMMAND ${CMAKE_COMMAND}
         -DSOURCE_FOLDER=${CMAKE_CURRENT_LIST_DIR}/FreeType/include
         -DDESTINATION_FOLDER=${install_dir}/include/freetype2
-        -P "${CMAKE_CURRENT_LIST_DIR}/Utility/InstallHeaders.cmake"
+        -P "${CMAKE_SOURCE_DIR}/cmake/external/InstallHeaders.cmake"
     DEPENDEES build
 )
 
