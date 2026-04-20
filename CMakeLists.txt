@@ -43,17 +43,12 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
 
-# ----- Define all target -----
+# ----- Define all targets -----
 
 # This is so that Jetbrains IDEs have an explicit "all" target to show
 
-add_custom_target(AllTargets
+add_custom_target(External.All
     DEPENDS
-        Exanite.FreeType
-        Exanite.Tracy
-        Exanite.VulkanMemoryAllocator
-        Exanite.TestProject
-        Exanite.SlangTestProject
         External.Brotli
         External.FreeType
         External.FreeTypeBootstrap
@@ -63,4 +58,19 @@ add_custom_target(AllTargets
         External.Tracy
         External.TracyProfiler
         External.ZLib
+)
+
+add_custom_target(Exanite.All
+    DEPENDS
+        Exanite.FreeType
+        Exanite.Tracy
+        Exanite.VulkanMemoryAllocator
+        Exanite.TestProject
+        Exanite.SlangTestProject
+)
+
+add_custom_target(AllTargets
+    DEPENDS
+        Exanite.All
+        External.All
 )

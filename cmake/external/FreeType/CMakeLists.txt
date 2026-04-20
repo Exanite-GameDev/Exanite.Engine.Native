@@ -5,12 +5,9 @@ set(install_dir ${CMAKE_BINARY_DIR}/install/freetype)
 
 # Define outputs
 set(base_name "freetype")
-if(WIN32)
-    set(output_bin "${install_dir}/bin/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    set(output_lib "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}${base_name}${CMAKE_IMPORT_LIBRARY_SUFFIX}")
-else()
-    set(output_bin "${install_dir}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
-endif()
+
+set(output_bin "${install_dir}/bin/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+set(output_lib "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}${base_name}${CMAKE_IMPORT_LIBRARY_SUFFIX}")
 
 # Define external project
 exanite_get_external_project_args(external_project_args ${install_dir})

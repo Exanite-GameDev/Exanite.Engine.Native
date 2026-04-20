@@ -5,6 +5,7 @@ set(install_dir ${CMAKE_BINARY_DIR}/install/tracy-profiler)
 
 # Define outputs
 set(base_name "tracy-profiler")
+
 set(output_bin "${install_dir}/lib/${base_name}${CMAKE_EXECUTABLE_SUFFIX}")
 
 # Define external project

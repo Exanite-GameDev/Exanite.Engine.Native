@@ -5,6 +5,7 @@ set(install_dir ${CMAKE_BINARY_DIR}/install/tracy)
 
 # Define outputs
 set(base_name "TracyClient")
+
 set(output_bin "${install_dir}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
 # Define external project
