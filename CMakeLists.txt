@@ -43,7 +43,7 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
 
-# ----- Define all targets -----
+# ----- Define all target -----
 
 # This is so that Jetbrains IDEs have an explicit "all" target to show
 
