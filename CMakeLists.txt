@@ -40,8 +40,9 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
 
-add_subdirectory(./native/Exanite.TestProject)
 add_subdirectory(./native/Exanite.SlangTestProject)
+add_subdirectory(./native/Exanite.TestProject)
+add_subdirectory(./native/Exanite.TypographyTestProject)
 
 # ----- Define all target -----
 
