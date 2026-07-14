@@ -40,9 +40,9 @@ add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
 
-add_subdirectory(./native/Exanite.SlangTestProject)
-add_subdirectory(./native/Exanite.TestProject)
-add_subdirectory(./native/Exanite.TypographyTestProject)
+add_subdirectory(./native/Exanite.CppScratchpad)
+add_subdirectory(./native/Exanite.SlangScratchpad)
+add_subdirectory(./native/Exanite.TypographyScratchpad)
 
 # ----- Define all target -----
 
@@ -66,8 +66,9 @@ add_custom_target(Exanite.All
         Exanite.FreeType
         Exanite.Tracy
         Exanite.VulkanMemoryAllocator
-        Exanite.TestProject
-        Exanite.SlangTestProject
+        Exanite.CppScratchpad
+        Exanite.SlangScratchpad
+        Exanite.TypographyScratchpad
 )
 
 add_custom_target(AllTargets
