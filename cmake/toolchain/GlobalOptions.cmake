@@ -1,4 +1,4 @@
-# --- CMake options ---
+# ----- CMake options -----
 
 # Set option variable policy
 # The NEW policy enables the use of the option() function
@@ -11,11 +11,11 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 cmake_policy(SET CMP0069 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 
-# --- Compilation options ---
+# ----- Compilation options -----
 
 # Currently none
 
-# --- Linking options ---
+# ----- Linking options -----
 
 # This allows shared libraries to be loaded at different memory addresses
 set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE BOOL "" FORCE)
@@ -82,7 +82,7 @@ if(TRUE)
     endif()
 endif()
 
-# --- Output options ---
+# ----- Output options -----
 
 # Disable debug suffix
 # Eg: freetyped.dll becomes freetype.dll

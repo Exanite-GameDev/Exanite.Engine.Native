@@ -1,22 +1,36 @@
 cmake_minimum_required(VERSION 3.28)
 project(Exanite.GameDev LANGUAGES CXX)
 
-# ----- Import utilities -----
+# ----- First party configuration -----
 
-# Add ExternalProject support
+# These settings do not directly affect external projects
+# Use the toolchain file to set options that affect both first party and external projects
+
+# Import utilities
 include(ExternalProject)
-
-# Include repo specific utilities
-include(cmake/external/CopySharedLibrariesToExecutable.cmake)
-include(cmake/external/ExternalProjectArgs.cmake)
-
-# --- First party compilation options ---
-# Note: These do not affect external projects
+include(GNUInstallDirs)
 
 # Define DEBUG symbol if build configuration is Debug
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
+
+# These variables represents which install folder binaries are output to
+if(WIN32)
+    set(EXANITE_EXECUTABLE_INSTALL_DIR ${CMAKE_INSTALL_BINDIR})
+    set(EXANITE_IMPORT_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+    set(EXANITE_SHARED_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_BINDIR})
+    set(EXANITE_STATIC_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+else()
+    set(EXANITE_EXECUTABLE_INSTALL_DIR ${CMAKE_INSTALL_BINDIR})
+    set(EXANITE_IMPORT_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+    set(EXANITE_SHARED_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+    set(EXANITE_STATIC_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+endif()
+
+# Include repo specific utilities
+include(cmake/utility/CopySharedLibrariesToExecutable.cmake)
+include(cmake/external/ExternalProjectArgs.cmake)
 
 # ----- Third party -----
 

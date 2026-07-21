@@ -14,9 +14,9 @@ else()
     set(encode_base_name "brotlienc")
 endif()
 
-set(common_output_bin "${install_dir}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${common_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
-set(decode_output_bin "${install_dir}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${decode_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
-set(encode_output_bin "${install_dir}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${encode_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+set(common_output_bin "${install_dir}/${EXANITE_STATIC_LIBRARY_INSTALL_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${common_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+set(decode_output_bin "${install_dir}/${EXANITE_STATIC_LIBRARY_INSTALL_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${decode_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+set(encode_output_bin "${install_dir}/${EXANITE_STATIC_LIBRARY_INSTALL_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${encode_base_name}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
 # Define external project
 exanite_get_external_project_args(external_project_args ${install_dir})

@@ -6,8 +6,8 @@ set(install_dir ${CMAKE_BINARY_DIR}/install/freetype-bootstrap)
 # Define outputs
 set(base_name "freetype")
 
-set(output_bin "${install_dir}/bin/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
-set(output_lib "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}${base_name}${CMAKE_IMPORT_LIBRARY_SUFFIX}")
+set(output_bin "${install_dir}/${EXANITE_SHARED_LIBRARY_INSTALL_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${base_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+set(output_lib "${install_dir}/${EXANITE_IMPORT_LIBRARY_INSTALL_DIR}/${CMAKE_IMPORT_LIBRARY_PREFIX}${base_name}${CMAKE_IMPORT_LIBRARY_SUFFIX}")
 
 # Define external project
 exanite_get_external_project_args(external_project_args ${install_dir})
