@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/eng/submodules/vulkan-memory-allocator)
+set(source_dir ${CMAKE_SOURCE_DIR}/native/VulkanMemoryAllocator)
 
 # Define target
 add_library(Imported.VulkanMemoryAllocator INTERFACE)
