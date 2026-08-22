@@ -1,0 +1,38 @@
+# ----- Repo -----
+[Oo]utputs/
+
+# ----- JetBrains -----
+*.DotSettings.user
+
+**/.idea/**
+!**/.idea/**/
+!**/.idea/scopes/*.xml
+
+# ----- MSBuild -----
+msbuild.binlog
+
+# ----- VS -----
+.vs
+
+# ----- VS Code -----
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# ----- Blender -----
+*.blend1*
+
+# ----- Tiled -----
+*.tiled-session
+
+# ----- Affinity -----
+*.afdesign~lock~*
+
+# ----- C/C++ -----
+/build*
+/cmake-build-*/
+/cpm_modules
+/out

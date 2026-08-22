@@ -1,0 +1,138 @@
+root = true
+
+[*]
+charset = utf-8
+tab_width = 4
+indent_size = 4
+indent_style = space
+ij_continuation_indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+max_line_length = 1000
+resharper_csharp_max_line_length = 1000
+ij_visual_guides = 70, 120
+
+# ----- C# -----
+
+# Avoid qualifying member accesses with "this."
+dotnet_style_qualification_for_event = false
+dotnet_style_qualification_for_field = false
+dotnet_style_qualification_for_method = false
+dotnet_style_qualification_for_property = false
+
+# Always use braces
+resharper_braces_for_dowhile = required
+resharper_braces_for_fixed = required
+resharper_braces_for_for = required
+resharper_braces_for_foreach = required
+resharper_braces_for_ifelse = required
+resharper_braces_for_lock = required
+resharper_braces_for_using = required
+resharper_braces_for_while = required
+
+# Braces
+resharper_csharp_empty_block_style = together_same_line
+resharper_space_within_empty_braces = false
+
+# Trailing commas
+resharper_trailing_comma_in_multiline_lists = true
+
+# Prefer <tag/> over <tag />
+resharper_space_before_self_closing = false
+
+# Lines
+resharper_csharp_keep_blank_lines_in_code = 1
+
+resharper_csharp_wrap_parameters_style = chop_if_long
+resharper_csharp_wrap_extends_list_style = chop_if_long
+
+resharper_csharp_wrap_lines = false
+resharper_xmldoc_wrap_lines = false
+
+resharper_place_simple_anonymousmethod_on_single_line = false
+
+resharper_blank_lines_around_field = 0
+resharper_blank_lines_around_auto_property = 0
+resharper_blank_lines_around_property = 0
+resharper_blank_lines_around_type = 1
+blank_lines_after_block_statements = 0
+
+# Indentation
+resharper_xmldoc_indent_text = do_not_touch
+resharper_align_multiline_calls_chain = false
+csharp_indent_case_contents_when_block = false
+align_multiline_binary_expressions_chain = false
+align_multiline_statement_conditions = false
+indent_raw_literal_string = indent
+
+# Follow indent rules even if makes the line too long
+allow_far_alignment = true
+
+# var keyword
+csharp_style_var_elsewhere = true:suggestion
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+
+# Attributes
+resharper_keep_existing_attribute_arrangement = true
+
+# ----- JSON -----
+
+ij_json_keep_trailing_comma = true
+ij_json_keep_blank_lines_in_code = 1
+
+# ----- File extensions -----
+
+[app.manifest]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.css,*.scss}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.ats,*.cts,*.mts,*.ts,*.tsx}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.gs,*.cjs,*.js,*.jsx}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.json,*.json5,.babelrc,.eslintrc,.stylelintrc,bowerrc,jest.config}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.htm,*.html,*.ng,*.sht,*.shtm,*.shtml,*.svg}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.yaml,*.yml}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[{*.csproj,*.slnx,*.props,*.targets}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+
+[.gitmodules]
+indent_style = tab
+
+# VerifyTests/Verify
+[*.{received,verified}.*]
+charset = utf-8-bom
+end_of_line = lf
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+tab_width = unset
+trim_trailing_whitespace = false
