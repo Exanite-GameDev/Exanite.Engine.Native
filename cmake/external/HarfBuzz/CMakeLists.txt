@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/native/harfbuzz)
+set(source_dir ${CMAKE_SOURCE_DIR}/projects/harfbuzz)
 set(build_dir ${CMAKE_BINARY_DIR}/build/harfbuzz)
 set(install_dir ${CMAKE_BINARY_DIR}/install/harfbuzz)
 

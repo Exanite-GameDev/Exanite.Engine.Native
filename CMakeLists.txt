@@ -48,15 +48,15 @@ add_subdirectory(./cmake/external/ZLib)
 
 # ----- Wrappers -----
 
-add_subdirectory(./native/Exanite.FreeType)
-add_subdirectory(./native/Exanite.Tracy)
-add_subdirectory(./native/Exanite.VulkanMemoryAllocator)
+add_subdirectory(./projects/Exanite.FreeType)
+add_subdirectory(./projects/Exanite.Tracy)
+add_subdirectory(./projects/Exanite.VulkanMemoryAllocator)
 
 # ----- First party -----
 
-add_subdirectory(./native/Exanite.CppScratchpad)
-add_subdirectory(./native/Exanite.SlangScratchpad)
-add_subdirectory(./native/Exanite.TypographyScratchpad)
+add_subdirectory(./projects/Exanite.CppScratchpad)
+add_subdirectory(./projects/Exanite.SlangScratchpad)
+add_subdirectory(./projects/Exanite.TypographyScratchpad)
 
 # ----- Define all target -----
 

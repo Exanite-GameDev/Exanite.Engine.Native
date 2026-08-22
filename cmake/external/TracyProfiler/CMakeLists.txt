@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/native/tracy/profiler)
+set(source_dir ${CMAKE_SOURCE_DIR}/projects/tracy/profiler)
 set(build_dir ${CMAKE_BINARY_DIR}/build/tracy-profiler)
 set(install_dir ${CMAKE_BINARY_DIR}/install/tracy-profiler)
 

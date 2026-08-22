@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/native/freetype)
+set(source_dir ${CMAKE_SOURCE_DIR}/projects/freetype)
 set(build_dir ${CMAKE_BINARY_DIR}/build/freetype)
 set(install_dir ${CMAKE_BINARY_DIR}/install/freetype)
 

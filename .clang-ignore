@@ -18,10 +18,10 @@
 #!/projects/Exanite.*
 
 # Unignore Exanite native project folders
-!/native/
-/native/*/
+!/projects/
+/projects/*/
 
-!/native/Exanite.*
+!/projects/Exanite.*
 
 # Ignore generated files
 *.g.*

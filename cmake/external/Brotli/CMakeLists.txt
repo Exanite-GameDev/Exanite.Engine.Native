@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/native/brotli)
+set(source_dir ${CMAKE_SOURCE_DIR}/projects/brotli)
 set(build_dir ${CMAKE_BINARY_DIR}/build/brotli)
 set(install_dir ${CMAKE_BINARY_DIR}/install/brotli)
 

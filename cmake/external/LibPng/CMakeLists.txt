@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/native/libpng)
+set(source_dir ${CMAKE_SOURCE_DIR}/projects/libpng)
 set(build_dir ${CMAKE_BINARY_DIR}/build/libpng)
 set(install_dir ${CMAKE_BINARY_DIR}/install/libpng)
 

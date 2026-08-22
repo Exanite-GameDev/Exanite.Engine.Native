@@ -1,5 +1,5 @@
 # Define relevant folders
-set(source_dir ${CMAKE_SOURCE_DIR}/native/tracy)
+set(source_dir ${CMAKE_SOURCE_DIR}/projects/tracy)
 set(build_dir ${CMAKE_BINARY_DIR}/build/tracy)
 set(install_dir ${CMAKE_BINARY_DIR}/install/tracy)
 
