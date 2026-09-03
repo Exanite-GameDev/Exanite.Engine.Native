@@ -1,29 +1,29 @@
-[submodule "native/Vulkan-Headers"]
-	path = native/Vulkan-Headers
+[submodule "projects/Vulkan-Headers"]
+	path = projects/Vulkan-Headers
 	url = https://github.com/KhronosGroup/Vulkan-Headers.git
-[submodule "native/slang"]
-	path = native/slang
+[submodule "projects/slang"]
+	path = projects/slang
 	url = https://github.com/Exanite-GameDev/slang.git
-[submodule "native/VulkanMemoryAllocator"]
-	path = native/VulkanMemoryAllocator
+[submodule "projects/VulkanMemoryAllocator"]
+	path = projects/VulkanMemoryAllocator
 	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
-[submodule "native/tracy"]
-	path = native/tracy
+[submodule "projects/tracy"]
+	path = projects/tracy
 	url = https://github.com/Exanite-GameDev/tracy.git
-[submodule "native/freetype"]
-	path = native/freetype
+[submodule "projects/freetype"]
+	path = projects/freetype
 	url = https://github.com/Exanite-GameDev/freetype.git
-[submodule "native/harfbuzz"]
-	path = native/harfbuzz
+[submodule "projects/harfbuzz"]
+	path = projects/harfbuzz
 	url = https://github.com/Exanite-GameDev/harfbuzz.git
-[submodule "native/brotli"]
-	path = native/brotli
+[submodule "projects/brotli"]
+	path = projects/brotli
 	url = https://github.com/google/brotli.git
-[submodule "native/zlib"]
-	path = native/zlib
+[submodule "projects/zlib"]
+	path = projects/zlib
 	url = https://github.com/Exanite-GameDev/zlib.git
-[submodule "native/libpng"]
-	path = native/libpng
+[submodule "projects/libpng"]
+	path = projects/libpng
 	url = https://github.com/Exanite-GameDev/libpng.git
 [submodule "tools"]
 	path = tools
