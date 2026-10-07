@@ -20,4 +20,16 @@
   "patch": {
     "enabled": true
   },
+
+  "ignorePaths": [
+    "archive/**",
+    "global.json"
+  ],
+
+  "nuget": {
+    "ignorePaths": [
+      "archive/**",
+      "global.json"
+    ],
+  }
 }
