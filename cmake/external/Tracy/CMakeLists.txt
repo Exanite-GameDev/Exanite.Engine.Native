@@ -25,6 +25,12 @@ ExternalProject_Add(External.Tracy
 
         -DTRACY_ENABLE=ON
         -DTRACY_ON_DEMAND=ON
+
+        # Disable all features not useful in a C# profiling scenario
+        -DTRACY_NO_CALLSTACK=ON
+        -DTRACY_NO_CALLSTACK_INLINES=ON
+        -DTRACY_NO_SAMPLING=ON
+        -DTRACY_NO_SYSTEM_TRACING=ON
 )
 
 # Preemptively create include dir
