@@ -61,7 +61,5 @@ EXPORTS
     ___tracy_emit_zone_value
     ___tracy_end_sampling_profiling
     ___tracy_mark_lockable_ctx
-    ___tracy_RtlWalkFrameChain
-    ___tracy_RtlWalkFrameChainPtr
     ___tracy_set_thread_name
     ___tracy_terminate_lockable_ctx
