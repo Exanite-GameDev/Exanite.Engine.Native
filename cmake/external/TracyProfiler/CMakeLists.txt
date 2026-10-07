@@ -17,4 +17,9 @@ ExternalProject_Add(External.TracyProfiler
     BUILD_BYPRODUCTS ${output_bin}
     CMAKE_ARGS
         ${external_project_args}
+
+        # Tracy's own AppImage build disables this, and without this,
+        # the build created by the Github Actions runner doesn't run on my local PC
+        # due to the AVX-512 vmovdqu8 instruction not existing on Ryzen 9 5900x
+        -DNO_ISA_EXTENSIONS=ON
 )
