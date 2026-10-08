@@ -1,6 +1,6 @@
 $script = {
     # This is very hardcoded right now
-    $lib = "..\..\outputs\cache\cmake-user\windows-vs2022-release\install\tracy\lib\TracyClient.lib"
+    $lib = "..\..\outputs\cache\cmake-ci\install\tracy\lib\TracyClient.lib"
     $output = "src\Exports.def"
     $symbols = dumpbin /SYMBOLS $lib |
         Select-String "External" |
