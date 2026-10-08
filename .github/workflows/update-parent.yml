@@ -16,6 +16,6 @@ jobs:
     with:
       target_repo: Exanite-GameDev/Exanite.GameDev
       target_submodule: projects/Exanite.Engine.Native
-      target_branch: ${{ github.ref_name }}
+      target_branch: main
     secrets:
       _GITHUB_TOKEN_SUBMODULE_SYNC: ${{ secrets._GITHUB_TOKEN_SUBMODULE_SYNC }}
