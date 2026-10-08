@@ -1,0 +1,68 @@
+name: Update parent repo
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    name: Update parent repo
+    runs-on: ubuntu-24.04
+
+    env:
+      TARGET_REPO: Exanite-GameDev/Exanite.GameDev
+      TARGET_SUBMODULE: projects/Exanite.Engine.Native
+      TARGET_BRANCH: ${{ github.ref_name }}
+
+    steps:
+
+      - name: Checkout target repo
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.TARGET_REPO }}
+          token: ${{ secrets._GITHUB_TOKEN_SUBMODULE_SYNC }}
+          submodules: false
+          lfs: false
+
+      - name: Select target branch
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $true
+          Set-StrictMode -Version Latest
+
+          if (git ls-remote --heads origin "refs/heads/${{ env.TARGET_BRANCH }}") {
+            git fetch --depth 1 origin "${{ env.TARGET_BRANCH }}"
+            git checkout -B "${{ env.TARGET_BRANCH }}" FETCH_HEAD
+          }
+          else {
+            Write-Host "Branch '${{ env.TARGET_BRANCH }}' does not exist in target repo, creating it"
+            git checkout -b "${{ env.TARGET_BRANCH }}"
+          }
+
+      - name: Update submodule reference
+        run: git update-index --cacheinfo 160000,${{ github.sha }},${{ env.TARGET_SUBMODULE }}
+
+      - name: Show git status
+        run: git status
+
+      - name: Commit and push if necessary
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $true
+          Set-StrictMode -Version Latest
+
+          if (-not (git status --porcelain)) {
+            Write-Host "Submodule reference is already up to date"
+            exit 0
+          }
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update ${{ env.TARGET_SUBMODULE }} to ${{ github.sha }}"
+          git push origin "HEAD:refs/heads/${{ env.TARGET_BRANCH }}"
